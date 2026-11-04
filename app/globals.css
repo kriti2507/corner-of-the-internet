@@ -546,7 +546,7 @@ button.cafe-card[aria-pressed="true"] {
 .point-list p, .post-card p, .cafe-card p { margin: 0; }
 
 .post-grid, .cafe-grid, .event-list { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; gap: 0.9rem; }
-.post-card { display: flex; flex-direction: column; gap: 0.35rem; min-height: 100%; text-decoration: none; color: inherit; }
+.post-card { position: relative; display: flex; flex-direction: column; gap: 0.35rem; min-height: 100%; text-decoration: none; color: inherit; }
 .post-card time, .cafe-area { color: var(--muted); font-size: 0.88rem; font-weight: 650; }
 
 .project-feature { align-self: start; }
@@ -965,6 +965,57 @@ button.cafe-card[aria-pressed="true"] {
 @keyframes sw-pop {
   from { opacity: 0; transform: scale(0.45); }
   to { opacity: 1; transform: none; }
+}
+
+.alias-anchor {
+  position: absolute;
+  top: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.home-block { position: relative; border-bottom: 2px solid var(--ink); }
+.home-sakana { background: #e3eef8; }
+.home-noodle { background: #f7efe6; }
+.home-community { background: #e6f0e2; }
+.home-weekends { background: #e8e0d0; }
+.home-wins { background: #f8f3d4; }
+.home-consult { background: #f3eee3; }
+.weekend-grid {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+.weekend-grid > li { display: flex; }
+.weekend-grid .sticker { flex: 1; position: relative; }
+.crumbs { margin: 0 0 0.4rem; }
+.crumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.92rem;
+  font-weight: 650;
+}
+.crumbs a { text-underline-offset: 3px; }
+.crumbs li:not(:last-child)::after { content: "›"; margin: 0 0.45rem; font-weight: 500; }
+.crumb-wrap { padding-top: 1.1rem; }
+#sakana, #writing, #community, #weekends, #small-wins, #work-with-me, #note, #work, #projects {
+  scroll-margin-top: 7.5rem;
+}
+
+@media (min-width: 900px) {
+  .weekend-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 800px) {
+  #sakana, #writing, #community, #weekends, #small-wins, #work-with-me, #note, #work, #projects {
+    scroll-margin-top: 12rem;
+  }
 }
 
 :focus-visible {

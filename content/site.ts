@@ -22,16 +22,16 @@ export const site = {
   emailIsPlaceholder: true,
 
   /**
-   * Work and community jump to home sections.
-   * Interests opens the coffee hub, which links on to books and hikes.
+   * Home blocks are anchors so the highlight can follow the scroll.
+   * About is its own page. Say hi jumps to the note inside Work with me.
    */
   nav: [
-    { id: "work", label: "Work", href: "/#work" },
-    { id: "writing", label: "Writing", href: "/writing" },
+    { id: "sakana", label: "Sakana", href: "/#sakana" },
+    { id: "writing", label: "AI Noodle", href: "/#writing" },
     { id: "community", label: "Community", href: "/#community" },
-    { id: "hikes", label: "Hikes", href: "/hikes" },
-    { id: "coffee", label: "Interests", href: "/coffee" },
-    { id: "small-wins", label: "Small Wins", href: "/small-wins" },
+    { id: "weekends", label: "Weekends", href: "/#weekends" },
+    { id: "small-wins", label: "Small Wins", href: "/#small-wins" },
+    { id: "work-with-me", label: "Work with me", href: "/#work-with-me" },
     { id: "about", label: "About", href: "/about" },
     { id: "note", label: "Say hi", href: "/#note" },
   ],
@@ -81,6 +81,11 @@ export const site = {
       description:
         "Small Wins is a little diary for the good things. Log one small win a day, in early access. Sign in with Google — only you can see it.",
     },
+    weekends: {
+      title: "Weekends",
+      path: "/weekends",
+      description: "Hikes, coffee, and books — the weekend log, with room for more later.",
+    },
   },
 
   hero: {
@@ -101,7 +106,7 @@ export const site = {
       { label: "Say hello", href: "/#note", variant: "ink" as const },
       { label: "Community →", href: "/#community", variant: "ghost" as const },
       { label: "About →", href: "/about", variant: "ghost" as const },
-      { label: "Work with me", href: "/#note", variant: "yellow" as const },
+      { label: "Work with me", href: "/#work-with-me", variant: "yellow" as const },
     ],
   },
 
@@ -197,7 +202,7 @@ export const site = {
   },
 
   work: {
-    kicker: "day job",
+    kicker: "Sakana",
     title: "The agent inside Sakana Chat",
     lede: "I build AI products at Sakana in Tokyo. The day job is the agent in Sakana Chat, and Sakana Translate beside it.",
     points: [
@@ -226,7 +231,7 @@ export const site = {
   },
 
   writing: {
-    kicker: "weekends",
+    kicker: "letters",
     title: "AI Noodle",
     lede: "Growing up alongside AI, from someone who builds it. Out Saturday mornings, Tokyo time.",
     /** Verified publication feed. theainoodle.substack.com redirects to her profile. */
@@ -270,7 +275,7 @@ export const site = {
   },
 
   projects: {
-    kicker: "shipping",
+    kicker: "beta",
     title: "Small Wins",
     lede: "A little diary for the good things. Log one small win a day.",
     /**
@@ -558,6 +563,58 @@ export const site = {
         body: "Titles from the log. A note can point at one.",
         href: "/books",
         link: "Browse the shelf →",
+      },
+    ],
+  },
+
+  /**
+   * Featured slugs. null means the latest hike or book by date,
+   * and the first café. Set a slug to pin a specific card.
+   * Add a category here to grow the /weekends hub. available: false
+   * shows a coming-soon card and does not invent entries.
+   */
+  weekends: {
+    kicker: "weekends",
+    title: "Weekends",
+    lede: "One hike, one book, one counter from the log. The rest is one page away.",
+    seeAll: "See all weekends →",
+    featured: {
+      hike: null as string | null,
+      book: null as string | null,
+      cafe: null as string | null,
+    },
+    hikeLink: "All the hikes →",
+    bookLink: "All the books →",
+    cafeLink: "All the cafés →",
+    comingSoon: "Coming soon",
+    categories: [
+      {
+        id: "hikes",
+        title: "Hikes",
+        body: "The map, the stats, and a page for every trail.",
+        href: "/hikes",
+        available: true,
+      },
+      {
+        id: "coffee",
+        title: "Coffee",
+        body: "Counters to fill in. The cards here are still placeholders.",
+        href: "/coffee",
+        available: true,
+      },
+      {
+        id: "books",
+        title: "Books",
+        body: "Titles from the log, and any note that points at one.",
+        href: "/books",
+        available: true,
+      },
+      {
+        id: "matcha",
+        title: "Matcha",
+        body: "Coming soon. Nothing here yet.",
+        href: "",
+        available: false,
       },
     ],
   },

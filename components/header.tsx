@@ -6,33 +6,70 @@ import { usePathname } from "next/navigation";
 
 type Item = { id: string; label: string; href: string };
 
-function isPageLink(href: string) {
-  return href.startsWith("/") && !href.includes("#");
+function hashId(href: string) {
+  const index = href.indexOf("#");
+  return index >= 0 ? href.slice(index + 1) : null;
 }
 
+/**
+ * The observer only reports entries that changed. Choosing among that
+ * batch leaves the highlight stuck on the previous section. The callback
+ * re-reads every section and keeps the last one whose top has crossed
+ * the bottom of the sticky header.
+ */
 export function Header({ items, mark }: { items: readonly Item[]; mark: string }) {
   const pathname = usePathname();
   const [active, setActive] = useState<string | null>(null);
+  const sectionKey = items.map((item) => `${item.id}:${item.href}`).join("|");
 
   useEffect(() => {
     if (pathname !== "/") return;
-    const nodes = items
-      .filter((item) => item.href.includes("#"))
-      .map((item) => document.getElementById(item.id))
+    const ids = sectionKey
+      .split("|")
+      .map((part) => {
+        const [id, href] = part.split(":");
+        return hashId(href ?? "") ? id : null;
+      })
+      .filter((id): id is string => Boolean(id));
+
+    let frame = 0;
+    const pick = () => {
+      const header = document.querySelector(".site-header")?.getBoundingClientRect().height ?? 0;
+      const line = Math.max(header + 24, Math.min(window.innerHeight * 0.33, header + 180));
+      let current: string | null = null;
+      for (const id of ids) {
+        const node = document.getElementById(id);
+        if (!node) continue;
+        if (node.getBoundingClientRect().top <= line) current = id;
+      }
+      setActive((prev) => (prev === current ? prev : current));
+    };
+    const schedule = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(pick);
+    };
+
+    const nodes = ids
+      .map((id) => document.getElementById(id))
       .filter((node): node is HTMLElement => node !== null);
-    if (nodes.length === 0) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible) setActive(visible.target.id);
-      },
-      { rootMargin: "-30% 0px -55% 0px", threshold: [0.05, 0.2, 0.45] },
-    );
+    const observer = new IntersectionObserver(schedule, {
+      root: null,
+      rootMargin: "-10% 0px -45% 0px",
+      threshold: [0, 0.1, 0.25, 0.5, 0.75, 1],
+    });
     nodes.forEach((node) => observer.observe(node));
-    return () => observer.disconnect();
-  }, [items, pathname]);
+    schedule();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("hashchange", schedule);
+    window.addEventListener("resize", schedule);
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("hashchange", schedule);
+      window.removeEventListener("resize", schedule);
+    };
+  }, [pathname, sectionKey]);
 
   return (
     <header className="site-header">
@@ -44,9 +81,17 @@ export function Header({ items, mark }: { items: readonly Item[]; mark: string }
         <nav className="nav-scroll" aria-label="Site">
           <ul className="nav-pill">
             {items.map((item) => {
-              const current = isPageLink(item.href)
-                ? pathname === item.href
-                : pathname === "/" && active === item.id;
+              const onHome = pathname === "/";
+              const pageMatch =
+                (item.id === "about" && pathname === "/about") ||
+                (item.id === "writing" && pathname === "/writing") ||
+                (item.id === "small-wins" && pathname === "/small-wins") ||
+                (item.id === "weekends" &&
+                  (pathname === "/weekends" ||
+                    pathname.startsWith("/hikes") ||
+                    pathname.startsWith("/coffee") ||
+                    pathname.startsWith("/books")));
+              const current = pageMatch || (onHome && active === item.id);
               return (
                 <li key={item.id}>
                   <Link

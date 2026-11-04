@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { NoteList, TagLinks } from "@/components/notes";
 import { getCafe, getCafes } from "@/content/cafes";
 import { site } from "@/content/site";
@@ -28,6 +29,13 @@ export default async function CafePage({ params }: { params: Promise<{ slug: str
   return (
     <section className="band" aria-labelledby="cafe-heading">
       <div className="wrap journal">
+        <Breadcrumbs
+          items={[
+            { label: site.weekends.title, href: "/weekends" },
+            { label: "Coffee", href: "/coffee" },
+            { label: cafe.placeholder ? "Placeholder café" : cafe.name },
+          ]}
+        />
         <p className="script kicker">{site.coffee.kicker}</p>
         {cafe.placeholder ? <span className="tape tape-yellow placeholder-tape">Placeholder</span> : null}
         <h1 id="cafe-heading">{cafe.name}</h1>

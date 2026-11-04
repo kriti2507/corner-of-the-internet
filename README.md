@@ -20,6 +20,7 @@ The home page carries the whole picture. Deeper pages:
 - `/` — hero, day job, latest letters, community, hike preview, Small Wins, a short consulting note, coffee teaser, and the contact form
 - `/writing` — AI Noodle from Substack, plus notes on this site. Filter chips switch between them.
 - `/blog` — notes in `content/posts`
+- `/weekends` — hub for hikes, coffee, books, and later categories such as matcha
 - `/hikes` and `/hikes/[slug]` — map, stats, season tags, and a page per trail
 - `/coffee` and `/coffee/[slug]` — placeholder cafés, filtered by tag and neighbourhood
 - `/books` and `/books/[slug]` — the book log

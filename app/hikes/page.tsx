@@ -1,4 +1,5 @@
 import { Bookshelf } from "@/components/bookshelf";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { HikesSection } from "@/components/hikes-section";
 import { site } from "@/content/site";
 import { getBooks } from "@/lib/books";
@@ -13,6 +14,9 @@ export default function HikesPage() {
 
   return (
     <div className="field-band">
+      <div className="wrap crumb-wrap">
+        <Breadcrumbs items={[{ label: site.weekends.title, href: "/weekends" }, { label: site.hikes.title }]} />
+      </div>
       <HikesSection
         hikes={hikes}
         kicker={site.hikes.kicker}
