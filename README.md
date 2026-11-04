@@ -15,15 +15,14 @@ Open [http://localhost:3000](http://localhost:3000).
 
 All copy, links, photo paths, and placeholders live in [`content/site.ts`](content/site.ts).
 
-The site is a short home page plus a page for each part:
+The home page carries the whole picture. Three pages go deeper:
 
-- `/` — hero, sticker cards, meetup badge, contact form
-- `/work` — the day job at Sakana
-- `/writing` — AI Noodle, from the Substack feed
-- `/projects` — Small Wins
+- `/` — hero, day job, latest letters, next meetup, hike preview, Small Wins, a short consulting note, coffee teaser, and the contact form
+- `/writing` — every AI Noodle letter, from the Substack feed
 - `/hikes` — hike map, stats, and the bookshelf
-- `/community` — Women in AI Tokyo, from the Luma calendar
-- `/consulting` — how to work together, linking to the contact form
+- `/coffee` — placeholder cafés and other interests
+
+`/work`, `/projects`, `/community`, and `/consulting` redirect to the matching section on the home page.
 
 - Hikes: [`data/hikes.json`](data/hikes.json). Map pins are in `site.hikePins`.
 - Books: [`data/books.json`](data/books.json).

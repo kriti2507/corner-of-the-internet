@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Post } from "@/content/site";
 import { External } from "@/components/external";
 import { formatPostDate } from "@/lib/format";
@@ -11,6 +12,8 @@ export function WritingSection({
   fallbackNote,
   publicationUrl,
   allLabel,
+  seeAll,
+  heading = "h1",
 }: {
   kicker: string;
   title: string;
@@ -20,16 +23,25 @@ export function WritingSection({
   fallbackNote: string;
   publicationUrl: string;
   allLabel: string;
+  seeAll?: { href: string; label: string };
+  heading?: "h1" | "h2";
 }) {
+  const Title = heading;
   return (
     <section className="band" id="writing" aria-labelledby="writing-heading">
       <div className="wrap">
         <p className="script kicker">{kicker}</p>
         <div className="section-head">
-          <h1 id="writing-heading">{title}</h1>
-          <External className="text-link" href={publicationUrl}>
-            {allLabel}
-          </External>
+          <Title id="writing-heading">{title}</Title>
+          {seeAll ? (
+            <Link className="text-link" href={seeAll.href}>
+              {seeAll.label}
+            </Link>
+          ) : (
+            <External className="text-link" href={publicationUrl}>
+              {allLabel}
+            </External>
+          )}
         </div>
         <p className="lede">{lede}</p>
         {source === "fallback" ? <p className="quiet-note">{fallbackNote}</p> : null}

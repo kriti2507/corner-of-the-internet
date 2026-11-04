@@ -89,7 +89,7 @@ a { color: inherit; }
 
 .logo {
   font-family: var(--font-fraunces), Georgia, serif;
-  font-size: 2.15rem;
+  font-size: clamp(1.7rem, 2.4vw, 2.05rem);
   font-weight: 560;
   line-height: 1;
   letter-spacing: -0.04em;
@@ -125,6 +125,8 @@ a { color: inherit; }
   white-space: nowrap;
 }
 
+.nav-pill a.nav-hi { background: var(--yellow); }
+
 .nav-pill a[aria-current="page"] {
   background: var(--ink);
   color: var(--cream);
@@ -149,8 +151,8 @@ a { color: inherit; }
   margin: 0.15rem 0 0.7rem;
   font-family: var(--font-fraunces), Georgia, serif;
   font-weight: 560;
-  font-size: clamp(6.4rem, 18vw, 10.4rem);
-  line-height: 0.76;
+  font-size: clamp(3.5rem, 8vw, 5.8rem);
+  line-height: 0.9;
   letter-spacing: -0.045em;
 }
 
@@ -394,7 +396,72 @@ h3 {
   line-height: 1.1;
 }
 
-.consulting-cta { margin-top: 1.25rem; }
+.consulting-teaser {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+}
+.consulting-teaser .lede { margin-bottom: 0; }
+
+.hike-preview {
+  display: grid;
+  gap: 1.2rem;
+  align-items: center;
+}
+.preview-peak {
+  margin: 0 0 1rem;
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 620;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+.preview-peak .card-kicker { display: block; margin-bottom: 0.35rem; }
+.map-preview svg {
+  max-height: 380px;
+  width: auto;
+  margin-inline: auto;
+  display: block;
+}
+
+.coffee-band {
+  background: #f3e2cc;
+  border-block: 2px solid var(--ink);
+}
+.coffee-layout, .coffee-teaser {
+  display: grid;
+  gap: 1.2rem;
+  align-items: start;
+}
+.coffee-teaser { align-items: center; }
+.ticket { position: relative; padding-top: 1.6rem; }
+.ticket-title {
+  margin: 0.2rem 0 0.35rem;
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+}
+.cup { width: 72px; height: 56px; margin-bottom: 0.4rem; }
+button.cafe-card {
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
+}
+button.cafe-card[aria-pressed="true"] {
+  translate: 0 -4px;
+  box-shadow: 8px 8px 0 var(--ink);
+}
+.interest-grid {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+.interest-grid > li { display: flex; }
+.interest-grid .sticker { flex: 1; }
 
 .side-grid {
   display: grid;
@@ -671,6 +738,7 @@ h3 {
 @media (min-width: 720px) {
   .wrap { width: min(1120px, calc(100% - 3rem)); }
   .totals { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .totals-pair { grid-template-columns: repeat(2, minmax(0, 18rem)); }
   .post-grid, .cafe-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .footer-grid { grid-template-columns: 1fr auto; align-items: end; }
 }
@@ -682,6 +750,10 @@ h3 {
   .up-grid > :nth-child(n + 4) { grid-column: span 3; }
   .split, .about-layout, .contact-layout, .project-layout { grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
   .hike-layout { grid-template-columns: 1.05fr 0.95fr; align-items: start; }
+  .hike-preview { grid-template-columns: 0.75fr 1.15fr; }
+  .coffee-layout { grid-template-columns: 0.85fr 1.15fr; align-items: start; }
+  .coffee-teaser { grid-template-columns: 1.1fr 0.9fr; }
+  .interest-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .cafe-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 

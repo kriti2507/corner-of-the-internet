@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import rings from "@/data/japan-rings.json";
 import type { Hike } from "@/lib/hikes";
@@ -73,6 +74,9 @@ export function HikesSection({
   lede,
   mapLabel,
   approxNote,
+  preview = false,
+  moreHref,
+  moreLabel,
 }: {
   hikes: Hike[];
   kicker: string;
@@ -80,6 +84,9 @@ export function HikesSection({
   lede: string;
   mapLabel: string;
   approxNote: string;
+  preview?: boolean;
+  moreHref?: string;
+  moreLabel?: string;
 }) {
   const [selected, setSelected] = useState(hikes[hikes.length - 1]?.title ?? "");
   const [bounds, setBounds] = useState<Bounds>(JAPAN);
@@ -146,9 +153,9 @@ export function HikesSection({
     <section className="band band-tight" id="hikes" aria-labelledby="hikes-heading">
       <div className="wrap">
         <p className="script kicker">{kicker}</p>
-        <h1 id="hikes-heading">{title}</h1>
+        {preview ? <h2 id="hikes-heading">{title}</h2> : <h1 id="hikes-heading">{title}</h1>}
         <p className="lede">{lede}</p>
-        <dl className="totals">
+        <dl className={preview ? "totals totals-pair" : "totals"}>
           <div>
             <dt>Hikes</dt>
             <dd>{totals.count}</dd>
@@ -157,22 +164,27 @@ export function HikesSection({
             <dt>Metres climbed</dt>
             <dd>{formatMeters(totals.climbed)}</dd>
           </div>
-          <div>
-            <dt>On the trail</dt>
-            <dd>
-              {formatHours(totals.minutes)}
-              <span> {totals.timed} of {totals.count} timed</span>
-            </dd>
-          </div>
-          <div>
-            <dt>Highest summit</dt>
-            <dd>
-              {totals.highest.title}
-              <span> {formatMeters(totals.highest.heightM)}</span>
-            </dd>
-          </div>
+          {preview ? null : (
+            <div>
+              <dt>On the trail</dt>
+              <dd>
+                {formatHours(totals.minutes)}
+                <span> {totals.timed} of {totals.count} timed</span>
+              </dd>
+            </div>
+          )}
+          {preview ? null : (
+            <div>
+              <dt>Highest summit</dt>
+              <dd>
+                {totals.highest.title}
+                <span> {formatMeters(totals.highest.heightM)}</span>
+              </dd>
+            </div>
+          )}
         </dl>
 
+        {preview ? null : (
         <div className="chips" role="toolbar" aria-label="Regions">
           <button type="button" className="chip" aria-pressed={region === null && !zoomed} onClick={() => selectRegion(null)}>
             All Japan
@@ -190,9 +202,25 @@ export function HikesSection({
             </button>
           ))}
         </div>
+        )}
 
-        <div className="hike-layout">
-          <figure className="map-frame">
+        <div className={preview ? "hike-preview" : "hike-layout"}>
+          {preview ? (
+            <div className="preview-copy">
+              {hike ? (
+                <p className="preview-peak">
+                  <span className="card-kicker">{hike.region}</span>
+                  {hike.title}
+                </p>
+              ) : null}
+              {moreHref && moreLabel ? (
+                <Link className="btn btn-ink" href={moreHref}>
+                  {moreLabel}
+                </Link>
+              ) : null}
+            </div>
+          ) : null}
+          <figure className={preview ? "map-frame map-preview" : "map-frame"}>
             <svg viewBox={`0 0 ${WIDTH} ${HEIGHT}`} role="img" aria-label={mapLabel}>
               <rect width={WIDTH} height={HEIGHT} fill="#d5e3f0" />
               <path d={path} fill="#f6f1e6" stroke="#1c2744" strokeWidth="1.4" strokeLinejoin="round" />
@@ -253,7 +281,7 @@ export function HikesSection({
             <figcaption>{mapLabel}</figcaption>
           </figure>
 
-          {hike ? (
+          {!preview && hike ? (
             <article className="detail-card" aria-live="polite">
               <p className="card-kicker">{hike.region}</p>
               <h3>{hike.title}</h3>
@@ -287,6 +315,7 @@ export function HikesSection({
           ) : null}
         </div>
 
+        {preview ? null : (
         <div className="elev" role="list" aria-label="Metres climbed, earliest to latest">
           {hikes.map((item) => (
             <button
@@ -307,6 +336,7 @@ export function HikesSection({
             </button>
           ))}
         </div>
+        )}
       </div>
     </section>
   );

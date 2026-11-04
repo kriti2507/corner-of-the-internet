@@ -43,7 +43,7 @@ export function CommunitySection({
       <div className="wrap">
         <p className="script kicker">{kicker}</p>
         <div className="section-head">
-          <h1 id="community-heading">{title}</h1>
+          <h2 id="community-heading">{title}</h2>
           <External className="text-link" href={calendarUrl}>
             {calendarLabel}
           </External>

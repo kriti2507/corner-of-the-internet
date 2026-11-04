@@ -55,7 +55,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           Skip to content
         </a>
         <HashScroll />
-        <Header items={site.nav} />
+        <Header items={site.nav} mark={site.hero.monogram} />
         <main id="content">{children}</main>
         <SiteFooter
           prompt={site.footer.prompt}

@@ -33,7 +33,7 @@ export function ProjectsSection({
       <div className="wrap project-layout">
         <article className="sticker tone-yellow project-feature" data-tilt="2">
           <p className="script kicker">{kicker}</p>
-          <h1 id="projects-heading">{title}</h1>
+          <h2 id="projects-heading">{title}</h2>
           <p className="lede">{lede}</p>
           {url ? (
             <External className="btn btn-ink" href={url}>

@@ -18,7 +18,7 @@ export function WorkSection({
       <div className="wrap split">
         <div>
           <p className="script kicker">{kicker}</p>
-          <h1 id="work-heading">{title}</h1>
+          <h2 id="work-heading">{title}</h2>
           <p className="lede">{lede}</p>
           <ul className="text-links">
             {links.map((link) => (

@@ -22,16 +22,17 @@ export const site = {
   emailIsPlaceholder: true,
 
   /**
-   * Shared header. Home is the hub; every other item is its own page.
+   * Work, meetups, and projects jump to home sections.
+   * Writing, hikes, and coffee are the only deeper pages.
    */
   nav: [
-    { id: "home", label: "Home", href: "/" },
-    { id: "work", label: "Work", href: "/work" },
+    { id: "work", label: "Work", href: "/#work" },
     { id: "writing", label: "Writing", href: "/writing" },
-    { id: "projects", label: "Projects", href: "/projects" },
+    { id: "community", label: "Meetups", href: "/#community" },
     { id: "hikes", label: "Hikes", href: "/hikes" },
-    { id: "community", label: "Community", href: "/community" },
-    { id: "consulting", label: "Consulting", href: "/consulting" },
+    { id: "projects", label: "Projects", href: "/#projects" },
+    { id: "coffee", label: "Coffee", href: "/coffee" },
+    { id: "note", label: "Say hi", href: "/#note" },
   ],
 
   /**
@@ -39,23 +40,11 @@ export const site = {
    * The document title template in the root layout adds " · Kriti Agarwal".
    */
   pages: {
-    work: {
-      title: "Work",
-      path: "/work",
-      description:
-        "The agent inside Sakana Chat — tool calling, code sandboxes, skills — and Sakana Translate beside it.",
-    },
     writing: {
       title: "Writing",
       path: "/writing",
       description:
         "AI Noodle: growing up alongside AI, from someone who builds it. Letters out Saturday mornings, Tokyo time.",
-    },
-    projects: {
-      title: "Projects",
-      path: "/projects",
-      description:
-        "Small Wins — one small win a day, free in November, with a 30-day challenge — and the hike log that grew around it.",
     },
     hikes: {
       title: "Hikes",
@@ -63,23 +52,17 @@ export const site = {
       description:
         "Trails from the hike log, mostly Hokkaido and the ridges around Tokyo, and the books on the shelf.",
     },
-    community: {
-      title: "Community",
-      path: "/community",
+    coffee: {
+      title: "Coffee",
+      path: "/coffee",
       description:
-        "Women in AI Tokyo. A cafe, a question, about twenty people. Upcoming meetups and earlier tables.",
-    },
-    consulting: {
-      title: "Consulting",
-      path: "/consulting",
-      description:
-        "Consulting on AI products and agents for teams that already have a workflow, or want an agent they can keep.",
+        "Placeholder cafés Kriti will fill in, plus Japanese study, notebooks, Tokyo, and the mountains.",
     },
   },
 
   hero: {
     greeting: "hello from Tokyo ↓",
-    monogram: "K.",
+    monogram: "Kriti",
     lead: [
       { text: "I build AI products " },
       { text: "at Sakana", mark: "pink" },
@@ -93,8 +76,8 @@ export const site = {
     ] as LeadPart[],
     actions: [
       { label: "Say hello", href: "/#note", variant: "ink" as const },
-      { label: "Next meetup →", href: "/community", variant: "ghost" as const },
-      { label: "Work with me", href: "/consulting", variant: "yellow" as const },
+      { label: "Next meetup →", href: "/#community", variant: "ghost" as const },
+      { label: "Work with me", href: "/#note", variant: "yellow" as const },
     ],
   },
 
@@ -143,7 +126,7 @@ export const site = {
         tilt: "1",
         title: "The agent inside Sakana Chat",
         body: "Tool calling, code sandboxes, skills — plus Sakana Translate.",
-        href: "/work",
+        href: "/#work",
         link: "More on work →",
       },
       {
@@ -163,7 +146,7 @@ export const site = {
         tilt: "3",
         title: "Small Wins",
         body: "Log one small win a day. Free in November, with a 30-day challenge.",
-        href: "/projects",
+        href: "/#projects",
         link: "Join the challenge →",
       },
       {
@@ -173,7 +156,7 @@ export const site = {
         tilt: "4",
         title: "Women in AI, Tokyo",
         body: "A cafe, a question, about twenty of us. First table: late November.",
-        href: "/community",
+        href: "/#community",
         link: "Save a seat →",
       },
       {
@@ -183,7 +166,7 @@ export const site = {
         tilt: "5",
         title: "Work with me",
         body: "I consult for businesses on AI products and agents — a workflow you already run, or a tool-using agent your team can keep.",
-        href: "/consulting",
+        href: "/#note",
         link: "Book a call →",
       },
     ],
@@ -228,6 +211,7 @@ export const site = {
     profileUrl: "https://substack.com/@theainoodle",
     publicationName: "The AI Noodle",
     allLabel: "All the letters →",
+    seeAll: "See all the letters →",
     fallbackNote:
       "The live feed didn't answer, so these are saved copies of recent letters.",
     fallbackPosts: [
@@ -274,7 +258,7 @@ export const site = {
       "Free through November.",
       "A 30-day challenge if you want the streak more than the speech.",
     ],
-    note: "The mountains and the bookshelf have their own page. They are slices of that same log, bundled with the site for now and ready to switch to the live Small Wins API.",
+    note: "The hike log and the bookshelf are the same habit, on their own page.",
     cta: { label: "Count me in →", href: "/#note" },
     others: [
       {
@@ -319,6 +303,8 @@ export const site = {
     kicker: "field notes",
     title: "On the mountains",
     lede: "Trails from the hike log — mostly Hokkaido, and the ridges around Tokyo. Tap a peak or a bar.",
+    previewLede: "Mostly Hokkaido, and the ridges around Tokyo. Tap a pin.",
+    moreLabel: "See the map and the shelf →",
     mapLabel: "Japan, north up. Pins are placed by hand.",
     approxNote: "This pin is approximate.",
   },
@@ -395,20 +381,60 @@ export const site = {
   consulting: {
     kicker: "consulting",
     title: "Work with me",
-    lede: "I consult for businesses on AI products and agents — a workflow you already run, or a tool-using agent your team can keep.",
-    howTitle: "How a project starts",
-    steps: [
-      "Send a note about what you are trying to ship. A few sentences is enough.",
-      "I write back about a call with the people who will keep the work.",
-      "We shape the product or the agent together. Not a deck that leaves with me.",
+    lede: "I consult for businesses on AI products and agents — a workflow you already run, or a tool-using agent your team can keep. Send a note and I'll write back about a call.",
+    cta: { label: "Work with me", href: "/#note" },
+  },
+
+  coffee: {
+    kicker: "a corner",
+    title: "Coffee and the rest",
+    lede: "Counters, a language in the margins, and the other things that don't fit on a résumé. These café cards are placeholders — the names are not real yet.",
+    teaserTitle: "Coffee and other interests",
+    teaserLede: "The café names are still placeholders. The rest is Japanese study, notebooks, and the city between the trails.",
+    seeAll: "See the corner →",
+    ticketKicker: "on the ticket",
+    interestsKicker: "besides",
+    interestsTitle: "Other interests",
+    interestsLede:
+      "Japanese study sits in the margins. Between the product and the table, I am on a mountain, in a notebook, or writing down one small win.",
+    interests: [
+      {
+        kicker: "Language",
+        tone: "yellow" as const,
+        tilt: "2",
+        title: "Japanese",
+        body: "JLPT N1 is in progress. Study sits in the margins.",
+      },
+      {
+        kicker: "Notebook",
+        tone: "pink" as const,
+        tilt: "3",
+        title: "One small win",
+        body: "Written down so the day does not disappear.",
+      },
+      {
+        kicker: "City",
+        tone: "blue" as const,
+        tilt: "1",
+        title: "Tokyo",
+        body: "Tables, trails, and the walk between them.",
+      },
+      {
+        kicker: "Ridges",
+        tone: "green" as const,
+        tilt: "4",
+        title: "Mountains",
+        body: "Mostly Hokkaido, and the hills around the city.",
+        href: "/hikes",
+        link: "See the trails →",
+      },
     ],
-    cta: { label: "Write me a note →", href: "/#note" },
   },
 
   contact: {
-    kicker: "consulting",
-    title: "Work with me",
-    lede: "I consult for businesses on AI products and agents. Tell me what you are trying to ship and I will write back about a call.",
+    kicker: "a note",
+    title: "Write me a note",
+    lede: "Tell me what you are trying to ship, or just say hello.",
     services: [
       {
         title: "AI products",

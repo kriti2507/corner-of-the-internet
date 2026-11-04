@@ -1,7 +1,15 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  /* Old section URLs land on the matching part of the home page. */
+  async redirects() {
+    return [
+      { source: "/work", destination: "/#work", permanent: false },
+      { source: "/projects", destination: "/#projects", permanent: false },
+      { source: "/community", destination: "/#community", permanent: false },
+      { source: "/consulting", destination: "/#consulting", permanent: false },
+    ];
+  },
   cacheComponents: true,
   partialPrefetching: true,
   turbopack: {

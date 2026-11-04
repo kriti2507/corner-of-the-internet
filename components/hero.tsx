@@ -48,11 +48,9 @@ export function Hero({
     <section className="hero wrap" aria-labelledby="intro-heading">
       <div className="hero-copy">
         <p className="script greeting">{greeting}</p>
-        <p className="monogram" aria-hidden="true">
+        <h1 id="intro-heading" className="monogram">
           {monogram}
-        </p>
-        <h1 id="intro-heading" className="sr-only">
-          {name}
+          <span className="sr-only"> {name}</span>
         </h1>
         <p className="hero-lead">
           {lead.map((part, index) =>
