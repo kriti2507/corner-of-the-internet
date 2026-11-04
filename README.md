@@ -15,6 +15,16 @@ Open [http://localhost:3000](http://localhost:3000).
 
 All copy, links, photo paths, and placeholders live in [`content/site.ts`](content/site.ts).
 
+The site is a short home page plus a page for each part:
+
+- `/` — hero, sticker cards, meetup badge, contact form
+- `/work` — the day job at Sakana
+- `/writing` — AI Noodle, from the Substack feed
+- `/projects` — Small Wins
+- `/hikes` — hike map, stats, and the bookshelf
+- `/community` — Women in AI Tokyo, from the Luma calendar
+- `/consulting` — how to work together, linking to the contact form
+
 - Hikes: [`data/hikes.json`](data/hikes.json). Map pins are in `site.hikePins`.
 - Books: [`data/books.json`](data/books.json).
 - Mountain photo and the Mira illustration: put files in `public/` and set `site.photos.mountain` and `site.photos.mira`. `null` keeps the drawn placeholders.

@@ -35,8 +35,8 @@ export function ContactForm({
   kicker: string;
   title: string;
   lede: string;
-  services: { title: string; body: string }[];
-  topics: Topic[];
+  services: readonly { title: string; body: string }[];
+  topics: readonly Topic[];
   submit: string;
   sending: string;
   successTitle: string;

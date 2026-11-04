@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Caveat, Fraunces, Outfit } from "next/font/google";
 import { site } from "@/content/site";
+import { HashScroll } from "@/components/hash-scroll";
+import { Header } from "@/components/header";
+import { SiteFooter } from "@/components/site-footer";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -47,7 +50,20 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${outfit.variable} ${fraunces.variable} ${caveat.variable} h-full antialiased`}
     >
-      <body className="min-h-full">{children}</body>
+      <body className="min-h-full">
+        <a className="skip" href="#content">
+          Skip to content
+        </a>
+        <HashScroll />
+        <Header items={site.nav} />
+        <main id="content">{children}</main>
+        <SiteFooter
+          prompt={site.footer.prompt}
+          email={site.email}
+          noteHref="/#note"
+          links={site.footer.links}
+        />
+      </body>
     </html>
   );
 }

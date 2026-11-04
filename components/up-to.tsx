@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export function UpTo({
   title,
   aside,
@@ -5,7 +7,7 @@ export function UpTo({
 }: {
   title: string;
   aside: string;
-  cards: {
+  cards: readonly {
     index: string;
     kicker: string;
     tone: "blue" | "pink" | "yellow" | "green" | "peach";
@@ -24,7 +26,7 @@ export function UpTo({
         </h2>
         <div className="up-grid">
           {cards.map((card) => (
-            <a
+            <Link
               key={card.index}
               className={`sticker tone-${card.tone}`}
               data-tilt={card.tilt}
@@ -36,7 +38,7 @@ export function UpTo({
               <h3>{card.title}</h3>
               <p className="card-body">{card.body}</p>
               <span className="card-link">{card.link}</span>
-            </a>
+            </Link>
           ))}
         </div>
       </div>

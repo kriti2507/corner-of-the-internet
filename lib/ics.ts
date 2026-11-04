@@ -87,9 +87,23 @@ export function parseIcs(text: string): CalendarEvent[] {
   return events;
 }
 
+function eventEnd(event: CalendarEvent) {
+  const end = event.end ? Date.parse(event.end) : Date.parse(event.start);
+  return Number.isFinite(end) ? end : null;
+}
+
 export function upcomingEvents(events: CalendarEvent[], now = Date.now()) {
   return events.filter((event) => {
-    const end = event.end ? Date.parse(event.end) : Date.parse(event.start);
-    return Number.isFinite(end) && end >= now;
+    const end = eventEnd(event);
+    return end != null && end >= now;
   });
+}
+
+export function pastEvents(events: CalendarEvent[], now = Date.now()) {
+  return events
+    .filter((event) => {
+      const end = eventEnd(event);
+      return end != null && end < now;
+    })
+    .sort((a, b) => (a.start < b.start ? 1 : a.start > b.start ? -1 : 0));
 }

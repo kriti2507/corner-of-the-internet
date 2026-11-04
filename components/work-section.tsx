@@ -10,15 +10,15 @@ export function WorkSection({
   kicker: string;
   title: string;
   lede: string;
-  points: { title: string; body: string }[];
-  links: { label: string; href: string }[];
+  points: readonly { title: string; body: string }[];
+  links: readonly { label: string; href: string }[];
 }) {
   return (
     <section className="band" id="work" aria-labelledby="work-heading">
       <div className="wrap split">
         <div>
           <p className="script kicker">{kicker}</p>
-          <h2 id="work-heading">{title}</h2>
+          <h1 id="work-heading">{title}</h1>
           <p className="lede">{lede}</p>
           <ul className="text-links">
             {links.map((link) => (

@@ -1,46 +1,32 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 type Item = { id: string; label: string; href: string };
 
-export function Header({ items }: { items: Item[] }) {
-  const [active, setActive] = useState<string | null>(null);
-
-  useEffect(() => {
-    const nodes = items
-      .map((item) => document.getElementById(item.id))
-      .filter((node): node is HTMLElement => node !== null);
-    if (nodes.length === 0) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible) setActive(visible.target.id);
-      },
-      { rootMargin: "-30% 0px -55% 0px", threshold: [0.05, 0.2, 0.45] },
-    );
-    nodes.forEach((node) => observer.observe(node));
-    return () => observer.disconnect();
-  }, [items]);
+export function Header({ items }: { items: readonly Item[] }) {
+  const pathname = usePathname();
 
   return (
     <header className="site-header">
       <div className="wrap header-row">
-        <a className="logo" href="#top">
+        <Link className="logo" href="/">
           K.
-          <span className="sr-only"> Kriti Agarwal, back to top</span>
-        </a>
-        <nav className="nav-scroll" aria-label="Sections">
+          <span className="sr-only"> Kriti Agarwal, home</span>
+        </Link>
+        <nav className="nav-scroll" aria-label="Pages">
           <ul className="nav-pill">
-            {items.map((item) => (
-              <li key={item.id}>
-                <a href={item.href} aria-current={active === item.id ? "true" : undefined}>
-                  {item.label}
-                </a>
-              </li>
-            ))}
+            {items.map((item) => {
+              const current = item.href === "/" ? pathname === "/" : pathname === item.href;
+              return (
+                <li key={item.id}>
+                  <Link href={item.href} aria-current={current ? "page" : undefined}>
+                    {item.label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
       </div>

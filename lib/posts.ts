@@ -18,7 +18,7 @@ export async function getPosts(): Promise<{ posts: Post[]; source: "live" | "fal
       signal: AbortSignal.timeout(8000),
     });
     if (!response.ok) throw new Error(`feed ${response.status}`);
-    const posts = parseRss(await response.text()).slice(0, 4);
+    const posts = parseRss(await response.text());
     if (posts.length === 0) throw new Error("feed empty");
     return { posts, source: "live" };
   } catch (error) {

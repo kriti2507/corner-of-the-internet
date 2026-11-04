@@ -146,7 +146,7 @@ export function HikesSection({
     <section className="band band-tight" id="hikes" aria-labelledby="hikes-heading">
       <div className="wrap">
         <p className="script kicker">{kicker}</p>
-        <h2 id="hikes-heading">{title}</h2>
+        <h1 id="hikes-heading">{title}</h1>
         <p className="lede">{lede}</p>
         <dl className="totals">
           <div>

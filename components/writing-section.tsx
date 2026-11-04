@@ -26,7 +26,7 @@ export function WritingSection({
       <div className="wrap">
         <p className="script kicker">{kicker}</p>
         <div className="section-head">
-          <h2 id="writing-heading">{title}</h2>
+          <h1 id="writing-heading">{title}</h1>
           <External className="text-link" href={publicationUrl}>
             {allLabel}
           </External>
