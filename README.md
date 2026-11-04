@@ -35,6 +35,10 @@ The home page carries the whole picture. Deeper pages:
 - Mountain photo and the Mira illustration: put files in `public/` and set `site.photos.mountain` and `site.photos.mira`. `null` keeps the drawn placeholders.
 - Email is still `hello@yourdomain.com` on purpose. Change `site.email` when there is a real address.
 
+## Hero secrets
+
+The two draggable photos hide a card each. Edit `site.hero.secrets` in [`content/site.ts`](content/site.ts). The first item sits under the mountain photo, the second under Mira. Each has a `title`, a `body`, and an optional `cta` (`label` and `href`). These start as placeholders — do not put a real code or offer in until you mean to share it. Drag a photo, or focus it and use the arrow keys, to reveal the card. “Put the photos back” covers them again. The label is `site.hero.secretFound`.
+
 `lib/hikes.ts` and `lib/books.ts` are the swap point for a live Small Wins API. They return the same shapes the page already renders.
 
 ## How to write a post and tag cafés, books, and hikes

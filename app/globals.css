@@ -125,9 +125,10 @@ a { color: inherit; }
   white-space: nowrap;
 }
 
-.nav-pill a.nav-hi { background: var(--yellow); }
+.nav-pill a.nav-hi { background: var(--yellow); color: var(--ink); }
 
-.nav-pill a[aria-current="page"] {
+.nav-pill a[aria-current="page"],
+.nav-pill a.nav-hi[aria-current="page"] {
   background: var(--ink);
   color: var(--cream);
 }
@@ -157,7 +158,7 @@ a { color: inherit; }
 }
 
 .hero-lead {
-  margin: 0;
+  margin: 0.2rem 0 0;
   max-width: 28rem;
   font-family: var(--font-fraunces), Georgia, serif;
   font-weight: 520;
@@ -209,7 +210,13 @@ a { color: inherit; }
 
 .stage {
   position: relative;
-  min-height: 460px;
+  display: flex;
+  flex-direction: column;
+}
+
+.stage-play {
+  position: relative;
+  min-height: 480px;
 }
 
 .stage-hint {
@@ -217,8 +224,11 @@ a { color: inherit; }
   top: 0;
   right: 0.2rem;
   margin: 0;
+  max-width: 9rem;
   font-size: 1.45rem;
-  z-index: 1;
+  line-height: 0.95;
+  text-align: right;
+  z-index: 4;
 }
 
 .polaroid {
@@ -240,6 +250,72 @@ a { color: inherit; }
 
 .polaroid-a { --rot: -8deg; left: 4%; top: 8%; }
 .polaroid-b { --rot: 7deg; right: 2%; top: 22%; z-index: 3; }
+
+.secret-perk {
+  --rot: -4deg;
+  position: absolute;
+  z-index: 1;
+  width: 196px;
+  margin: 0;
+  padding: 0.75rem 0.85rem 0.9rem;
+  background: var(--paper);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  border-radius: 16px;
+  box-shadow: 4px 4px 0 var(--ink);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: rotate(var(--rot)) scale(0.86);
+  transition:
+    opacity 0.28s ease,
+    transform 0.28s ease,
+    visibility 0s linear 0.28s;
+}
+
+.secret-perk.is-found {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: rotate(var(--rot)) scale(1);
+  animation: secret-pop 0.55s cubic-bezier(0.18, 1.25, 0.32, 1) both;
+  transition:
+    opacity 0.28s ease,
+    transform 0.28s ease,
+    visibility 0s;
+}
+
+.secret-a { --rot: -6deg; left: calc(4% + 16px); top: calc(8% + 42px); }
+.secret-b { --rot: 5deg; right: calc(2% + 14px); top: calc(22% + 38px); }
+
+.secret-found {
+  margin: 0;
+  font-size: 1.45rem;
+  line-height: 0.95;
+  color: var(--script);
+}
+
+.secret-title {
+  margin: 0.2rem 0 0.35rem;
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-weight: 620;
+  font-size: 1.12rem;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.secret-perk p:not(.secret-found):not(.secret-title) {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.35;
+}
+
+.secret-perk .card-link {
+  display: inline-block;
+  margin-top: 0.55rem;
+  font-size: 0.88rem;
+  font-weight: 700;
+}
 
 .tape {
   position: absolute;
@@ -292,8 +368,8 @@ a { color: inherit; }
 
 .meetup-badge {
   position: absolute;
-  left: 14%;
-  bottom: 2%;
+  left: 18%;
+  bottom: 1.35rem;
   z-index: 5;
   width: 132px;
   height: 132px;
@@ -337,14 +413,15 @@ a { color: inherit; }
 .spark-b { bottom: 18%; right: 6%; width: 16px; height: 16px; }
 
 .reset-photos {
-  position: absolute;
-  left: 0;
-  bottom: -0.2rem;
+  align-self: flex-start;
+  margin: 0.85rem 0 0;
+  padding: 0.1rem 0.15rem;
   border: 0;
   background: transparent;
   color: var(--script);
   font-family: var(--font-caveat), cursive;
-  font-size: 1.3rem;
+  font-size: 1.45rem;
+  line-height: 1;
   cursor: pointer;
 }
 
@@ -764,14 +841,21 @@ button.cafe-card[aria-pressed="true"] {
   .nav-scroll { flex: 1 1 100%; overflow: visible; }
   .nav-pill { width: 100%; flex-wrap: wrap; justify-content: center; }
   .nav-pill a { padding: 0.36rem 0.62rem; font-size: 0.86rem; }
-  .stage { min-height: 500px; }
+  .stage-play { min-height: 520px; }
   .polaroid { width: 176px; padding: 0.5rem 0.5rem 1.6rem; }
   .polaroid-a { --rot: -3deg; left: 0; top: 1.6rem; }
-  .polaroid-b { --rot: 3.5deg; right: 0; top: 30%; }
-  .meetup-badge { width: 108px; height: 108px; left: 4%; bottom: 0; }
+  .polaroid-b { --rot: 3.5deg; right: 0; top: 28%; }
+  .secret-perk { width: 150px; padding: 0.6rem 0.65rem 0.7rem; }
+  .secret-title { font-size: 0.98rem; }
+  .secret-perk p:not(.secret-found):not(.secret-title) { font-size: 0.78rem; }
+  .secret-found { font-size: 1.25rem; }
+  .secret-a { left: 12px; top: calc(1.6rem + 28px); }
+  .secret-b { right: 12px; top: calc(28% + 26px); }
+  .meetup-badge { width: 108px; height: 108px; left: 8%; bottom: 1.15rem; }
   .badge-date { font-size: 1.25rem; }
   .frame-caption { font-size: 0.68rem; }
-  .stage-hint { font-size: 1.25rem; }
+  .stage-hint { font-size: 1.25rem; max-width: 7.5rem; }
+  .reset-photos { margin-top: 0.7rem; font-size: 1.35rem; }
 }
 
 @media (max-width: 720px) {
@@ -792,6 +876,14 @@ button.cafe-card[aria-pressed="true"] {
   html { scroll-behavior: auto; }
   .btn:hover, .meetup-badge:hover, .spine[aria-pressed="true"] { transform: none; translate: none; }
   .sticker:hover { animation: none; }
+  .secret-perk,
+  .secret-perk.is-found { animation: none; transition: none; }
+}
+
+@keyframes secret-pop {
+  0% { transform: rotate(var(--rot)) scale(0.72); }
+  65% { transform: rotate(calc(var(--rot) + 1.5deg)) scale(1.05); }
+  100% { transform: rotate(var(--rot)) scale(1); }
 }
 
 @keyframes rise {
@@ -980,7 +1072,7 @@ button.cafe-card[aria-pressed="true"] {
 .home-community { background: #e6f0e2; }
 .home-weekends { background: #e8e0d0; }
 .home-wins { background: #f8f3d4; }
-.home-consult { background: #f3eee3; }
+.home-consult { background: #efd15f; }
 .weekend-grid {
   list-style: none;
   margin: 1rem 0 0;

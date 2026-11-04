@@ -83,7 +83,6 @@ export function Header({ items, mark }: { items: readonly Item[]; mark: string }
             {items.map((item) => {
               const onHome = pathname === "/";
               const pageMatch =
-                (item.id === "about" && pathname === "/about") ||
                 (item.id === "writing" && pathname === "/writing") ||
                 (item.id === "small-wins" && pathname === "/small-wins") ||
                 (item.id === "weekends" &&
@@ -96,7 +95,7 @@ export function Header({ items, mark }: { items: readonly Item[]; mark: string }
                 <li key={item.id}>
                   <Link
                     href={item.href}
-                    className={item.id === "note" ? "nav-hi" : undefined}
+                    className={item.id === "work-with-me" ? "nav-hi" : undefined}
                     aria-current={current ? "page" : undefined}
                   >
                     {item.label}

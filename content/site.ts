@@ -23,7 +23,7 @@ export const site = {
 
   /**
    * Home blocks are anchors so the highlight can follow the scroll.
-   * About is its own page. Say hi jumps to the note inside Work with me.
+   * About is linked from the Work with me block, not the nav.
    */
   nav: [
     { id: "sakana", label: "Sakana", href: "/#sakana" },
@@ -32,8 +32,6 @@ export const site = {
     { id: "weekends", label: "Weekends", href: "/#weekends" },
     { id: "small-wins", label: "Small Wins", href: "/#small-wins" },
     { id: "work-with-me", label: "Work with me", href: "/#work-with-me" },
-    { id: "about", label: "About", href: "/about" },
-    { id: "note", label: "Say hi", href: "/#note" },
   ],
 
   /**
@@ -102,11 +100,22 @@ export const site = {
       { text: "collect small wins", mark: "blue" },
       { text: " — on mountains, in notebooks, in code." },
     ] as LeadPart[],
-    actions: [
-      { label: "Say hello", href: "/#note", variant: "ink" as const },
-      { label: "Community →", href: "/#community", variant: "ghost" as const },
-      { label: "About →", href: "/about", variant: "ghost" as const },
-      { label: "Work with me", href: "/#work-with-me", variant: "yellow" as const },
+    /**
+     * Hidden under the two hero photos. Placeholders only — no real codes.
+     * Order matches the photos: mountain, then Mira.
+     * Each item is { title, body, cta?: { label, href } }.
+     */
+    secretFound: "You found a secret",
+    secrets: [
+      {
+        title: "Secret perk #1 — placeholder",
+        body: "Add your perk here (e.g. a discount code, a free coffee chat, an early-access invite).",
+      },
+      {
+        title: "Secret perk #2 — placeholder",
+        body: "Add your perk here. Leave the link off until you have a real one.",
+        cta: { label: "Placeholder — add a link", href: "/about" },
+      },
     ],
   },
 
@@ -506,6 +515,7 @@ export const site = {
     title: "Work with me",
     lede: "I consult for businesses on AI products and agents — a workflow you already run, or a tool-using agent your team can keep. Send a note and I'll write back about a call.",
     cta: { label: "Work with me", href: "/#note" },
+    aboutCta: { label: "About me", href: "/about" },
   },
 
   coffee: {

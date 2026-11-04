@@ -5,11 +5,13 @@ export function ConsultingSection({
   title,
   lede,
   cta,
+  aboutCta,
 }: {
   kicker: string;
   title: string;
   lede: string;
   cta: { label: string; href: string };
+  aboutCta: { label: string; href: string };
 }) {
   return (
     <section className="band band-tight" id="consulting" aria-labelledby="consulting-heading">
@@ -19,9 +21,14 @@ export function ConsultingSection({
           <h2 id="consulting-heading">{title}</h2>
           <p className="lede">{lede}</p>
         </div>
-        <Link className="btn btn-yellow" href={cta.href}>
-          {cta.label}
-        </Link>
+        <div className="hero-actions">
+          <Link className="btn btn-ink" href={cta.href}>
+            {cta.label}
+          </Link>
+          <Link className="btn btn-ghost" href={aboutCta.href}>
+            {aboutCta.label}
+          </Link>
+        </div>
       </div>
     </section>
   );

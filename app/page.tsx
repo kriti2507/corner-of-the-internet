@@ -64,7 +64,6 @@ export default async function Page() {
           greeting={site.hero.greeting}
           monogram={site.hero.monogram}
           lead={site.hero.lead}
-          actions={site.hero.actions}
           badge={badgeFor(nextMeetup)}
           photos={site.photos}
           polaroids={{
@@ -74,6 +73,8 @@ export default async function Page() {
             miraCaption: site.polaroids.mira.caption,
             dragHint: site.polaroids.dragHint,
           }}
+          secrets={site.hero.secrets}
+          secretFound={site.hero.secretFound}
         />
       </div>
       <div className="home-block home-sakana">
@@ -150,6 +151,7 @@ export default async function Page() {
           title={site.consulting.title}
           lede={site.consulting.lede}
           cta={site.consulting.cta}
+          aboutCta={site.consulting.aboutCta}
         />
         <ContactForm
           kicker={site.contact.kicker}
