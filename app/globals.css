@@ -203,6 +203,7 @@ a { color: inherit; }
 .btn-ink { background: var(--ink); color: var(--cream); }
 .btn-ghost { background: transparent; color: var(--ink); }
 .btn-yellow { background: var(--yellow); color: var(--ink); }
+.btn-clay { background: #c56a4a; color: #fffdf8; }
 
 .btn:hover { transform: translateY(-2px); box-shadow: 3px 3px 0 var(--ink); }
 
@@ -803,6 +804,131 @@ button.cafe-card[aria-pressed="true"] {
   35% { transform: rotate(calc(var(--tilt) + 1.8deg)) translateY(-8px); }
   70% { transform: rotate(calc(var(--tilt) - 1deg)) translateY(-5px); }
   100% { transform: rotate(calc(var(--tilt) + 0.6deg)) translateY(-7px); }
+}
+
+.sw-hero {
+  background:
+    radial-gradient(circle at 80% 20%, rgba(197, 106, 74, 0.16), transparent 28%),
+    #f6f0e6;
+  border-bottom: 2px solid var(--ink);
+  padding: 1.2rem 0 2.4rem;
+}
+.sw-hero-grid {
+  display: grid;
+  gap: 1.6rem;
+  align-items: center;
+}
+.sw h1, .sw h2 { color: #2b211c; }
+.sw-pitch {
+  margin: 0 0 0.7rem;
+  font-family: var(--font-lora), Georgia, serif;
+  font-style: italic;
+  font-size: clamp(1.45rem, 2.4vw, 1.9rem);
+  line-height: 1.35;
+  color: #6d5346;
+}
+.sw-privacy { margin: 0.9rem 0 0; color: var(--muted); font-size: 0.95rem; }
+.sw-feature {
+  display: grid;
+  gap: 1.3rem;
+  align-items: start;
+}
+.sw-frame {
+  margin: 0;
+  border: 2px solid var(--ink);
+  border-radius: 18px;
+  background: #fffdf8;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  justify-self: center;
+  width: min(100%, 420px);
+}
+.sw-wide .sw-frame { width: min(100%, 760px); }
+.sw-phone { width: min(100%, 280px); }
+.sw-soft { background: #f6f0e6; }
+.sw-chat { max-width: 40rem; }
+.sw-faqs { display: grid; gap: 0.7rem; }
+.sw-faq {
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  background: var(--paper);
+  box-shadow: 4px 4px 0 var(--ink);
+  padding: 0.85rem 1rem;
+}
+.sw-faq summary {
+  cursor: pointer;
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 620;
+}
+.sw-faq p { margin: 0.55rem 0 0; }
+.sw-close {
+  padding: 2.4rem 0 3rem;
+  background: #f6f0e6;
+  border-top: 2px solid var(--ink);
+}
+.sw-capsule {
+  border: 2px solid var(--ink);
+  border-radius: 18px;
+  background: #fffdf8;
+  box-shadow: var(--shadow);
+  padding: 0.9rem;
+}
+.sw-capsule-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+}
+.sw-sample { margin: 0; font-weight: 700; }
+.sw-arrow {
+  width: 2.2rem;
+  height: 2.2rem;
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  background: transparent;
+  font: inherit;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+.sw-ranges { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.7rem 0; }
+.sw-grid { display: grid; gap: 3px; }
+.sw-cell {
+  aspect-ratio: 1;
+  border-radius: 3px;
+  background: #efe6d8;
+  opacity: 0;
+}
+.sw-grid.is-on .sw-cell { animation: sw-pop 0.45s ease both; animation-delay: calc(var(--i) * 16ms); }
+.sw-cell.tone-green.lv-1 { background: #d7ebc8; }
+.sw-cell.tone-green.lv-2 { background: #a9d18e; }
+.sw-cell.tone-green.lv-3 { background: #6eae55; }
+.sw-cell.tone-green.lv-4 { background: #3d7a32; }
+.sw-cell.tone-purple.lv-1 { background: #e4d7f2; }
+.sw-cell.tone-purple.lv-2 { background: #c4a8e0; }
+.sw-cell.tone-purple.lv-3 { background: #8d68b8; }
+.sw-cell.tone-purple.lv-4 { background: #5c3d86; }
+.sw-cell.tone-clay.lv-1 { background: #f3d2c4; }
+.sw-cell.tone-clay.lv-2 { background: #e3a88f; }
+.sw-cell.tone-clay.lv-3 { background: #c56a4a; }
+.sw-cell.tone-clay.lv-4 { background: #8d4330; }
+.sw-note { margin: 0.7rem 0 0; color: var(--muted); font-size: 0.88rem; }
+
+@media (min-width: 900px) {
+  .sw-hero-grid { grid-template-columns: 1fr 1fr; }
+  .sw-feature { grid-template-columns: 1fr 1fr; }
+  .sw-feature.sw-flip > :first-child { order: 2; }
+  .sw-wide { grid-template-columns: 1fr; }
+  .sw-wide .sw-frame { justify-self: start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sw-cell { animation: none; opacity: 1; }
+}
+
+@keyframes sw-pop {
+  from { opacity: 0; transform: scale(0.45); }
+  to { opacity: 1; transform: none; }
 }
 
 :focus-visible {

@@ -23,7 +23,7 @@ export const site = {
 
   /**
    * Work, meetups, and projects jump to home sections.
-   * Writing, hikes, and coffee are the only deeper pages.
+   * Writing, hikes, coffee, and Small Wins are the deeper pages.
    */
   nav: [
     { id: "work", label: "Work", href: "/#work" },
@@ -31,6 +31,7 @@ export const site = {
     { id: "community", label: "Meetups", href: "/#community" },
     { id: "hikes", label: "Hikes", href: "/hikes" },
     { id: "projects", label: "Projects", href: "/#projects" },
+    { id: "small-wins", label: "Small Wins", href: "/small-wins" },
     { id: "coffee", label: "Coffee", href: "/coffee" },
     { id: "note", label: "Say hi", href: "/#note" },
   ],
@@ -57,6 +58,12 @@ export const site = {
       path: "/coffee",
       description:
         "Placeholder cafés Kriti will fill in, plus Japanese study, notebooks, Tokyo, and the mountains.",
+    },
+    smallWins: {
+      title: "Small Wins",
+      path: "/small-wins",
+      description:
+        "Small Wins is a little diary for the good things. Log one small win a day, in early access. Sign in with Google — only you can see it.",
     },
   },
 
@@ -247,19 +254,19 @@ export const site = {
   projects: {
     kicker: "shipping",
     title: "Small Wins",
-    lede: "Log one small win a day. Free in November, with a 30-day challenge.",
+    lede: "A little diary for the good things. Log one small win a day.",
     /**
      * Public app URL, when there is one. Null hides the outbound link
      * so the site never points at a guess.
      */
     url: null as string | null,
     points: [
-      "One entry a day — a hike, a page, a fix, a table you hosted.",
-      "Free through November.",
-      "A 30-day challenge if you want the streak more than the speech.",
+      "One entry a day — a hike, a page, a fix, a conversation.",
+      "Each part of life fills in on its own colour.",
+      "Early access. Sign in with Google, and only you can see it.",
     ],
-    note: "The hike log and the bookshelf are the same habit, on their own page.",
-    cta: { label: "Count me in →", href: "/#note" },
+    note: "The hike log and the bookshelf on this site are slices of that same habit.",
+    cta: { label: "See Small Wins →", href: "/small-wins" },
     others: [
       {
         kicker: "Field notes",
@@ -271,6 +278,94 @@ export const site = {
         link: "See the trails →",
       },
     ],
+  },
+
+  /**
+   * Product introduction for Small Wins. Not a setup guide.
+   * The live app signs in with Google.
+   */
+  smallWins: {
+    kicker: "early access",
+    title: "Small Wins",
+    pitch: "A little diary for the good things.",
+    lede: "Log one small win a day and watch each part of your life fill in. Setup takes about two minutes.",
+    privacy: "Sign in with Google. Only you can see what you log.",
+    tryLabel: "Try the beta",
+    startLabel: "Start logging wins",
+    url: "https://small-wins-live.vercel.app/",
+    sampleNote: "A sample grid, not a real diary. Darker squares are bigger wins.",
+    ranges: ["30d", "90d", "1y", "All"],
+    features: [
+      {
+        kicker: "time capsule",
+        title: "Your month at a glance",
+        body: "Each coloured square is a win from that day. Darker squares are bigger wins — a longer workout, a further hike. Zoom from thirty days out to a year, or the whole log, and look back at past months.",
+        image: "/small-wins/time-capsule.png",
+        width: 780,
+        height: 1632,
+        alt: "Small Wins Time Capsule for a month, with green and purple squares on the days a win was logged.",
+      },
+      {
+        kicker: "aspects",
+        title: "The parts of life you track",
+        body: "You start with Workout and Journal. Add your own — Hikes, Books, Runs — with a name, a colour, and fields such as Distance (km) or Pages. Number fields can shade higher-is-better or lower-is-better, so the grid knows what a big win is.",
+        image: "/small-wins/aspects.png",
+        width: 780,
+        height: 1340,
+        alt: "Workout and Journal tiles, each filled with a grid of coloured squares.",
+      },
+      {
+        kicker: "the entry",
+        title: "A photo, and the story if you want it",
+        body: "One entry a day is the habit. A twenty-minute walk counts. Add a photo, and write the story when a hike, a trip, or a book is worth more than the number.",
+        image: "/small-wins/story.png",
+        width: 780,
+        height: 1688,
+        alt: "A hike entry titled Mt. Tanzawa, with a photo, the distance, and a short story.",
+      },
+      {
+        kicker: "over time",
+        title: "The empty grid turns into a picture",
+        body: "Every entry fills a square. A couple of weeks in, most of the grid is still quiet. A few months in, it holds a shape. Switch 30d, 90d, 1y, and All to zoom.",
+        image: "/small-wins/grow.png",
+        width: 1808,
+        height: 722,
+        alt: "The same Workout grid after two weeks, mostly empty, and after three months, filled in with greens.",
+        wide: true,
+      },
+    ],
+    phone: {
+      kicker: "on your phone",
+      title: "It lives on your home screen",
+      body: "Small Wins is a web app. Add it to your home screen on iPhone or Android and it opens full screen from its own icon. No App Store.",
+      image: "/small-wins/phone.png",
+      width: 500,
+      height: 1116,
+      alt: "A phone home screen with the Small Wins icon among the other apps.",
+    },
+    chat: {
+      kicker: "from a chat",
+      title: "Log a win by talking to Claude or ChatGPT",
+      body: "If you already talk to Claude or ChatGPT, you can log from the conversation. In Small Wins, open your account menu and go to Connected apps for the link.",
+    },
+    faqTitle: "Before you start",
+    faq: [
+      {
+        q: "Is it private?",
+        a: "Yes. You sign in with Google, and only you can see your wins.",
+      },
+      {
+        q: "Is it free?",
+        a: "It's in beta — early access. This page doesn't list a price.",
+      },
+      {
+        q: "Do I need the App Store?",
+        a: "No. Open it in the browser, then add it to your home screen on iPhone or Android.",
+      },
+    ],
+    closingKicker: "two minutes",
+    closingTitle: "One small win a day",
+    closingLede: "Set it up, log something small, and let the grid fill in.",
   },
 
   community: {

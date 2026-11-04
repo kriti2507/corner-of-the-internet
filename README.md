@@ -21,6 +21,7 @@ The home page carries the whole picture. Three pages go deeper:
 - `/writing` — every AI Noodle letter, from the Substack feed
 - `/hikes` — hike map, stats, and the bookshelf
 - `/coffee` — placeholder cafés and other interests
+- `/small-wins` — product introduction for the Small Wins app
 
 `/work`, `/projects`, `/community`, and `/consulting` redirect to the matching section on the home page.
 
