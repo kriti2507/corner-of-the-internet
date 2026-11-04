@@ -91,8 +91,8 @@ export function HikesSection({
   const [selected, setSelected] = useState(hikes[hikes.length - 1]?.title ?? "");
   const [bounds, setBounds] = useState<Bounds>(JAPAN);
   const [region, setRegion] = useState<string | null>(null);
+  const [season, setSeason] = useState<string | null>(null);
   const zoomed = !sameBounds(bounds, JAPAN);
-  const hike = hikes.find((item) => item.title === selected) ?? hikes[0];
 
   const totals = useMemo(() => {
     const minutes = hikes.reduce((sum, item) => sum + (item.durationMin ?? 0), 0);
@@ -105,6 +105,20 @@ export function HikesSection({
       timed,
       highest,
     };
+  }, [hikes]);
+
+  const shown = useMemo(
+    () => (season ? hikes.filter((item) => item.tags.includes(season)) : hikes),
+    [hikes, season],
+  );
+  const hike = shown.find((item) => item.title === selected) ?? shown[shown.length - 1] ?? hikes[0];
+  const seasons = useMemo(() => {
+    const found = new Set<string>();
+    for (const item of hikes) {
+      const tag = item.tags.find((entry) => entry === "winter" || entry === "spring" || entry === "summer" || entry === "autumn");
+      if (tag) found.add(tag);
+    }
+    return ["spring", "summer", "autumn", "winter"].filter((item) => found.has(item));
   }, [hikes]);
 
   const regions = useMemo(() => {
@@ -128,24 +142,40 @@ export function HikesSection({
 
   const pins = useMemo(
     () =>
-      hikes
+      shown
         .filter((item) => item.lat != null && item.lng != null)
         .map((item) => ({ ...item, ...project(bounds, item.lng as number, item.lat as number) })),
-    [hikes, bounds],
+    [shown, bounds],
   );
 
   const groups = zoomed ? pins.map((pin) => ({ x: pin.x, y: pin.y, items: [pin] })) : clusterPins(pins, 16);
-  const maxClimbed = Math.max(...hikes.map((item) => item.climbedM));
+  const maxClimbed = Math.max(1, ...shown.map((item) => item.climbedM));
+
+  function pool() {
+    return season ? hikes.filter((item) => item.tags.includes(season)) : hikes;
+  }
 
   function selectRegion(next: string | null) {
     setRegion(next);
+    const base = pool();
     if (!next) {
       setBounds(JAPAN);
+      const latest = [...base].sort((a, b) => b.date.localeCompare(a.date))[0];
+      if (latest) setSelected(latest.title);
       return;
     }
-    const inRegion = hikes.filter((item) => item.region === next);
+    const inRegion = base.filter((item) => item.region === next);
     setBounds(boundsFor(inRegion));
     const latest = [...inRegion].sort((a, b) => b.date.localeCompare(a.date))[0];
+    if (latest) setSelected(latest.title);
+  }
+
+  function selectSeason(next: string | null) {
+    setSeason(next);
+    const base = next ? hikes.filter((item) => item.tags.includes(next)) : hikes;
+    const inView = region ? base.filter((item) => item.region === region) : base;
+    if (region) setBounds(inView.length ? boundsFor(inView) : JAPAN);
+    const latest = [...inView].sort((a, b) => b.date.localeCompare(a.date))[0];
     if (latest) setSelected(latest.title);
   }
 
@@ -202,6 +232,19 @@ export function HikesSection({
             </button>
           ))}
         </div>
+        )}
+
+        {preview || seasons.length === 0 ? null : (
+          <div className="chips" role="toolbar" aria-label="Season">
+            <button type="button" className="chip" aria-pressed={season === null} onClick={() => selectSeason(null)}>
+              All seasons
+            </button>
+            {seasons.map((name) => (
+              <button key={name} type="button" className="chip" aria-pressed={season === name} onClick={() => selectSeason(name)}>
+                {name}
+              </button>
+            ))}
+          </div>
         )}
 
         <div className={preview ? "hike-preview" : "hike-layout"}>
@@ -311,13 +354,25 @@ export function HikesSection({
               </div>
               {hike.pinApproximate ? <p className="quiet-note">{approxNote}</p> : null}
               {hike.lat == null ? <p className="quiet-note">This one is not on the map yet.</p> : null}
+              <p>
+                <Link className="card-link" href={`/hikes/${hike.slug}`}>
+                  This trail →
+                </Link>
+              </p>
+              <p className="tag-row">
+                {hike.tags.map((tag) => (
+                  <Link key={tag} href={`/tags/${tag}`}>
+                    {tag}
+                  </Link>
+                ))}
+              </p>
             </article>
           ) : null}
         </div>
 
         {preview ? null : (
         <div className="elev" role="list" aria-label="Metres climbed, earliest to latest">
-          {hikes.map((item) => (
+          {shown.map((item) => (
             <button
               key={item.title}
               type="button"

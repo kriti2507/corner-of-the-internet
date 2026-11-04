@@ -3,7 +3,15 @@
 import Link from "next/link";
 import { useState } from "react";
 
-type Place = { name: string; area: string; note: string };
+type Place = {
+  slug?: string;
+  name: string;
+  area: string;
+  neighbourhood?: string;
+  note: string;
+  tags?: readonly string[];
+  placeholder?: boolean;
+};
 
 type Interest = {
   kicker: string;
@@ -40,6 +48,10 @@ export function CoffeeSection({
   interestsTitle,
   interestsLede,
   interests,
+  allLabel,
+  tagLabel,
+  areaLabel,
+  pageLink,
 }: {
   kicker: string;
   title: string;
@@ -50,9 +62,22 @@ export function CoffeeSection({
   interestsTitle: string;
   interestsLede: string;
   interests: readonly Interest[];
+  allLabel: string;
+  tagLabel: string;
+  areaLabel: string;
+  pageLink: string;
 }) {
   const [selected, setSelected] = useState(0);
-  const place = places[selected] ?? places[0];
+  const [tag, setTag] = useState<string | null>(null);
+  const [area, setArea] = useState<string | null>(null);
+  const tags = [...new Set(places.flatMap((place) => place.tags ?? []))];
+  const areas = [...new Set(places.map((place) => place.neighbourhood ?? place.area))];
+  const visible = places.filter((place) => {
+    const placeTags = place.tags ?? [];
+    const placeArea = place.neighbourhood ?? place.area;
+    return (!tag || placeTags.includes(tag)) && (!area || placeArea === area);
+  });
+  const place = visible[selected] ?? visible[0];
 
   return (
     <div className="coffee-band">
@@ -61,6 +86,30 @@ export function CoffeeSection({
           <p className="script kicker">{kicker}</p>
           <h1 id="coffee-heading">{title}</h1>
           <p className="lede">{lede}</p>
+          {tags.length > 0 ? (
+            <div className="chips" role="toolbar" aria-label={tagLabel}>
+              <button type="button" className="chip" aria-pressed={tag === null} onClick={() => { setTag(null); setSelected(0); }}>
+                {allLabel}
+              </button>
+              {tags.map((item) => (
+                <button key={item} type="button" className="chip" aria-pressed={tag === item} onClick={() => { setTag(item); setSelected(0); }}>
+                  {item}
+                </button>
+              ))}
+            </div>
+          ) : null}
+          {areas.length > 1 ? (
+            <div className="chips" role="toolbar" aria-label={areaLabel}>
+              <button type="button" className="chip" aria-pressed={area === null} onClick={() => { setArea(null); setSelected(0); }}>
+                {allLabel}
+              </button>
+              {areas.map((item) => (
+                <button key={item} type="button" className="chip" aria-pressed={area === item} onClick={() => { setArea(item); setSelected(0); }}>
+                  {item}
+                </button>
+              ))}
+            </div>
+          ) : null}
           <div className="coffee-layout">
             {place ? (
               <article className="sticker tone-peach ticket" data-tilt="2" aria-live="polite">
@@ -68,12 +117,17 @@ export function CoffeeSection({
                 <Cup />
                 <p className="script kicker">{ticketKicker}</p>
                 <h2 className="ticket-title">{place.name}</h2>
-                <p className="cafe-area">{place.area}</p>
+                <p className="cafe-area">{place.neighbourhood ?? place.area}</p>
                 <p>{place.note}</p>
+                {place.slug ? (
+                  <Link className="card-link" href={`/coffee/${place.slug}`}>
+                    {pageLink}
+                  </Link>
+                ) : null}
               </article>
             ) : null}
             <ul className="cafe-grid">
-              {places.map((item, index) => (
+              {visible.map((item, index) => (
                 <li key={`${item.area}-${index}`}>
                   <button
                     type="button"
@@ -83,7 +137,7 @@ export function CoffeeSection({
                   >
                     <span className="tape tape-yellow placeholder-tape">Placeholder</span>
                     <h3>{item.name}</h3>
-                    <p className="cafe-area">{item.area}</p>
+                    <p className="cafe-area">{item.neighbourhood ?? item.area}</p>
                     <p>{item.note}</p>
                   </button>
                 </li>

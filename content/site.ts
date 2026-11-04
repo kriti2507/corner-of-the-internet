@@ -22,17 +22,17 @@ export const site = {
   emailIsPlaceholder: true,
 
   /**
-   * Work, meetups, and projects jump to home sections.
-   * Writing, hikes, coffee, and Small Wins are the deeper pages.
+   * Work and community jump to home sections.
+   * Interests opens the coffee hub, which links on to books and hikes.
    */
   nav: [
     { id: "work", label: "Work", href: "/#work" },
     { id: "writing", label: "Writing", href: "/writing" },
-    { id: "community", label: "Meetups", href: "/#community" },
+    { id: "community", label: "Community", href: "/#community" },
     { id: "hikes", label: "Hikes", href: "/hikes" },
-    { id: "projects", label: "Projects", href: "/#projects" },
+    { id: "coffee", label: "Interests", href: "/coffee" },
     { id: "small-wins", label: "Small Wins", href: "/small-wins" },
-    { id: "coffee", label: "Coffee", href: "/coffee" },
+    { id: "about", label: "About", href: "/about" },
     { id: "note", label: "Say hi", href: "/#note" },
   ],
 
@@ -45,7 +45,23 @@ export const site = {
       title: "Writing",
       path: "/writing",
       description:
-        "AI Noodle: growing up alongside AI, from someone who builds it. Letters out Saturday mornings, Tokyo time.",
+        "AI Noodle from Substack, and notes on this site that can point at a café, a book, or a hike.",
+    },
+    blog: {
+      title: "Journal",
+      path: "/blog",
+      description: "Notes on this site. Some are samples. A file can also point at a Substack letter.",
+    },
+    books: {
+      title: "Books",
+      path: "/books",
+      description: "Books from the log, with the series name when it is written in the title.",
+    },
+    about: {
+      title: "About",
+      path: "/about",
+      description:
+        "Kriti Agarwal builds AI products at Sakana in Tokyo, writes AI Noodle, hosts Women in AI/Tech Tokyo, and is building Small Wins.",
     },
     hikes: {
       title: "Hikes",
@@ -83,7 +99,8 @@ export const site = {
     ] as LeadPart[],
     actions: [
       { label: "Say hello", href: "/#note", variant: "ink" as const },
-      { label: "Next meetup →", href: "/#community", variant: "ghost" as const },
+      { label: "Community →", href: "/#community", variant: "ghost" as const },
+      { label: "About →", href: "/about", variant: "ghost" as const },
       { label: "Work with me", href: "/#note", variant: "yellow" as const },
     ],
   },
@@ -116,7 +133,7 @@ export const site = {
    * "~20 seats" is Kriti's note, not a number scraped from the calendar.
    */
   meetup: {
-    kicker: "Next meetup",
+    kicker: "Community",
     seatsLabel: "~20 seats",
     fallbackMonth: "Nov",
     fallbackYear: "’26",
@@ -219,6 +236,7 @@ export const site = {
     publicationName: "The AI Noodle",
     allLabel: "All the letters →",
     seeAll: "See all the letters →",
+    filters: { all: "All", site: "On this site", noodle: "AI Noodle" },
     fallbackNote:
       "The live feed didn't answer, so these are saved copies of recent letters.",
     fallbackPosts: [
@@ -369,8 +387,8 @@ export const site = {
   },
 
   community: {
-    kicker: "monthly",
-    title: "Women in AI, Tokyo",
+    kicker: "community",
+    title: "Women in AI/Tech Tokyo",
     lede: "A cafe, a question, about twenty of us. The next table is whatever the public calendar says.",
     calendarUrl: "https://luma.com/calendar/cal-SGe7q4ZRJ8WRTcv",
     /** Public iCal. Confirmed: returns text/calendar for Women x Tech. */
@@ -400,6 +418,8 @@ export const site = {
     lede: "Trails from the hike log — mostly Hokkaido, and the ridges around Tokyo. Tap a peak or a bar.",
     previewLede: "Mostly Hokkaido, and the ridges around Tokyo. Tap a pin.",
     moreLabel: "See the map and the shelf →",
+    seasonLabel: "Season",
+    trailLink: "This trail →",
     mapLabel: "Japan, north up. Pins are placed by hand.",
     approxNote: "This pin is approximate.",
   },
@@ -436,7 +456,10 @@ export const site = {
     kicker: "notebook",
     title: "The shelf",
     lede: "Books from the log. Pull one out.",
+    hubLede: "The same log, with a page for each title. A tag appears only when the series name is written in the title.",
     readLabel: "Logged",
+    openLabel: "Open the page →",
+    emptyNotes: "No notes point at this book yet.",
   },
 
   cafes: {
@@ -487,6 +510,10 @@ export const site = {
     teaserTitle: "Coffee and other interests",
     teaserLede: "The café names are still placeholders. The rest is Japanese study, notebooks, and the city between the trails.",
     seeAll: "See the corner →",
+    allLabel: "All",
+    tagLabel: "Tag",
+    areaLabel: "Neighbourhood",
+    pageLink: "The page →",
     ticketKicker: "on the ticket",
     interestsKicker: "besides",
     interestsTitle: "Other interests",
@@ -522,6 +549,111 @@ export const site = {
         body: "Mostly Hokkaido, and the hills around the city.",
         href: "/hikes",
         link: "See the trails →",
+      },
+      {
+        kicker: "Shelf",
+        tone: "peach" as const,
+        tilt: "5",
+        title: "Books",
+        body: "Titles from the log. A note can point at one.",
+        href: "/books",
+        link: "Browse the shelf →",
+      },
+    ],
+  },
+
+  blog: {
+    kicker: "journal",
+    title: "Notes",
+    lede: "Files in this repo. A sample is marked. A file can also point at a Substack letter without pasting it here.",
+    empty: "No notes yet.",
+    externalLabel: "Read it on Substack →",
+    mentions: "Mentioned here",
+    noMentions: "This note does not point at a café, a book, or a hike.",
+  },
+
+  tags: {
+    kicker: "tag",
+    title: "Tagged",
+    lede: "Notes, cafés, books, and hikes that carry this tag.",
+    notes: "Notes",
+    cafes: "Cafés",
+    books: "Books",
+    hikes: "Hikes",
+    emptyNotes: "No notes with this tag.",
+    emptyCafes: "No cafés with this tag.",
+    emptyBooks: "No books with this tag.",
+    emptyHikes: "No hikes with this tag.",
+  },
+
+  aboutPage: {
+    kicker: "a person",
+    title: "About",
+    lede: "What this site already knows. Anything missing is marked TODO — it is not a guess.",
+    timeline: [
+      {
+        when: "Now",
+        title: "AI developer at Sakana AI",
+        body: "The agent inside Sakana Chat — tool calling, code sandboxes, and skills — and Sakana Translate.",
+        href: "/#work",
+        link: "The day job →",
+        placeholder: false,
+      },
+      {
+        when: "Now",
+        title: "AI Noodle",
+        body: "A Substack on growing up alongside AI, from someone who builds it. Saturday mornings, Tokyo time.",
+        href: "/writing",
+        link: "The letters →",
+        placeholder: false,
+      },
+      {
+        when: "Now",
+        title: "Women in AI/Tech Tokyo",
+        body: "A table for women in AI and tech. A cafe, a question, about twenty of us.",
+        href: "/#community",
+        link: "Community →",
+        placeholder: false,
+      },
+      {
+        when: "Now",
+        title: "Small Wins",
+        body: "A little diary for the good things. One small win a day, in early access.",
+        href: "/small-wins",
+        link: "The app →",
+        placeholder: false,
+      },
+      {
+        when: "Now",
+        title: "Consulting",
+        body: "Consulting for businesses on AI products and agents.",
+        href: "/#consulting",
+        link: "Work with me →",
+        placeholder: false,
+      },
+      {
+        when: "Before Sakana",
+        title: "Team Lead, Edge AI Development at AWL",
+        body: "Hokkaido, Japan. Before the current role at Sakana AI. TODO: dates, and any detail beyond the title — not filled in.",
+        href: "",
+        link: "",
+        placeholder: false,
+      },
+      {
+        when: "Education",
+        title: "Chemical Engineering at IIT Bombay",
+        body: "TODO: dates and the degree name — not filled in.",
+        href: "",
+        link: "",
+        placeholder: false,
+      },
+      {
+        when: "TODO",
+        title: "Talks and awards — add later",
+        body: "TODO: talks, publications, and awards. Not filled in.",
+        href: "",
+        link: "",
+        placeholder: true,
       },
     ],
   },

@@ -914,6 +914,42 @@ button.cafe-card[aria-pressed="true"] {
 .sw-cell.tone-clay.lv-4 { background: #8d4330; }
 .sw-note { margin: 0.7rem 0 0; color: var(--muted); font-size: 0.88rem; }
 
+.tag-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.7rem 0 0; padding: 0; list-style: none; }
+.tag-row a {
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  padding: 0.15rem 0.65rem;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 650;
+}
+.journal { position: relative; padding-top: 0.4rem; }
+.journal-body { max-width: 40rem; }
+.journal-body a { font-weight: 650; }
+.timeline { list-style: none; margin: 1.4rem 0 0; padding: 0 0 0 1.4rem; border-left: 2px solid var(--ink); display: grid; gap: 1rem; }
+.timeline li { position: relative; }
+.timeline li::before {
+  content: "";
+  position: absolute;
+  left: -1.55rem;
+  top: 1.1rem;
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  background: var(--yellow);
+}
+.timeline li.is-placeholder::before { background: var(--paper); }
+.timeline-card {
+  position: relative;
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  background: var(--paper);
+  box-shadow: 4px 4px 0 var(--ink);
+  padding: 0.9rem 1rem 1rem;
+}
+.timeline-card .placeholder-tape { top: -12px; }
+
 @media (min-width: 900px) {
   .sw-hero-grid { grid-template-columns: 1fr 1fr; }
   .sw-feature { grid-template-columns: 1fr 1fr; }
