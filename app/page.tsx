@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { site, type CalendarEvent } from "@/content/site";
 import { badgeParts } from "@/lib/format";
 import { CommunitySection } from "@/components/community-section";
-import { ConsultingSection } from "@/components/consulting-section";
 import { ContactForm } from "@/components/contact-form";
 import { Hero } from "@/components/hero";
 import { ProjectsSection } from "@/components/projects-section";
@@ -145,19 +144,14 @@ export default async function Page() {
           cta={site.projects.cta}
         />
       </div>
-      <div id="work-with-me" className="home-block home-consult">
-        <ConsultingSection
-          kicker={site.consulting.kicker}
+      <div id="work-with-me" className="home-block">
+        <span id="consulting" className="alias-anchor" />
+        <span id="note" className="alias-anchor" />
+        <ContactForm
           title={site.consulting.title}
           lede={site.consulting.lede}
-          cta={site.consulting.cta}
           aboutCta={site.consulting.aboutCta}
-        />
-        <ContactForm
-          kicker={site.contact.kicker}
-          title={site.contact.title}
-          lede={site.contact.lede}
-          topics={site.contact.topics}
+          messageLabel={site.contact.messageLabel}
           submit={site.contact.submit}
           sending={site.contact.sending}
           successTitle={site.contact.successTitle}

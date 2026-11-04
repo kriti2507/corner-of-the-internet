@@ -36,11 +36,17 @@ export function Header({ items, mark }: { items: readonly Item[]; mark: string }
     const pick = () => {
       const header = document.querySelector(".site-header")?.getBoundingClientRect().height ?? 0;
       const line = Math.max(header + 24, Math.min(window.innerHeight * 0.33, header + 180));
+      const atBottom =
+        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
       let current: string | null = null;
-      for (const id of ids) {
-        const node = document.getElementById(id);
-        if (!node) continue;
-        if (node.getBoundingClientRect().top <= line) current = id;
+      if (atBottom) {
+        current = ids[ids.length - 1] ?? null;
+      } else {
+        for (const id of ids) {
+          const node = document.getElementById(id);
+          if (!node) continue;
+          if (node.getBoundingClientRect().top <= line) current = id;
+        }
       }
       setActive((prev) => (prev === current ? prev : current));
     };

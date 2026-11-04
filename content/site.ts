@@ -511,10 +511,8 @@ export const site = {
   },
 
   consulting: {
-    kicker: "consulting",
-    title: "Work with me",
-    lede: "I consult for businesses on AI products and agents — a workflow you already run, or a tool-using agent your team can keep. Send a note and I'll write back about a call.",
-    cta: { label: "Work with me", href: "/#note" },
+    title: "Let's talk",
+    lede: "I consult for businesses on AI products and agents — a workflow you already run, or a tool-using agent your team can keep. Send a message and I'll write back about a call.",
     aboutCta: { label: "About me", href: "/about" },
   },
 
@@ -726,30 +724,8 @@ export const site = {
   },
 
   contact: {
-    kicker: "a note",
-    title: "Write me a note",
-    lede: "Tell me what you are trying to ship, or just say hello.",
-    services: [
-      {
-        title: "AI products",
-        body: "A workflow your team already runs, shaped into something people open on a Tuesday.",
-      },
-      {
-        title: "Agents",
-        body: "Tools, sandboxes, and skills — and a clear edge for what the agent should not do.",
-      },
-      {
-        title: "A working session",
-        body: "With the people who will keep it after the call, not a deck that leaves with me.",
-      },
-    ],
-    topics: [
-      { value: "product", label: "An AI product" },
-      { value: "agent", label: "An agent for my team" },
-      { value: "workshop", label: "A working session" },
-      { value: "hello", label: "Just saying hello" },
-    ],
-    submit: "Send the note",
+    messageLabel: "Message",
+    submit: "Send",
     sending: "Sending…",
     successTitle: "Got it.",
     successBody: "I'll write back soon.",

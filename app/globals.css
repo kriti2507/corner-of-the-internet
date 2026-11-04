@@ -900,7 +900,7 @@ button.cafe-card[aria-pressed="true"] {
   .up-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); align-items: stretch; }
   .up-grid > :nth-child(-n + 3) { grid-column: span 2; }
   .up-grid > :nth-child(n + 4) { grid-column: span 3; }
-  .split, .about-layout, .contact-layout, .project-layout { grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+  .split, .about-layout, .contact-layout, .project-layout, .talk-layout { grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
   .hike-layout { grid-template-columns: 1.05fr 0.95fr; align-items: start; }
   .hike-preview { grid-template-columns: 0.75fr 1.15fr; }
   .coffee-layout { grid-template-columns: 0.85fr 1.15fr; align-items: start; }
@@ -1146,7 +1146,16 @@ button.cafe-card[aria-pressed="true"] {
 .home-community { background: #e6f0e2; }
 .home-weekends { background: #e8e0d0; }
 .home-wins { background: #f8f3d4; }
-.home-consult { background: #efd15f; }
+.talk { padding: 1.35rem 0 1.6rem; background: var(--cream); }
+.talk-layout { display: grid; gap: 1rem; align-items: start; }
+.talk-copy h2 {
+  margin-bottom: 0.15rem;
+  font-size: clamp(1.7rem, 3vw, 2.35rem);
+}
+.talk-copy .lede { margin: 0.55rem 0 0.85rem; font-size: 1rem; }
+.talk .form-card form { gap: 0.55rem; }
+.talk .success-note { min-height: 0; padding: 0.4rem 0; }
+.talk .success-title { font-size: 1.8rem; }
 .weekend-grid {
   list-style: none;
   margin: 1rem 0 0;
@@ -1170,7 +1179,7 @@ button.cafe-card[aria-pressed="true"] {
 .crumbs a { text-underline-offset: 3px; }
 .crumbs li:not(:last-child)::after { content: "›"; margin: 0 0.45rem; font-weight: 500; }
 .crumb-wrap { padding-top: 1.1rem; }
-#sakana, #writing, #community, #weekends, #small-wins, #work-with-me, #note, #work, #projects {
+#sakana, #writing, #community, #weekends, #small-wins, #work-with-me, #consulting, #note, #work, #projects {
   scroll-margin-top: 7.5rem;
 }
 
@@ -1179,7 +1188,7 @@ button.cafe-card[aria-pressed="true"] {
 }
 
 @media (max-width: 800px) {
-  #sakana, #writing, #community, #weekends, #small-wins, #work-with-me, #note, #work, #projects {
+  #sakana, #writing, #community, #weekends, #small-wins, #work-with-me, #consulting, #note, #work, #projects {
     scroll-margin-top: 12rem;
   }
 }
