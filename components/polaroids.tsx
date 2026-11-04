@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRef, useState, type ReactNode } from "react";
 import { MiraSketch, MountainSketch } from "@/components/sketches";
 
@@ -152,7 +153,7 @@ export function PolaroidStage({
         </span>
       </DraggablePhoto>
 
-      <a className="meetup-badge" href={badge.href}>
+      <Link className="meetup-badge" href={badge.href}>
         <span className="badge-kicker">{badge.kicker}</span>
         <span className="badge-date">
           {badge.month}
@@ -162,7 +163,7 @@ export function PolaroidStage({
           {badge.dated ? `${badge.year} · ` : ""}
           {badge.seats}
         </span>
-      </a>
+      </Link>
 
       <svg className="spark spark-a" viewBox="0 0 24 24" aria-hidden="true">
         <path d="M12 1 L14 10 L23 12 L14 14 L12 23 L10 14 L1 12 L10 10 Z" fill="#1c2744" />

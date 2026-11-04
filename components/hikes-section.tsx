@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import rings from "@/data/japan-rings.json";
 import type { Hike } from "@/lib/hikes";
@@ -73,6 +74,9 @@ export function HikesSection({
   lede,
   mapLabel,
   approxNote,
+  preview = false,
+  moreHref,
+  moreLabel,
 }: {
   hikes: Hike[];
   kicker: string;
@@ -80,12 +84,15 @@ export function HikesSection({
   lede: string;
   mapLabel: string;
   approxNote: string;
+  preview?: boolean;
+  moreHref?: string;
+  moreLabel?: string;
 }) {
   const [selected, setSelected] = useState(hikes[hikes.length - 1]?.title ?? "");
   const [bounds, setBounds] = useState<Bounds>(JAPAN);
   const [region, setRegion] = useState<string | null>(null);
+  const [season, setSeason] = useState<string | null>(null);
   const zoomed = !sameBounds(bounds, JAPAN);
-  const hike = hikes.find((item) => item.title === selected) ?? hikes[0];
 
   const totals = useMemo(() => {
     const minutes = hikes.reduce((sum, item) => sum + (item.durationMin ?? 0), 0);
@@ -98,6 +105,20 @@ export function HikesSection({
       timed,
       highest,
     };
+  }, [hikes]);
+
+  const shown = useMemo(
+    () => (season ? hikes.filter((item) => item.tags.includes(season)) : hikes),
+    [hikes, season],
+  );
+  const hike = shown.find((item) => item.title === selected) ?? shown[shown.length - 1] ?? hikes[0];
+  const seasons = useMemo(() => {
+    const found = new Set<string>();
+    for (const item of hikes) {
+      const tag = item.tags.find((entry) => entry === "winter" || entry === "spring" || entry === "summer" || entry === "autumn");
+      if (tag) found.add(tag);
+    }
+    return ["spring", "summer", "autumn", "winter"].filter((item) => found.has(item));
   }, [hikes]);
 
   const regions = useMemo(() => {
@@ -121,24 +142,40 @@ export function HikesSection({
 
   const pins = useMemo(
     () =>
-      hikes
+      shown
         .filter((item) => item.lat != null && item.lng != null)
         .map((item) => ({ ...item, ...project(bounds, item.lng as number, item.lat as number) })),
-    [hikes, bounds],
+    [shown, bounds],
   );
 
   const groups = zoomed ? pins.map((pin) => ({ x: pin.x, y: pin.y, items: [pin] })) : clusterPins(pins, 16);
-  const maxClimbed = Math.max(...hikes.map((item) => item.climbedM));
+  const maxClimbed = Math.max(1, ...shown.map((item) => item.climbedM));
+
+  function pool() {
+    return season ? hikes.filter((item) => item.tags.includes(season)) : hikes;
+  }
 
   function selectRegion(next: string | null) {
     setRegion(next);
+    const base = pool();
     if (!next) {
       setBounds(JAPAN);
+      const latest = [...base].sort((a, b) => b.date.localeCompare(a.date))[0];
+      if (latest) setSelected(latest.title);
       return;
     }
-    const inRegion = hikes.filter((item) => item.region === next);
+    const inRegion = base.filter((item) => item.region === next);
     setBounds(boundsFor(inRegion));
     const latest = [...inRegion].sort((a, b) => b.date.localeCompare(a.date))[0];
+    if (latest) setSelected(latest.title);
+  }
+
+  function selectSeason(next: string | null) {
+    setSeason(next);
+    const base = next ? hikes.filter((item) => item.tags.includes(next)) : hikes;
+    const inView = region ? base.filter((item) => item.region === region) : base;
+    if (region) setBounds(inView.length ? boundsFor(inView) : JAPAN);
+    const latest = [...inView].sort((a, b) => b.date.localeCompare(a.date))[0];
     if (latest) setSelected(latest.title);
   }
 
@@ -146,9 +183,9 @@ export function HikesSection({
     <section className="band band-tight" id="hikes" aria-labelledby="hikes-heading">
       <div className="wrap">
         <p className="script kicker">{kicker}</p>
-        <h2 id="hikes-heading">{title}</h2>
+        {preview ? <h2 id="hikes-heading">{title}</h2> : <h1 id="hikes-heading">{title}</h1>}
         <p className="lede">{lede}</p>
-        <dl className="totals">
+        <dl className={preview ? "totals totals-pair" : "totals"}>
           <div>
             <dt>Hikes</dt>
             <dd>{totals.count}</dd>
@@ -157,22 +194,27 @@ export function HikesSection({
             <dt>Metres climbed</dt>
             <dd>{formatMeters(totals.climbed)}</dd>
           </div>
-          <div>
-            <dt>On the trail</dt>
-            <dd>
-              {formatHours(totals.minutes)}
-              <span> {totals.timed} of {totals.count} timed</span>
-            </dd>
-          </div>
-          <div>
-            <dt>Highest summit</dt>
-            <dd>
-              {totals.highest.title}
-              <span> {formatMeters(totals.highest.heightM)}</span>
-            </dd>
-          </div>
+          {preview ? null : (
+            <div>
+              <dt>On the trail</dt>
+              <dd>
+                {formatHours(totals.minutes)}
+                <span> {totals.timed} of {totals.count} timed</span>
+              </dd>
+            </div>
+          )}
+          {preview ? null : (
+            <div>
+              <dt>Highest summit</dt>
+              <dd>
+                {totals.highest.title}
+                <span> {formatMeters(totals.highest.heightM)}</span>
+              </dd>
+            </div>
+          )}
         </dl>
 
+        {preview ? null : (
         <div className="chips" role="toolbar" aria-label="Regions">
           <button type="button" className="chip" aria-pressed={region === null && !zoomed} onClick={() => selectRegion(null)}>
             All Japan
@@ -190,9 +232,38 @@ export function HikesSection({
             </button>
           ))}
         </div>
+        )}
 
-        <div className="hike-layout">
-          <figure className="map-frame">
+        {preview || seasons.length === 0 ? null : (
+          <div className="chips" role="toolbar" aria-label="Season">
+            <button type="button" className="chip" aria-pressed={season === null} onClick={() => selectSeason(null)}>
+              All seasons
+            </button>
+            {seasons.map((name) => (
+              <button key={name} type="button" className="chip" aria-pressed={season === name} onClick={() => selectSeason(name)}>
+                {name}
+              </button>
+            ))}
+          </div>
+        )}
+
+        <div className={preview ? "hike-preview" : "hike-layout"}>
+          {preview ? (
+            <div className="preview-copy">
+              {hike ? (
+                <p className="preview-peak">
+                  <span className="card-kicker">{hike.region}</span>
+                  {hike.title}
+                </p>
+              ) : null}
+              {moreHref && moreLabel ? (
+                <Link className="btn btn-ink" href={moreHref}>
+                  {moreLabel}
+                </Link>
+              ) : null}
+            </div>
+          ) : null}
+          <figure className={preview ? "map-frame map-preview" : "map-frame"}>
             <svg viewBox={`0 0 ${WIDTH} ${HEIGHT}`} role="img" aria-label={mapLabel}>
               <rect width={WIDTH} height={HEIGHT} fill="#d5e3f0" />
               <path d={path} fill="#f6f1e6" stroke="#1c2744" strokeWidth="1.4" strokeLinejoin="round" />
@@ -253,7 +324,7 @@ export function HikesSection({
             <figcaption>{mapLabel}</figcaption>
           </figure>
 
-          {hike ? (
+          {!preview && hike ? (
             <article className="detail-card" aria-live="polite">
               <p className="card-kicker">{hike.region}</p>
               <h3>{hike.title}</h3>
@@ -283,12 +354,25 @@ export function HikesSection({
               </div>
               {hike.pinApproximate ? <p className="quiet-note">{approxNote}</p> : null}
               {hike.lat == null ? <p className="quiet-note">This one is not on the map yet.</p> : null}
+              <p>
+                <Link className="card-link" href={`/hikes/${hike.slug}`}>
+                  This trail →
+                </Link>
+              </p>
+              <p className="tag-row">
+                {hike.tags.map((tag) => (
+                  <Link key={tag} href={`/tags/${tag}`}>
+                    {tag}
+                  </Link>
+                ))}
+              </p>
             </article>
           ) : null}
         </div>
 
+        {preview ? null : (
         <div className="elev" role="list" aria-label="Metres climbed, earliest to latest">
-          {hikes.map((item) => (
+          {shown.map((item) => (
             <button
               key={item.title}
               type="button"
@@ -307,6 +391,7 @@ export function HikesSection({
             </button>
           ))}
         </div>
+        )}
       </div>
     </section>
   );

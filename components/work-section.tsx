@@ -10,8 +10,8 @@ export function WorkSection({
   kicker: string;
   title: string;
   lede: string;
-  points: { title: string; body: string }[];
-  links: { label: string; href: string }[];
+  points: readonly { title: string; body: string }[];
+  links: readonly { label: string; href: string }[];
 }) {
   return (
     <section className="band" id="work" aria-labelledby="work-heading">

@@ -1,14 +1,23 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 type Item = { id: string; label: string; href: string };
 
-export function Header({ items }: { items: Item[] }) {
+function isPageLink(href: string) {
+  return href.startsWith("/") && !href.includes("#");
+}
+
+export function Header({ items, mark }: { items: readonly Item[]; mark: string }) {
+  const pathname = usePathname();
   const [active, setActive] = useState<string | null>(null);
 
   useEffect(() => {
+    if (pathname !== "/") return;
     const nodes = items
+      .filter((item) => item.href.includes("#"))
       .map((item) => document.getElementById(item.id))
       .filter((node): node is HTMLElement => node !== null);
     if (nodes.length === 0) return;
@@ -23,24 +32,33 @@ export function Header({ items }: { items: Item[] }) {
     );
     nodes.forEach((node) => observer.observe(node));
     return () => observer.disconnect();
-  }, [items]);
+  }, [items, pathname]);
 
   return (
     <header className="site-header">
       <div className="wrap header-row">
-        <a className="logo" href="#top">
-          K.
-          <span className="sr-only"> Kriti Agarwal, back to top</span>
-        </a>
-        <nav className="nav-scroll" aria-label="Sections">
+        <Link className="logo" href="/">
+          {mark}
+          <span className="sr-only"> home</span>
+        </Link>
+        <nav className="nav-scroll" aria-label="Site">
           <ul className="nav-pill">
-            {items.map((item) => (
-              <li key={item.id}>
-                <a href={item.href} aria-current={active === item.id ? "true" : undefined}>
-                  {item.label}
-                </a>
-              </li>
-            ))}
+            {items.map((item) => {
+              const current = isPageLink(item.href)
+                ? pathname === item.href
+                : pathname === "/" && active === item.id;
+              return (
+                <li key={item.id}>
+                  <Link
+                    href={item.href}
+                    className={item.id === "note" ? "nav-hi" : undefined}
+                    aria-current={current ? "page" : undefined}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
       </div>

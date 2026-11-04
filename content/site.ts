@@ -21,17 +21,71 @@ export const site = {
   email: "hello@yourdomain.com",
   emailIsPlaceholder: true,
 
+  /**
+   * Work and community jump to home sections.
+   * Interests opens the coffee hub, which links on to books and hikes.
+   */
   nav: [
-    { id: "work", label: "Work", href: "#work" },
-    { id: "writing", label: "Writing", href: "#writing" },
-    { id: "projects", label: "Projects", href: "#projects" },
-    { id: "community", label: "Community", href: "#community" },
-    { id: "about", label: "About", href: "#about" },
+    { id: "work", label: "Work", href: "/#work" },
+    { id: "writing", label: "Writing", href: "/writing" },
+    { id: "community", label: "Community", href: "/#community" },
+    { id: "hikes", label: "Hikes", href: "/hikes" },
+    { id: "coffee", label: "Interests", href: "/coffee" },
+    { id: "small-wins", label: "Small Wins", href: "/small-wins" },
+    { id: "about", label: "About", href: "/about" },
+    { id: "note", label: "Say hi", href: "/#note" },
   ],
+
+  /**
+   * Titles and descriptions for each shareable page.
+   * The document title template in the root layout adds " · Kriti Agarwal".
+   */
+  pages: {
+    writing: {
+      title: "Writing",
+      path: "/writing",
+      description:
+        "AI Noodle from Substack, and notes on this site that can point at a café, a book, or a hike.",
+    },
+    blog: {
+      title: "Journal",
+      path: "/blog",
+      description: "Notes on this site. Some are samples. A file can also point at a Substack letter.",
+    },
+    books: {
+      title: "Books",
+      path: "/books",
+      description: "Books from the log, with the series name when it is written in the title.",
+    },
+    about: {
+      title: "About",
+      path: "/about",
+      description:
+        "Kriti Agarwal builds AI products at Sakana in Tokyo, writes AI Noodle, hosts Women in AI/Tech Tokyo, and is building Small Wins.",
+    },
+    hikes: {
+      title: "Hikes",
+      path: "/hikes",
+      description:
+        "Trails from the hike log, mostly Hokkaido and the ridges around Tokyo, and the books on the shelf.",
+    },
+    coffee: {
+      title: "Coffee",
+      path: "/coffee",
+      description:
+        "Placeholder cafés Kriti will fill in, plus Japanese study, notebooks, Tokyo, and the mountains.",
+    },
+    smallWins: {
+      title: "Small Wins",
+      path: "/small-wins",
+      description:
+        "Small Wins is a little diary for the good things. Log one small win a day, in early access. Sign in with Google — only you can see it.",
+    },
+  },
 
   hero: {
     greeting: "hello from Tokyo ↓",
-    monogram: "K.",
+    monogram: "Kriti",
     lead: [
       { text: "I build AI products " },
       { text: "at Sakana", mark: "pink" },
@@ -44,9 +98,10 @@ export const site = {
       { text: " — on mountains, in notebooks, in code." },
     ] as LeadPart[],
     actions: [
-      { label: "Say hello", href: "#note", variant: "ink" as const },
-      { label: "Next meetup →", href: "#community", variant: "ghost" as const },
-      { label: "Work with me", href: "#note", variant: "yellow" as const },
+      { label: "Say hello", href: "/#note", variant: "ink" as const },
+      { label: "Community →", href: "/#community", variant: "ghost" as const },
+      { label: "About →", href: "/about", variant: "ghost" as const },
+      { label: "Work with me", href: "/#note", variant: "yellow" as const },
     ],
   },
 
@@ -78,7 +133,7 @@ export const site = {
    * "~20 seats" is Kriti's note, not a number scraped from the calendar.
    */
   meetup: {
-    kicker: "Next meetup",
+    kicker: "Community",
     seatsLabel: "~20 seats",
     fallbackMonth: "Nov",
     fallbackYear: "’26",
@@ -95,7 +150,7 @@ export const site = {
         tilt: "1",
         title: "The agent inside Sakana Chat",
         body: "Tool calling, code sandboxes, skills — plus Sakana Translate.",
-        href: "#work",
+        href: "/#work",
         link: "More on work →",
       },
       {
@@ -105,7 +160,7 @@ export const site = {
         tilt: "2",
         title: "AI Noodle",
         body: "Growing up alongside AI, from someone who builds it. Out Saturday mornings, Tokyo time.",
-        href: "#writing",
+        href: "/writing",
         link: "Read the latest →",
       },
       {
@@ -115,7 +170,7 @@ export const site = {
         tilt: "3",
         title: "Small Wins",
         body: "Log one small win a day. Free in November, with a 30-day challenge.",
-        href: "#projects",
+        href: "/#projects",
         link: "Join the challenge →",
       },
       {
@@ -125,7 +180,7 @@ export const site = {
         tilt: "4",
         title: "Women in AI, Tokyo",
         body: "A cafe, a question, about twenty of us. First table: late November.",
-        href: "#community",
+        href: "/#community",
         link: "Save a seat →",
       },
       {
@@ -135,7 +190,7 @@ export const site = {
         tilt: "5",
         title: "Work with me",
         body: "I consult for businesses on AI products and agents — a workflow you already run, or a tool-using agent your team can keep.",
-        href: "#note",
+        href: "/#note",
         link: "Book a call →",
       },
     ],
@@ -180,6 +235,8 @@ export const site = {
     profileUrl: "https://substack.com/@theainoodle",
     publicationName: "The AI Noodle",
     allLabel: "All the letters →",
+    seeAll: "See all the letters →",
+    filters: { all: "All", site: "On this site", noodle: "AI Noodle" },
     fallbackNote:
       "The live feed didn't answer, so these are saved copies of recent letters.",
     fallbackPosts: [
@@ -215,24 +272,123 @@ export const site = {
   projects: {
     kicker: "shipping",
     title: "Small Wins",
-    lede: "Log one small win a day. Free in November, with a 30-day challenge.",
+    lede: "A little diary for the good things. Log one small win a day.",
     /**
      * Public app URL, when there is one. Null hides the outbound link
      * so the site never points at a guess.
      */
     url: null as string | null,
     points: [
-      "One entry a day — a hike, a page, a fix, a table you hosted.",
-      "Free through November.",
-      "A 30-day challenge if you want the streak more than the speech.",
+      "One entry a day — a hike, a page, a fix, a conversation.",
+      "Each part of life fills in on its own colour.",
+      "Early access. Sign in with Google, and only you can see it.",
     ],
-    note: "The mountains and the bookshelf further down are slices of that same log, bundled with the site for now and ready to switch to the live Small Wins API.",
-    cta: { label: "Count me in →", href: "#note" },
+    note: "The hike log and the bookshelf on this site are slices of that same habit.",
+    cta: { label: "See Small Wins →", href: "/small-wins" },
+    others: [
+      {
+        kicker: "Field notes",
+        tone: "blue" as const,
+        tilt: "1",
+        title: "Mountains and the shelf",
+        body: "The hike log and the books. The same small-wins habit, with a map and a shelf of their own.",
+        href: "/hikes",
+        link: "See the trails →",
+      },
+    ],
+  },
+
+  /**
+   * Product introduction for Small Wins. Not a setup guide.
+   * The live app signs in with Google.
+   */
+  smallWins: {
+    kicker: "early access",
+    title: "Small Wins",
+    pitch: "A little diary for the good things.",
+    lede: "Log one small win a day and watch each part of your life fill in. Setup takes about two minutes.",
+    privacy: "Sign in with Google. Only you can see what you log.",
+    tryLabel: "Try the beta",
+    startLabel: "Start logging wins",
+    url: "https://small-wins-live.vercel.app/",
+    sampleNote: "A sample grid, not a real diary. Darker squares are bigger wins.",
+    ranges: ["30d", "90d", "1y", "All"],
+    features: [
+      {
+        kicker: "time capsule",
+        title: "Your month at a glance",
+        body: "Each coloured square is a win from that day. Darker squares are bigger wins — a longer workout, a further hike. Zoom from thirty days out to a year, or the whole log, and look back at past months.",
+        image: "/small-wins/time-capsule.png",
+        width: 780,
+        height: 1632,
+        alt: "Small Wins Time Capsule for a month, with green and purple squares on the days a win was logged.",
+      },
+      {
+        kicker: "aspects",
+        title: "The parts of life you track",
+        body: "You start with Workout and Journal. Add your own — Hikes, Books, Runs — with a name, a colour, and fields such as Distance (km) or Pages. Number fields can shade higher-is-better or lower-is-better, so the grid knows what a big win is.",
+        image: "/small-wins/aspects.png",
+        width: 780,
+        height: 1340,
+        alt: "Workout and Journal tiles, each filled with a grid of coloured squares.",
+      },
+      {
+        kicker: "the entry",
+        title: "A photo, and the story if you want it",
+        body: "One entry a day is the habit. A twenty-minute walk counts. Add a photo, and write the story when a hike, a trip, or a book is worth more than the number.",
+        image: "/small-wins/story.png",
+        width: 780,
+        height: 1688,
+        alt: "A hike entry titled Mt. Tanzawa, with a photo, the distance, and a short story.",
+      },
+      {
+        kicker: "over time",
+        title: "The empty grid turns into a picture",
+        body: "Every entry fills a square. A couple of weeks in, most of the grid is still quiet. A few months in, it holds a shape. Switch 30d, 90d, 1y, and All to zoom.",
+        image: "/small-wins/grow.png",
+        width: 1808,
+        height: 722,
+        alt: "The same Workout grid after two weeks, mostly empty, and after three months, filled in with greens.",
+        wide: true,
+      },
+    ],
+    phone: {
+      kicker: "on your phone",
+      title: "It lives on your home screen",
+      body: "Small Wins is a web app. Add it to your home screen on iPhone or Android and it opens full screen from its own icon. No App Store.",
+      image: "/small-wins/phone.png",
+      width: 500,
+      height: 1116,
+      alt: "A phone home screen with the Small Wins icon among the other apps.",
+    },
+    chat: {
+      kicker: "from a chat",
+      title: "Log a win by talking to Claude or ChatGPT",
+      body: "If you already talk to Claude or ChatGPT, you can log from the conversation. In Small Wins, open your account menu and go to Connected apps for the link.",
+    },
+    faqTitle: "Before you start",
+    faq: [
+      {
+        q: "Is it private?",
+        a: "Yes. You sign in with Google, and only you can see your wins.",
+      },
+      {
+        q: "Is it free?",
+        a: "It's in beta — early access. This page doesn't list a price.",
+      },
+      {
+        q: "Do I need the App Store?",
+        a: "No. Open it in the browser, then add it to your home screen on iPhone or Android.",
+      },
+    ],
+    closingKicker: "two minutes",
+    closingTitle: "One small win a day",
+    closingLede: "Set it up, log something small, and let the grid fill in.",
   },
 
   community: {
-    kicker: "monthly",
-    title: "Women in AI, Tokyo",
+    kicker: "community",
+    title: "Women in AI/Tech Tokyo",
     lede: "A cafe, a question, about twenty of us. The next table is whatever the public calendar says.",
     calendarUrl: "https://luma.com/calendar/cal-SGe7q4ZRJ8WRTcv",
     /** Public iCal. Confirmed: returns text/calendar for Women x Tech. */
@@ -240,6 +396,8 @@ export const site = {
       "https://api.lu.ma/ics/get?entity=calendar&id=cal-SGe7q4ZRJ8WRTcv",
     calendarLabel: "The calendar →",
     saveLabel: "Save a seat →",
+    pastTitle: "Earlier tables",
+    pastLink: "See the page →",
     empty: "The next table isn't posted yet. The calendar is the place to watch.",
     fallbackNote: "The live calendar didn't answer, so this is the last table I saved.",
     fallbackEvents: [
@@ -258,6 +416,10 @@ export const site = {
     kicker: "field notes",
     title: "On the mountains",
     lede: "Trails from the hike log — mostly Hokkaido, and the ridges around Tokyo. Tap a peak or a bar.",
+    previewLede: "Mostly Hokkaido, and the ridges around Tokyo. Tap a pin.",
+    moreLabel: "See the map and the shelf →",
+    seasonLabel: "Season",
+    trailLink: "This trail →",
     mapLabel: "Japan, north up. Pins are placed by hand.",
     approxNote: "This pin is approximate.",
   },
@@ -294,7 +456,10 @@ export const site = {
     kicker: "notebook",
     title: "The shelf",
     lede: "Books from the log. Pull one out.",
+    hubLede: "The same log, with a page for each title. A tag appears only when the series name is written in the title.",
     readLabel: "Logged",
+    openLabel: "Open the page →",
+    emptyNotes: "No notes point at this book yet.",
   },
 
   cafes: {
@@ -331,10 +496,172 @@ export const site = {
     facts: ["Tokyo", "Sakana AI", "AI Noodle", "Women in AI"],
   },
 
-  contact: {
+  consulting: {
     kicker: "consulting",
     title: "Work with me",
-    lede: "I consult for businesses on AI products and agents. Tell me what you are trying to ship and I will write back about a call.",
+    lede: "I consult for businesses on AI products and agents — a workflow you already run, or a tool-using agent your team can keep. Send a note and I'll write back about a call.",
+    cta: { label: "Work with me", href: "/#note" },
+  },
+
+  coffee: {
+    kicker: "a corner",
+    title: "Coffee and the rest",
+    lede: "Counters, a language in the margins, and the other things that don't fit on a résumé. These café cards are placeholders — the names are not real yet.",
+    teaserTitle: "Coffee and other interests",
+    teaserLede: "The café names are still placeholders. The rest is Japanese study, notebooks, and the city between the trails.",
+    seeAll: "See the corner →",
+    allLabel: "All",
+    tagLabel: "Tag",
+    areaLabel: "Neighbourhood",
+    pageLink: "The page →",
+    ticketKicker: "on the ticket",
+    interestsKicker: "besides",
+    interestsTitle: "Other interests",
+    interestsLede:
+      "Japanese study sits in the margins. Between the product and the table, I am on a mountain, in a notebook, or writing down one small win.",
+    interests: [
+      {
+        kicker: "Language",
+        tone: "yellow" as const,
+        tilt: "2",
+        title: "Japanese",
+        body: "JLPT N1 is in progress. Study sits in the margins.",
+      },
+      {
+        kicker: "Notebook",
+        tone: "pink" as const,
+        tilt: "3",
+        title: "One small win",
+        body: "Written down so the day does not disappear.",
+      },
+      {
+        kicker: "City",
+        tone: "blue" as const,
+        tilt: "1",
+        title: "Tokyo",
+        body: "Tables, trails, and the walk between them.",
+      },
+      {
+        kicker: "Ridges",
+        tone: "green" as const,
+        tilt: "4",
+        title: "Mountains",
+        body: "Mostly Hokkaido, and the hills around the city.",
+        href: "/hikes",
+        link: "See the trails →",
+      },
+      {
+        kicker: "Shelf",
+        tone: "peach" as const,
+        tilt: "5",
+        title: "Books",
+        body: "Titles from the log. A note can point at one.",
+        href: "/books",
+        link: "Browse the shelf →",
+      },
+    ],
+  },
+
+  blog: {
+    kicker: "journal",
+    title: "Notes",
+    lede: "Files in this repo. A sample is marked. A file can also point at a Substack letter without pasting it here.",
+    empty: "No notes yet.",
+    externalLabel: "Read it on Substack →",
+    mentions: "Mentioned here",
+    noMentions: "This note does not point at a café, a book, or a hike.",
+  },
+
+  tags: {
+    kicker: "tag",
+    title: "Tagged",
+    lede: "Notes, cafés, books, and hikes that carry this tag.",
+    notes: "Notes",
+    cafes: "Cafés",
+    books: "Books",
+    hikes: "Hikes",
+    emptyNotes: "No notes with this tag.",
+    emptyCafes: "No cafés with this tag.",
+    emptyBooks: "No books with this tag.",
+    emptyHikes: "No hikes with this tag.",
+  },
+
+  aboutPage: {
+    kicker: "a person",
+    title: "About",
+    lede: "What this site already knows. Anything missing is marked TODO — it is not a guess.",
+    timeline: [
+      {
+        when: "Now",
+        title: "AI developer at Sakana AI",
+        body: "The agent inside Sakana Chat — tool calling, code sandboxes, and skills — and Sakana Translate.",
+        href: "/#work",
+        link: "The day job →",
+        placeholder: false,
+      },
+      {
+        when: "Now",
+        title: "AI Noodle",
+        body: "A Substack on growing up alongside AI, from someone who builds it. Saturday mornings, Tokyo time.",
+        href: "/writing",
+        link: "The letters →",
+        placeholder: false,
+      },
+      {
+        when: "Now",
+        title: "Women in AI/Tech Tokyo",
+        body: "A table for women in AI and tech. A cafe, a question, about twenty of us.",
+        href: "/#community",
+        link: "Community →",
+        placeholder: false,
+      },
+      {
+        when: "Now",
+        title: "Small Wins",
+        body: "A little diary for the good things. One small win a day, in early access.",
+        href: "/small-wins",
+        link: "The app →",
+        placeholder: false,
+      },
+      {
+        when: "Now",
+        title: "Consulting",
+        body: "Consulting for businesses on AI products and agents.",
+        href: "/#consulting",
+        link: "Work with me →",
+        placeholder: false,
+      },
+      {
+        when: "Before Sakana",
+        title: "Team Lead, Edge AI Development at AWL",
+        body: "Hokkaido, Japan. Before the current role at Sakana AI. TODO: dates, and any detail beyond the title — not filled in.",
+        href: "",
+        link: "",
+        placeholder: false,
+      },
+      {
+        when: "Education",
+        title: "Chemical Engineering at IIT Bombay",
+        body: "TODO: dates and the degree name — not filled in.",
+        href: "",
+        link: "",
+        placeholder: false,
+      },
+      {
+        when: "TODO",
+        title: "Talks and awards — add later",
+        body: "TODO: talks, publications, and awards. Not filled in.",
+        href: "",
+        link: "",
+        placeholder: true,
+      },
+    ],
+  },
+
+  contact: {
+    kicker: "a note",
+    title: "Write me a note",
+    lede: "Tell me what you are trying to ship, or just say hello.",
     services: [
       {
         title: "AI products",

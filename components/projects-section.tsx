@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { External } from "@/components/external";
 
 export function ProjectsSection({
@@ -8,6 +9,7 @@ export function ProjectsSection({
   points,
   note,
   cta,
+  others = [],
 }: {
   kicker: string;
   title: string;
@@ -16,6 +18,15 @@ export function ProjectsSection({
   points: readonly string[];
   note: string;
   cta: { label: string; href: string };
+  others?: readonly {
+    kicker: string;
+    tone: "blue" | "pink" | "yellow" | "green" | "peach";
+    tilt: string;
+    title: string;
+    body: string;
+    href: string;
+    link: string;
+  }[];
 }) {
   return (
     <section className="band" id="projects" aria-labelledby="projects-heading">
@@ -29,9 +40,9 @@ export function ProjectsSection({
               Open Small Wins →
             </External>
           ) : (
-            <a className="btn btn-ink" href={cta.href}>
+            <Link className="btn btn-ink" href={cta.href}>
               {cta.label}
-            </a>
+            </Link>
           )}
         </article>
         <div>
@@ -41,6 +52,20 @@ export function ProjectsSection({
             ))}
           </ol>
           <p className="note">{note}</p>
+          {others.length > 0 ? (
+            <ul className="side-grid">
+              {others.map((item) => (
+                <li key={item.href}>
+                  <Link className={`sticker tone-${item.tone}`} data-tilt={item.tilt} href={item.href}>
+                    <p className="card-kicker">{item.kicker}</p>
+                    <h3>{item.title}</h3>
+                    <p className="card-body">{item.body}</p>
+                    <span className="card-link">{item.link}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          ) : null}
         </div>
       </div>
     </section>

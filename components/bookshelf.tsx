@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import type { Book } from "@/lib/books";
 import { formatDay } from "@/lib/format";
@@ -47,6 +48,11 @@ export function Bookshelf({
             <p>{book.author}</p>
             <p>
               {readLabel} <time dateTime={book.date}>{formatDay(book.date)}</time>
+            </p>
+            <p>
+              <Link className="card-link" href={`/books/${book.slug}`}>
+                Open the page →
+              </Link>
             </p>
           </article>
         ) : null}

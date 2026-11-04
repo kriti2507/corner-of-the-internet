@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { LeadPart } from "@/content/site";
 import { PolaroidStage } from "@/components/polaroids";
 
@@ -26,8 +27,8 @@ export function Hero({
   name: string;
   greeting: string;
   monogram: string;
-  lead: LeadPart[];
-  actions: Action[];
+  lead: readonly LeadPart[];
+  actions: readonly Action[];
   badge: Badge;
   photos: {
     mountain: string | null;
@@ -47,11 +48,9 @@ export function Hero({
     <section className="hero wrap" aria-labelledby="intro-heading">
       <div className="hero-copy">
         <p className="script greeting">{greeting}</p>
-        <p className="monogram" aria-hidden="true">
+        <h1 id="intro-heading" className="monogram">
           {monogram}
-        </p>
-        <h1 id="intro-heading" className="sr-only">
-          {name}
+          <span className="sr-only"> {name}</span>
         </h1>
         <p className="hero-lead">
           {lead.map((part, index) =>
@@ -66,9 +65,9 @@ export function Hero({
         </p>
         <div className="hero-actions">
           {actions.map((action) => (
-            <a key={action.label} className={`btn btn-${action.variant}`} href={action.href}>
+            <Link key={action.label} className={`btn btn-${action.variant}`} href={action.href}>
               {action.label}
-            </a>
+            </Link>
           ))}
         </div>
       </div>

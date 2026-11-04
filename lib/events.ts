@@ -2,10 +2,11 @@ import "server-only";
 
 import { cacheLife, cacheTag } from "next/cache";
 import { site, type CalendarEvent } from "@/content/site";
-import { parseIcs, upcomingEvents } from "@/lib/ics";
+import { parseIcs, pastEvents, upcomingEvents } from "@/lib/ics";
 
 export async function getEvents(): Promise<{
   upcoming: CalendarEvent[];
+  past: CalendarEvent[];
   source: "live" | "fallback";
 }> {
   "use cache";
@@ -21,12 +22,14 @@ export async function getEvents(): Promise<{
       signal: AbortSignal.timeout(8000),
     });
     if (!response.ok) throw new Error(`calendar ${response.status}`);
-    const upcoming = upcomingEvents(parseIcs(await response.text()));
-    return { upcoming, source: "live" };
+    const events = parseIcs(await response.text());
+    return { upcoming: upcomingEvents(events), past: pastEvents(events), source: "live" };
   } catch (error) {
     console.error("[community] using saved event", error);
+    const saved = [...site.community.fallbackEvents];
     return {
-      upcoming: upcomingEvents([...site.community.fallbackEvents]),
+      upcoming: upcomingEvents(saved),
+      past: pastEvents(saved),
       source: "fallback",
     };
   }

@@ -1,7 +1,9 @@
 import hikesJson from "@/data/hikes.json";
 import { site } from "@/content/site";
+import { seasonFor, slugify } from "@/lib/slug";
 
 export type Hike = {
+  slug: string;
   title: string;
   region: string;
   date: string;
@@ -11,6 +13,8 @@ export type Hike = {
   lat: number | null;
   lng: number | null;
   pinApproximate: boolean;
+  /** Region, plus the season of the logged date. Difficulty is not in the log. */
+  tags: string[];
 };
 
 type RawHike = {
@@ -38,6 +42,7 @@ export function getHikes(): Hike[] {
     .map((hike) => {
       const pin = site.hikePins[hike.title];
       return {
+        slug: slugify(hike.title),
         title: hike.title,
         region: hike.region,
         date: hike.date,
@@ -47,7 +52,12 @@ export function getHikes(): Hike[] {
         lat: pin?.lat ?? null,
         lng: pin?.lng ?? null,
         pinApproximate: Boolean(pin?.approximate),
+        tags: [slugify(hike.region), seasonFor(hike.date)],
       };
     })
     .sort((a, b) => a.date.localeCompare(b.date));
+}
+
+export function getHike(slug: string) {
+  return getHikes().find((hike) => hike.slug === slug) ?? null;
 }

@@ -23,7 +23,7 @@ export function ContactForm({
   kicker,
   title,
   lede,
-  services,
+  services = [],
   topics,
   submit,
   sending,
@@ -35,8 +35,8 @@ export function ContactForm({
   kicker: string;
   title: string;
   lede: string;
-  services: { title: string; body: string }[];
-  topics: Topic[];
+  services?: readonly { title: string; body: string }[];
+  topics: readonly Topic[];
   submit: string;
   sending: string;
   successTitle: string;
@@ -90,14 +90,16 @@ export function ContactForm({
           <p className="script kicker">{kicker}</p>
           <h2 id="note-heading">{title}</h2>
           <p className="lede">{lede}</p>
-          <ul className="point-list">
-            {services.map((service) => (
-              <li key={service.title}>
-                <h3>{service.title}</h3>
-                <p>{service.body}</p>
-              </li>
-            ))}
-          </ul>
+          {services.length > 0 ? (
+            <ul className="point-list">
+              {services.map((service) => (
+                <li key={service.title}>
+                  <h3>{service.title}</h3>
+                  <p>{service.body}</p>
+                </li>
+              ))}
+            </ul>
+          ) : null}
         </div>
         <div className="form-card">
           {status === "sent" ? (

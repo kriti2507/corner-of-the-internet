@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { External } from "@/components/external";
 
 export function SiteFooter({
@@ -9,15 +10,15 @@ export function SiteFooter({
   prompt: string;
   email: string;
   noteHref: string;
-  links: { label: string; href: string }[];
+  links: readonly { label: string; href: string }[];
 }) {
   return (
     <footer className="site-footer">
       <div className="wrap footer-grid">
         <div>
-          <a className="script footer-prompt" href={noteHref}>
+          <Link className="script footer-prompt" href={noteHref}>
             {prompt}
-          </a>
+          </Link>
           <a className="footer-email" href={`mailto:${email}`}>
             [{email}]
           </a>
