@@ -157,29 +157,15 @@ a { color: inherit; }
   letter-spacing: -0.045em;
 }
 
-.hero-roles {
-  list-style: none;
-  margin: 0.45rem 0 0;
-  padding: 0;
-  display: grid;
-  gap: 0.38rem;
-  max-width: 24rem;
-}
-
-.hero-roles a {
-  display: inline-block;
-  width: fit-content;
-  max-width: 100%;
+.hero-lead {
+  margin: 0.2rem 0 0;
+  max-width: 28rem;
   font-family: var(--font-fraunces), Georgia, serif;
-  font-weight: 560;
-  font-size: clamp(1.2rem, 2vw, 1.5rem);
-  line-height: 1.2;
+  font-weight: 520;
+  font-size: clamp(1.42rem, 2.3vw, 1.85rem);
+  line-height: 1.38;
   letter-spacing: -0.02em;
-  text-decoration: none;
-  padding: 0.02rem 0.18rem;
 }
-
-.hero-roles a:hover { text-decoration: underline; text-underline-offset: 3px; }
 
 .mark {
   background: transparent;
@@ -193,7 +179,6 @@ a { color: inherit; }
 .mark-yellow { background-image: linear-gradient(#ffe56a, #ffe56a); }
 .mark-green { background-image: linear-gradient(#c9e39a, #c9e39a); }
 .mark-blue { background-image: linear-gradient(#b7d4f5, #b7d4f5); }
-.mark-peach { background-image: linear-gradient(#f0c9a8, #f0c9a8); }
 
 .hero-actions {
   display: flex;

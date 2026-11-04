@@ -63,7 +63,7 @@ export default async function Page() {
           name={site.name}
           greeting={site.hero.greeting}
           monogram={site.hero.monogram}
-          roles={site.hero.roles}
+          lead={site.hero.lead}
           badge={badgeFor(nextMeetup)}
           photos={site.photos}
           polaroids={{

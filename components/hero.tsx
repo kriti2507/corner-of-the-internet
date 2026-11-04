@@ -1,5 +1,4 @@
-import Link from "next/link";
-import type { HeroRole } from "@/content/site";
+import type { LeadPart } from "@/content/site";
 import { PolaroidStage } from "@/components/polaroids";
 
 type Badge = {
@@ -16,7 +15,7 @@ export function Hero({
   name,
   greeting,
   monogram,
-  roles,
+  lead,
   badge,
   photos,
   polaroids,
@@ -26,7 +25,7 @@ export function Hero({
   name: string;
   greeting: string;
   monogram: string;
-  roles: readonly HeroRole[];
+  lead: readonly LeadPart[];
   badge: Badge;
   photos: {
     mountain: string | null;
@@ -56,26 +55,17 @@ export function Hero({
           {monogram}
           <span className="sr-only"> {name}</span>
         </h1>
-        <ul className="hero-roles">
-          {roles.map((role) => {
-            const className = `mark mark-${role.mark}`;
-            const external = role.href.startsWith("http");
-            return (
-              <li key={role.href}>
-                {external ? (
-                  <a className={className} href={role.href} target="_blank" rel="noreferrer">
-                    {role.label}
-                    <span className="sr-only"> (opens in a new tab)</span>
-                  </a>
-                ) : (
-                  <Link className={className} href={role.href}>
-                    {role.label}
-                  </Link>
-                )}
-              </li>
-            );
-          })}
-        </ul>
+        <p className="hero-lead">
+          {lead.map((part, index) =>
+            part.mark ? (
+              <mark key={index} className={`mark mark-${part.mark}`}>
+                {part.text}
+              </mark>
+            ) : (
+              <span key={index}>{part.text}</span>
+            ),
+          )}
+        </p>
       </div>
       <PolaroidStage
         badge={badge}
