@@ -1,0 +1,23 @@
+[
+{"title":"Maruyama","region":"Hokkaido","date":"2026-05-01","height_of_mountain_m":225,"climbed_m":225,"duration_min":null},
+{"title":"Shiripayama","region":"Hokkaido","date":"2026-05-06","height_of_mountain_m":296,"climbed_m":296,"duration_min":null},
+{"title":"Takaosan","region":"Tokyo","date":"2026-06-06","height_of_mountain_m":599,"climbed_m":599,"duration_min":null},
+{"title":"Tsukubasan","region":"Ibaraki","date":"2026-07-04","height_of_mountain_m":877,"climbed_m":723,"duration_min":299},
+{"title":"Akabokko","region":"Tokyo","date":"2026-07-12","height_of_mountain_m":430,"climbed_m":430,"duration_min":177},
+{"title":"Kinpusan","region":"Nagano","date":"2026-07-19","height_of_mountain_m":2599,"climbed_m":541,"duration_min":212},
+{"title":"Iwanaidake","region":"Hokkaido","date":"2026-07-26","height_of_mountain_m":1086,"climbed_m":862,"duration_min":335},
+{"title":"Mt Oyama","region":"Kanagawa","date":"2026-08-02","height_of_mountain_m":1251,"climbed_m":1071,"duration_min":425},
+{"title":"Mitake","region":"Tokyo","date":"2026-08-11","height_of_mountain_m":1079,"climbed_m":690,"duration_min":338},
+{"title":"Shioya Maruyama","region":"Hokkaido","date":"2026-08-22","height_of_mountain_m":629,"climbed_m":543,"duration_min":240},
+{"title":"Ashibetsu","region":"Hokkaido","date":"2026-08-24","height_of_mountain_m":1726,"climbed_m":1532,"duration_min":700},
+{"title":"Nokogiriyama","region":"Chiba","date":"2026-08-30","height_of_mountain_m":329,"climbed_m":531,"duration_min":261},
+{"title":"Nekodake","region":"Nagano","date":"2026-09-06","height_of_mountain_m":2207,"climbed_m":890,"duration_min":375},
+{"title":"Yoteizan","region":"Hokkaido","date":"2026-09-19","height_of_mountain_m":1898,"climbed_m":1678,"duration_min":752},
+{"title":"Asahidake","region":"Hokkaido","date":"2026-09-21","height_of_mountain_m":2291,"climbed_m":705,"duration_min":325},
+{"title":"Eniwadake","region":"Hokkaido","date":"2026-09-25","height_of_mountain_m":1302,"climbed_m":1200,"duration_min":589},
+{"title":"Takimidai","region":"Hokkaido","date":"2026-10-11","height_of_mountain_m":449,"climbed_m":449,"duration_min":332},
+{"title":"Hakkenzan","region":"Hokkaido","date":"2026-10-12","height_of_mountain_m":425,"climbed_m":425,"duration_min":220},
+{"title":"Mt Chausu","region":"Tochigi","date":"2026-10-18","height_of_mountain_m":1917,"climbed_m":551,"duration_min":292},
+{"title":"Tonodake","region":"Kanagawa","date":"2026-11-01","height_of_mountain_m":1490,"climbed_m":1457,"duration_min":593},
+{"title":"Jinbasan","region":"Tokyo","date":"2026-11-03","height_of_mountain_m":857,"climbed_m":778,"duration_min":342}
+]
