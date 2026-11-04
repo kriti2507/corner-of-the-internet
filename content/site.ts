@@ -6,9 +6,9 @@
  * There is no top ticker — she asked for it to be removed.
  */
 
-export type Mark = "pink" | "yellow" | "green" | "blue";
+export type Mark = "pink" | "yellow" | "green" | "blue" | "peach";
 
-export type LeadPart = { text: string; mark?: Mark };
+export type HeroRole = { label: string; href: string; mark: Mark };
 
 export const site = {
   name: "Kriti Agarwal",
@@ -65,7 +65,7 @@ export const site = {
       title: "Hikes",
       path: "/hikes",
       description:
-        "Trails from the hike log, mostly Hokkaido and the ridges around Tokyo, and the books on the shelf.",
+        "Trails from the hike log, mostly Hokkaido and the ridges around Tokyo.",
     },
     coffee: {
       title: "Coffee",
@@ -89,17 +89,17 @@ export const site = {
   hero: {
     greeting: "hello from Tokyo ↓",
     monogram: "Kriti",
-    lead: [
-      { text: "I build AI products " },
-      { text: "at Sakana", mark: "pink" },
-      { text: ", " },
-      { text: "write AI Noodle", mark: "yellow" },
-      { text: ", " },
-      { text: "host Women in AI Tokyo", mark: "green" },
-      { text: " and " },
-      { text: "collect small wins", mark: "blue" },
-      { text: " — on mountains, in notebooks, in code." },
-    ] as LeadPart[],
+    /**
+     * One line each, linking somewhere the site already points.
+     * Sakana, AI Noodle, and the Luma calendar match the links further down.
+     */
+    roles: [
+      { label: "Works at Sakana AI", href: "https://sakana.ai", mark: "pink" },
+      { label: "Writes AI Noodle", href: "https://unplannedwriter.substack.com", mark: "yellow" },
+      { label: "Hosts Women in AI/Tech Tokyo", href: "https://luma.com/calendar/cal-SGe7q4ZRJ8WRTcv", mark: "green" },
+      { label: "Builds Small Wins", href: "/small-wins", mark: "blue" },
+      { label: "Consults", href: "/#work-with-me", mark: "peach" },
+    ] as HeroRole[],
     /**
      * Hidden under the two hero photos. Placeholders only — no real codes.
      * Order matches the photos: mountain, then Mira.
@@ -429,9 +429,9 @@ export const site = {
   hikes: {
     kicker: "field notes",
     title: "On the mountains",
-    lede: "Trails from the hike log — mostly Hokkaido, and the ridges around Tokyo. Tap a peak or a bar.",
+    lede: "Trails from the hike log — mostly Hokkaido, and the ridges around Tokyo. Tap a bar to read one.",
     previewLede: "Mostly Hokkaido, and the ridges around Tokyo. Tap a pin.",
-    moreLabel: "See the map and the shelf →",
+    moreLabel: "See the map →",
     seasonLabel: "Season",
     trailLink: "This trail →",
     mapLabel: "Japan, north up. Pins are placed by hand.",

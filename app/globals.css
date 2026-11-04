@@ -157,15 +157,29 @@ a { color: inherit; }
   letter-spacing: -0.045em;
 }
 
-.hero-lead {
-  margin: 0.2rem 0 0;
-  max-width: 28rem;
-  font-family: var(--font-fraunces), Georgia, serif;
-  font-weight: 520;
-  font-size: clamp(1.42rem, 2.3vw, 1.85rem);
-  line-height: 1.38;
-  letter-spacing: -0.02em;
+.hero-roles {
+  list-style: none;
+  margin: 0.45rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.38rem;
+  max-width: 24rem;
 }
+
+.hero-roles a {
+  display: inline-block;
+  width: fit-content;
+  max-width: 100%;
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-weight: 560;
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  padding: 0.02rem 0.18rem;
+}
+
+.hero-roles a:hover { text-decoration: underline; text-underline-offset: 3px; }
 
 .mark {
   background: transparent;
@@ -179,6 +193,7 @@ a { color: inherit; }
 .mark-yellow { background-image: linear-gradient(#ffe56a, #ffe56a); }
 .mark-green { background-image: linear-gradient(#c9e39a, #c9e39a); }
 .mark-blue { background-image: linear-gradient(#b7d4f5, #b7d4f5); }
+.mark-peach { background-image: linear-gradient(#f0c9a8, #f0c9a8); }
 
 .hero-actions {
   display: flex;
@@ -728,6 +743,78 @@ button.cafe-card[aria-pressed="true"] {
   text-align: center;
 }
 
+.hikes-compact { padding-top: 0.8rem; padding-bottom: 1.4rem; }
+.hikes-compact .kicker { font-size: 1.2rem; }
+.hikes-compact h1 { font-size: clamp(1.65rem, 3vw, 2.25rem); margin-bottom: 0.25rem; }
+.hikes-compact .lede { margin-bottom: 0.55rem; font-size: 0.98rem; }
+.hikes-compact .totals { gap: 0.4rem; margin-bottom: 0.5rem; }
+.hikes-compact .totals div { padding: 0.32rem 0.5rem; box-shadow: 2px 2px 0 var(--ink); }
+.hikes-compact .totals dd { font-size: 1.02rem; }
+.hikes-compact .totals dd span { font-size: 0.72rem; }
+.hikes-compact .chips { margin-bottom: 0.4rem; gap: 0.3rem; }
+.hikes-compact .chip { padding: 0.22rem 0.6rem; font-size: 0.82rem; }
+.hikes-compact .map-frame svg {
+  display: block;
+  width: auto;
+  max-width: min(100%, 280px);
+  max-height: 220px;
+  margin-inline: auto;
+}
+.hikes-compact .map-frame figcaption { text-align: center; }
+
+.hike-grid {
+  list-style: none;
+  margin: 0.7rem 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.4rem;
+}
+.hike-chip {
+  display: flex;
+  flex-direction: column;
+  gap: 0.12rem;
+  height: 100%;
+  padding: 0.4rem 0.5rem;
+  border: 1.5px solid var(--ink);
+  border-radius: 12px;
+  background: var(--paper);
+  text-decoration: none;
+  color: inherit;
+}
+.hike-chip:hover { box-shadow: 3px 3px 0 var(--ink); }
+.hike-chip-name {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-weight: 620;
+  font-size: 0.98rem;
+  line-height: 1.15;
+}
+.hike-chip-meta { color: var(--muted); font-size: 0.72rem; font-weight: 650; line-height: 1.25; }
+
+.elev-block {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 0.85rem;
+  align-items: start;
+}
+.hike-panel {
+  position: relative;
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+  padding: 0.75rem 0.85rem 0.9rem;
+}
+.hike-panel-title {
+  margin: 0 0 0.2rem;
+  font-size: 1.45rem;
+  line-height: 1.1;
+}
+.hike-blurb { margin: 0.35rem 0 0; }
+.hike-panel .detail-stats { margin: 0.45rem 0; }
+.hike-panel .quiet-note { font-size: 1.15rem; }
+
 .book-card { margin-bottom: 1rem; }
 .book-card p { margin: 0.15rem 0; }
 .shelf {
@@ -818,6 +905,8 @@ button.cafe-card[aria-pressed="true"] {
   .totals { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .totals-pair { grid-template-columns: repeat(2, minmax(0, 18rem)); }
   .post-grid, .cafe-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hike-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .elev-block { grid-template-columns: minmax(0, 1fr) minmax(240px, 320px); }
   .footer-grid { grid-template-columns: 1fr auto; align-items: end; }
 }
 
