@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { Bookshelf } from "@/components/bookshelf";
 import { tagLabel } from "@/lib/slug";
 
 type Item = {
@@ -35,6 +36,7 @@ export function BookHub({
         <p className="script kicker">{kicker}</p>
         <h1 id="books-hub-heading">{title}</h1>
         <p className="lede">{lede}</p>
+        <Bookshelf books={visible} />
         <div className="chips" role="toolbar" aria-label="Book tags">
           <button type="button" className="chip" aria-pressed={tag === null} onClick={() => setTag(null)}>
             {allLabel}
