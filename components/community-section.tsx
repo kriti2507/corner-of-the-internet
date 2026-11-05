@@ -1,5 +1,6 @@
 import type { CalendarEvent } from "@/content/site";
 import { External } from "@/components/external";
+import { MetroLine } from "@/components/metro-line";
 import { formatTokyo } from "@/lib/format";
 
 function shortPlace(location: string) {
@@ -14,6 +15,7 @@ export function CommunitySection({
   title,
   lede,
   events,
+  line = [],
   source,
   fallbackNote,
   empty,
@@ -28,6 +30,7 @@ export function CommunitySection({
   title: string;
   lede: string;
   events: CalendarEvent[];
+  line?: readonly { id: string; title: string; url: string }[];
   source: "live" | "fallback";
   fallbackNote: string;
   empty: string;
@@ -49,6 +52,7 @@ export function CommunitySection({
           </External>
         </div>
         <p className="lede">{lede}</p>
+        <MetroLine stops={line} />
         {source === "fallback" && events.length > 0 ? (
           <p className="quiet-note">{fallbackNote}</p>
         ) : null}

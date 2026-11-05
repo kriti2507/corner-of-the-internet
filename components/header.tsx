@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import { TokyoStatus } from "@/components/tokyo-status";
+import type { TokyoWeather } from "@/lib/tokyo";
 
 type Item = { id: string; label: string; href: string };
 
@@ -17,7 +19,15 @@ function hashId(href: string) {
  * re-reads every section and keeps the last one whose top has crossed
  * the bottom of the sticky header.
  */
-export function Header({ items, mark }: { items: readonly Item[]; mark: string }) {
+export function Header({
+  items,
+  mark,
+  weather = null,
+}: {
+  items: readonly Item[];
+  mark: string;
+  weather?: TokyoWeather | null;
+}) {
   const pathname = usePathname();
   const [active, setActive] = useState<string | null>(null);
   const sectionKey = items.map((item) => `${item.id}:${item.href}`).join("|");
@@ -84,6 +94,7 @@ export function Header({ items, mark }: { items: readonly Item[]; mark: string }
           {mark}
           <span className="sr-only"> home</span>
         </Link>
+        <TokyoStatus weather={weather} />
         <nav className="nav-scroll" aria-label="Site">
           <ul className="nav-pill">
             {items.map((item) => {

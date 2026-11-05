@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useMemo, useRef, useState } from "react";
 import rings from "@/data/japan-rings.json";
+import { Goshuin, HikeName } from "@/components/hike-mark";
+import { hikeKanji } from "@/lib/hike-kanji";
 import type { Hike } from "@/lib/hikes";
 import { formatDay, formatDuration, formatHours, formatMeters } from "@/lib/format";
 
@@ -344,7 +346,7 @@ export function HikesSection({
                 className="elev-item"
                 aria-pressed={item.title === selected}
                 aria-controls="hike-detail"
-                aria-label={`${item.title}, ${formatDay(item.date)}. Summit ${formatMeters(item.heightM)}, climbed ${formatMeters(item.climbedM)}, ${formatDuration(item.durationMin)}.`}
+                aria-label={`${item.title}${hikeKanji[item.title] ? `, ${hikeKanji[item.title]}` : ""}, ${formatDay(item.date)}. Summit ${formatMeters(item.heightM)}, climbed ${formatMeters(item.climbedM)}, ${formatDuration(item.durationMin)}.`}
                 onMouseEnter={() => setSelected(item.title)}
                 onFocus={() => setSelected(item.title)}
                 onClick={() => showTrail(item.title, true)}
@@ -363,7 +365,10 @@ export function HikesSection({
           {hike ? (
             <article className="hike-panel" id="hike-detail" ref={panelRef}>
               <p className="card-kicker">{hike.region}</p>
-              <h2 className="hike-panel-title">{hike.title}</h2>
+              <h2 className="hike-panel-title">
+                <HikeName title={hike.title} />
+                <Goshuin />
+              </h2>
               <p>
                 <time dateTime={hike.date}>{formatDay(hike.date)}</time>
               </p>
@@ -401,7 +406,10 @@ export function HikesSection({
             {shown.map((item) => (
               <li key={item.slug}>
                 <Link className="hike-chip" href={`/hikes/${item.slug}`}>
-                  <span className="hike-chip-name">{item.title}</span>
+                  <Goshuin />
+                  <span className="hike-chip-name">
+                    <HikeName title={item.title} />
+                  </span>
                   <span className="hike-chip-meta">
                     {item.region} · {formatDay(item.date)} · {formatMeters(item.climbedM)}
                   </span>

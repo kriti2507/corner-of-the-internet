@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/breadcrumbs";
+import { Goshuin, HikeName } from "@/components/hike-mark";
 import { NoteList, TagLinks } from "@/components/notes";
 import { site } from "@/content/site";
 import { formatDay, formatDuration, formatMeters } from "@/lib/format";
@@ -38,7 +39,10 @@ export default async function HikePage({ params }: { params: Promise<{ slug: str
           ]}
         />
         <p className="script kicker">{hike.region}</p>
-        <h1 id="hike-heading">{hike.title}</h1>
+        <h1 id="hike-heading">
+          <HikeName title={hike.title} />
+          <Goshuin className="goshuin goshuin-title" />
+        </h1>
         <p className="lede">
           <time dateTime={hike.date}>{formatDay(hike.date)}</time>
         </p>

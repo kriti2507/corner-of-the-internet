@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Goshuin, HikeName } from "@/components/hike-mark";
 import type { Book } from "@/lib/books";
 import type { Cafe } from "@/content/cafes";
 import type { Hike } from "@/lib/hikes";
@@ -43,7 +44,10 @@ export function WeekendsTeaser({
             <li>
               <Link className="sticker tone-blue" data-tilt="1" href="/hikes">
                 <p className="card-kicker">{hike.region}</p>
-                <h3>{hike.title}</h3>
+                <h3>
+                  <HikeName title={hike.title} />
+                </h3>
+                <Goshuin />
                 <p className="card-body">
                   <time dateTime={hike.date}>{formatDay(hike.date)}</time>
                 </p>
@@ -66,6 +70,10 @@ export function WeekendsTeaser({
           {cafe ? (
             <li>
               <Link className="sticker tone-peach" data-tilt="3" href="/coffee">
+                <span className="noren" aria-hidden="true">
+                  <span />
+                  <span />
+                </span>
                 {cafe.placeholder ? <span className="tape tape-yellow placeholder-tape">Placeholder</span> : null}
                 <p className="card-kicker">{cafe.neighbourhood}</p>
                 <h3>{cafe.name}</h3>

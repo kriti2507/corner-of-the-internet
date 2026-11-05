@@ -18,6 +18,10 @@ export function CafesSection({
         <ul className="cafe-grid">
           {places.map((place, index) => (
             <li key={`${place.area}-${index}`} className="cafe-card">
+              <span className="noren" aria-hidden="true">
+                <span />
+                <span />
+              </span>
               <span className="tape tape-yellow placeholder-tape">Placeholder</span>
               <h3>{place.name}</h3>
               <p className="cafe-area">{place.area}</p>

@@ -8,6 +8,7 @@ type Place = {
   name: string;
   area: string;
   neighbourhood?: string;
+  nameJa?: string;
   note: string;
   tags?: readonly string[];
   placeholder?: boolean;
@@ -112,11 +113,20 @@ export function CoffeeSection({
           ) : null}
           <div className="coffee-layout">
             {place ? (
-              <article className="sticker tone-peach ticket" data-tilt="2" aria-live="polite">
+              <article className="sticker tone-peach ticket kissaten" data-tilt="2" aria-live="polite">
+                <span className="noren" aria-hidden="true">
+                  <span />
+                  <span />
+                </span>
                 <span className="tape tape-yellow placeholder-tape">Placeholder</span>
                 <Cup />
                 <p className="script kicker">{ticketKicker}</p>
                 <h2 className="ticket-title">{place.name}</h2>
+                {place.nameJa ? (
+                  <p className="cafe-ja" lang="ja">
+                    {place.nameJa}
+                  </p>
+                ) : null}
                 <p className="cafe-area">{place.neighbourhood ?? place.area}</p>
                 <p>{place.note}</p>
                 {place.slug ? (
@@ -135,8 +145,17 @@ export function CoffeeSection({
                     aria-pressed={index === selected}
                     onClick={() => setSelected(index)}
                   >
+                    <span className="noren" aria-hidden="true">
+                      <span />
+                      <span />
+                    </span>
                     <span className="tape tape-yellow placeholder-tape">Placeholder</span>
                     <h3>{item.name}</h3>
+                    {item.nameJa ? (
+                      <p className="cafe-ja" lang="ja">
+                        {item.nameJa}
+                      </p>
+                    ) : null}
                     <p className="cafe-area">{item.neighbourhood ?? item.area}</p>
                     <p>{item.note}</p>
                   </button>
@@ -203,6 +222,10 @@ export function CoffeeTeaser({
         </div>
         {place ? (
           <article className="cafe-card">
+            <span className="noren" aria-hidden="true">
+              <span />
+              <span />
+            </span>
             <span className="tape tape-yellow placeholder-tape">Placeholder</span>
             <h3>{place.name}</h3>
             <p className="cafe-area">{place.area}</p>

@@ -40,6 +40,12 @@ export default async function CafePage({ params }: { params: Promise<{ slug: str
         {cafe.placeholder ? <span className="tape tape-yellow placeholder-tape">Placeholder</span> : null}
         <h1 id="cafe-heading">{cafe.name}</h1>
         <p className="lede">
+          {cafe.nameJa ? (
+            <span className="cafe-ja" lang="ja">
+              {cafe.nameJa}
+              {" · "}
+            </span>
+          ) : null}
           {cafe.neighbourhood}
           {cafe.city ? ` · ${cafe.city}` : ""}
         </p>
