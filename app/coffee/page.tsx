@@ -12,7 +12,6 @@ export default function CoffeePage() {
     name: cafe.name,
     area: cafe.neighbourhood,
     neighbourhood: cafe.neighbourhood,
-    nameJa: cafe.nameJa,
     note: cafe.note,
     tags: cafe.tags,
     placeholder: cafe.placeholder,

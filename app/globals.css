@@ -252,20 +252,17 @@ a { color: inherit; }
 .polaroid-b { --rot: 7deg; right: 2%; top: 22%; z-index: 3; }
 
 .secret-perk {
-  --rot: -3deg;
+  --rot: -4deg;
   position: absolute;
   z-index: 1;
-  width: 168px;
+  width: 196px;
   margin: 0;
-  padding: 1.7rem 0.7rem 0.85rem;
-  background:
-    linear-gradient(#8f3d3d, #8f3d3d) top / 100% 1.35rem no-repeat,
-    repeating-linear-gradient(180deg, transparent, transparent 1.35rem, rgba(143, 61, 61, 0.18) 1.35rem, rgba(143, 61, 61, 0.18) calc(1.35rem + 1px)),
-    #fffaf3;
+  padding: 0.75rem 0.85rem 0.9rem;
+  background: var(--paper);
   color: var(--ink);
-  border: 1.5px solid #8f3d3d;
-  border-radius: 2px 2px 12px 12px;
-  box-shadow: 3px 3px 0 rgba(143, 61, 61, 0.35);
+  border: 2px solid var(--ink);
+  border-radius: 16px;
+  box-shadow: 4px 4px 0 var(--ink);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -291,22 +288,9 @@ a { color: inherit; }
 .secret-a { --rot: -6deg; left: calc(4% + 16px); top: calc(8% + 42px); }
 .secret-b { --rot: 5deg; right: calc(2% + 14px); top: calc(22% + 38px); }
 
-.omikuji-mark {
-  position: absolute;
-  top: 0.12rem;
-  left: 0;
-  right: 0;
-  margin: 0;
-  color: #fffdf8;
-  font-family: Georgia, serif;
-  font-size: 0.78rem;
-  letter-spacing: 0.14em;
-  text-align: center;
-  line-height: 1.35rem;
-}
 .secret-found {
-  margin: 0.15rem 0 0;
-  font-size: 1.25rem;
+  margin: 0;
+  font-size: 1.45rem;
   line-height: 0.95;
   color: var(--script);
 }
@@ -939,7 +923,7 @@ button.cafe-card[aria-pressed="true"] {
   .polaroid { width: 176px; padding: 0.5rem 0.5rem 1.6rem; }
   .polaroid-a { --rot: -3deg; left: 0; top: 1.6rem; }
   .polaroid-b { --rot: 3.5deg; right: 0; top: 28%; }
-  .secret-perk { width: 148px; padding: 1.55rem 0.55rem 0.65rem; }
+  .secret-perk { width: 150px; padding: 0.6rem 0.65rem 0.7rem; }
   .secret-title { font-size: 0.98rem; }
   .secret-perk p:not(.secret-found):not(.secret-title) { font-size: 0.78rem; }
   .secret-found { font-size: 1.25rem; }
@@ -1225,132 +1209,8 @@ button.cafe-card[aria-pressed="true"] {
   letter-spacing: 0.02em;
   white-space: nowrap;
 }
-.tokyo-skyline {
-  grid-column: 1 / -1;
-  height: 72px;
-  margin-top: 0.35rem;
-  pointer-events: none;
-}
-.tokyo-skyline svg { width: 100%; height: 100%; display: block; }
-.sky-lights { fill: #efd15f; opacity: 0; }
-.tokyo-skyline.is-dusk .sky-lines { stroke: #6d3140; }
-.tokyo-skyline.is-night .sky-lights { opacity: 1; }
-
-.eki-stamp {
-  position: relative;
-  z-index: 3;
-  height: 0;
-  display: grid;
-  place-items: center;
-  pointer-events: none;
-}
-.eki-stamp svg { width: 52px; height: 52px; }
-
-.noren {
-  display: flex;
-  gap: 6px;
-  margin: 0 0 0.45rem;
-}
-.noren span {
-  flex: 1;
-  height: 11px;
-  background: #8f3d3d;
-  border-radius: 0 0 7px 7px;
-}
-.noren span:first-child { background: #c46a62; }
-.cafe-ja { margin: 0 0 0.15rem; font-weight: 700; letter-spacing: 0.04em; }
-
-.hike-kanji { font-size: 0.78em; font-weight: 650; }
-.hike-chip { position: relative; }
-.hike-chip .goshuin,
-.weekend-grid .goshuin {
-  position: absolute;
-  top: 0.28rem;
-  right: 0.28rem;
-  width: 28px;
-  height: 28px;
-}
-.hike-chip-name { padding-right: 1.5rem; }
-.hike-panel-title { display: flex; align-items: center; gap: 0.45rem; }
-.hike-panel .goshuin,
-.goshuin-title { width: 40px; height: 40px; flex: none; display: inline-block; vertical-align: middle; margin-left: 0.35rem; }
-
-.metro {
-  display: flex;
-  gap: 0.4rem;
-  list-style: none;
-  margin: 0 0 1rem;
-  padding: 0.2rem 0 0.2rem;
-  overflow-x: auto;
-  position: relative;
-}
-.metro::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0.85rem;
-  height: 7px;
-  border-radius: 999px;
-  background: #8f3d3d;
-}
-.metro li { flex: 1 0 6.2rem; text-align: center; position: relative; z-index: 1; }
-.station {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.45rem;
-  max-width: 7.5rem;
-  font-size: 0.75rem;
-  font-weight: 750;
-  line-height: 1.2;
-  text-decoration: none;
-}
-.station::before {
-  content: "";
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: var(--cream);
-  border: 3px solid var(--ink);
-  box-shadow: 0 0 0 3px var(--yellow);
-}
-
-.season-accent {
-  position: fixed;
-  inset: 0;
-  z-index: 5;
-  pointer-events: none;
-  overflow: hidden;
-}
-.season-accent svg { position: absolute; width: 22px; height: 22px; opacity: 0.8; }
-.season-accent .s1 { top: 12%; left: 6%; }
-.season-accent .s2 { top: 28%; right: 4%; }
-.season-accent .s3 { top: 58%; left: 3%; }
-.season-accent .s4 { top: 72%; right: 8%; }
-.season-accent .s5 { top: 40%; left: 46%; opacity: 0.45; }
-.season-accent .s6 { top: 86%; left: 22%; }
-.matcha-card { position: relative; }
-.matcha-leaf { position: absolute; top: 0.7rem; right: 0.7rem; width: 28px; height: 28px; }
 
 @media (max-width: 800px) {
   .tokyo-weather { display: none; }
   .tokyo-status { font-size: 0.78rem; }
-  .season-accent .s3,
-  .season-accent .s5,
-  .season-accent .s6 { display: none; }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .season-accent svg { animation: season-drift 18s linear infinite; }
-  .season-accent .s2 { animation-duration: 22s; animation-delay: -6s; }
-  .season-accent .s4 { animation-duration: 26s; animation-delay: -11s; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .season-accent svg { animation: none; }
-}
-
-@keyframes season-drift {
-  from { translate: 0 -8px; }
-  to { translate: 12px 18px; }
 }

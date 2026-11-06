@@ -1,6 +1,5 @@
 import type { LeadPart } from "@/content/site";
 import { PolaroidStage } from "@/components/polaroids";
-import { TokyoSkyline } from "@/components/tokyo-skyline";
 
 type Badge = {
   kicker: string;
@@ -83,7 +82,6 @@ export function Hero({
         secrets={secrets}
         secretFound={secretFound}
       />
-      <TokyoSkyline />
     </section>
   );
 }

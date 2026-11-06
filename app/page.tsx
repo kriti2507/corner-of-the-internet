@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { site, type CalendarEvent } from "@/content/site";
 import { badgeParts } from "@/lib/format";
 import { CommunitySection } from "@/components/community-section";
-import { EkiStamp } from "@/components/eki-stamp";
 import { ContactForm } from "@/components/contact-form";
 import { Hero } from "@/components/hero";
 import { ProjectsSection } from "@/components/projects-section";
@@ -88,7 +87,6 @@ export default async function Page() {
           links={site.work.links}
         />
       </div>
-      <EkiStamp label="魚" />
       <div className="home-block home-noodle">
         <WritingSection
           kicker={site.writing.kicker}
@@ -103,18 +101,12 @@ export default async function Page() {
           heading="h2"
         />
       </div>
-      <EkiStamp label="麺" />
       <div className="home-block home-community">
         <CommunitySection
           kicker={site.community.kicker}
           title={site.community.title}
           lede={site.community.lede}
           events={nextMeetup ? [nextMeetup] : []}
-          line={events.upcoming.slice(0, 5).map((event) => ({
-            id: event.id,
-            title: event.title,
-            url: event.url,
-          }))}
           source={events.source}
           fallbackNote={site.community.fallbackNote}
           empty={site.community.empty}
@@ -125,7 +117,6 @@ export default async function Page() {
           pastLink={site.community.pastLink}
         />
       </div>
-      <EkiStamp label="会" />
       <div className="home-block home-weekends">
         <WeekendsTeaser
           kicker={site.weekends.kicker}
@@ -140,7 +131,6 @@ export default async function Page() {
           cafeLink={site.weekends.cafeLink}
         />
       </div>
-      <EkiStamp label="山" />
       <div className="home-block home-wins">
         <span id="projects" className="alias-anchor" />
         <ProjectsSection
@@ -154,7 +144,6 @@ export default async function Page() {
           cta={site.projects.cta}
         />
       </div>
-      <EkiStamp label="勝" />
       <div id="work-with-me" className="home-block">
         <span id="consulting" className="alias-anchor" />
         <span id="note" className="alias-anchor" />

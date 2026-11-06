@@ -41,19 +41,10 @@ export default async function TagPage({ params }: { params: Promise<{ tag: strin
           <ul className="cafe-grid">
             {found.cafes.map((cafe) => (
               <li key={cafe.slug} className="cafe-card">
-                <span className="noren" aria-hidden="true">
-                  <span />
-                  <span />
-                </span>
                 {cafe.placeholder ? <span className="tape tape-yellow placeholder-tape">Placeholder</span> : null}
                 <h3>
                   <Link href={`/coffee/${cafe.slug}`}>{cafe.name}</Link>
                 </h3>
-                {cafe.nameJa ? (
-                  <p className="cafe-ja" lang="ja">
-                    {cafe.nameJa}
-                  </p>
-                ) : null}
                 <p className="cafe-area">{cafe.neighbourhood}</p>
                 <TagLinks tags={cafe.tags} />
               </li>

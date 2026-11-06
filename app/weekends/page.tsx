@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { site } from "@/content/site";
-import { MatchaLeaf } from "@/components/season-accent";
 import { pageMetadata } from "@/lib/page-meta";
 
 export const metadata = pageMetadata("weekends");
@@ -25,9 +24,8 @@ export default function WeekendsPage() {
                   <span className="card-link">Open →</span>
                 </Link>
               ) : (
-                <article className={`sticker tone-peach${category.id === "matcha" ? " matcha-card" : ""}`} data-tilt="3">
+                <article className="sticker tone-peach" data-tilt="3">
                   <span className="tape tape-yellow placeholder-tape">{page.comingSoon}</span>
-                  {category.id === "matcha" ? <MatchaLeaf /> : null}
                   <h3>{category.title}</h3>
                   <p className="card-body">{category.body}</p>
                 </article>

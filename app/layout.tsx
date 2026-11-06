@@ -3,7 +3,6 @@ import { Caveat, Fraunces, Outfit } from "next/font/google";
 import { site } from "@/content/site";
 import { HashScroll } from "@/components/hash-scroll";
 import { Header } from "@/components/header";
-import { SeasonAccent } from "@/components/season-accent";
 import { SiteFooter } from "@/components/site-footer";
 import { getTokyoWeather } from "@/lib/tokyo-weather";
 import "./globals.css";
@@ -58,7 +57,6 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         <a className="skip" href="#content">
           Skip to content
         </a>
-        <SeasonAccent />
         <HashScroll />
         <Header items={site.nav} mark={site.hero.monogram} weather={weather} />
         <main id="content">{children}</main>

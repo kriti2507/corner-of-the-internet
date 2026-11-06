@@ -49,9 +49,6 @@ function SecretCard({
       aria-hidden={open ? undefined : true}
       inert={open ? undefined : true}
     >
-      <p className="omikuji-mark" aria-hidden="true">
-        おみくじ
-      </p>
       <p className="script secret-found">{foundLabel}</p>
       <p className="secret-title">{secret.title}</p>
       <p>{secret.body}</p>
