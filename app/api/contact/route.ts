@@ -1,5 +1,3 @@
-import { site } from "@/content/site";
-
 const hits = new Map<string, number[]>();
 
 function limited(ip: string) {
@@ -42,24 +40,19 @@ export async function POST(request: Request) {
   const name = clean(data.name, 80);
   const email = clean(data.email, 120);
   const company = clean(data.company, 120);
-  const topic = clean(data.topic, 40);
   const message = clean(data.message, 4000);
-  const allowed = new Set<string>(site.contact.topics.map((item) => item.value));
   const errors: Record<string, string> = {};
   if (name.length < 2) errors.name = "Add your name.";
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.email = "That email doesn't look right.";
-  if (!allowed.has(topic)) errors.topic = "Pick what you need.";
   if (message.length < 10) errors.message = "Tell me a little more.";
   if (Object.keys(errors).length > 0) {
     return Response.json({ ok: false, errors }, { status: 400 });
   }
 
-  const topicLabel = site.contact.topics.find((item) => item.value === topic)?.label ?? topic;
   const note = {
     name,
     email,
     company: company || null,
-    topic: topicLabel,
     message,
   };
 
@@ -89,8 +82,8 @@ export async function POST(request: Request) {
       from,
       to: [to],
       reply_to: email,
-      subject: `Note from ${name} — ${topicLabel}`,
-      text: [`From: ${name} <${email}>`, company ? `Company: ${company}` : null, `Topic: ${topicLabel}`, "", message]
+      subject: `Let's talk — ${name}`,
+      text: [`From: ${name} <${email}>`, company ? `Company: ${company}` : null, "", message]
         .filter(Boolean)
         .join("\n"),
     }),

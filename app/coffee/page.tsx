@@ -1,3 +1,4 @@
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { CoffeeSection } from "@/components/coffee-section";
 import { getCafes } from "@/content/cafes";
 import { site } from "@/content/site";
@@ -17,6 +18,10 @@ export default function CoffeePage() {
   }));
 
   return (
+    <>
+    <div className="wrap crumb-wrap">
+      <Breadcrumbs items={[{ label: site.weekends.title, href: "/weekends" }, { label: "Coffee" }]} />
+    </div>
     <CoffeeSection
       kicker={site.coffee.kicker}
       title={site.coffee.title}
@@ -32,5 +37,6 @@ export default function CoffeePage() {
       areaLabel={site.coffee.areaLabel}
       pageLink={site.coffee.pageLink}
     />
+    </>
   );
 }

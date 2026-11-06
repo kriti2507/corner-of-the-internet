@@ -1,8 +1,5 @@
-import Link from "next/link";
 import type { LeadPart } from "@/content/site";
 import { PolaroidStage } from "@/components/polaroids";
-
-type Action = { label: string; href: string; variant: "ink" | "ghost" | "yellow" };
 
 type Badge = {
   kicker: string;
@@ -19,16 +16,16 @@ export function Hero({
   greeting,
   monogram,
   lead,
-  actions,
   badge,
   photos,
   polaroids,
+  secrets,
+  secretFound,
 }: {
   name: string;
   greeting: string;
   monogram: string;
   lead: readonly LeadPart[];
-  actions: readonly Action[];
   badge: Badge;
   photos: {
     mountain: string | null;
@@ -43,6 +40,12 @@ export function Hero({
     miraCaption: string;
     dragHint: string;
   };
+  secrets: readonly {
+    title: string;
+    body: string;
+    cta?: { label: string; href: string };
+  }[];
+  secretFound: string;
 }) {
   return (
     <section className="hero wrap" aria-labelledby="intro-heading">
@@ -63,13 +66,6 @@ export function Hero({
             ),
           )}
         </p>
-        <div className="hero-actions">
-          {actions.map((action) => (
-            <Link key={action.label} className={`btn btn-${action.variant}`} href={action.href}>
-              {action.label}
-            </Link>
-          ))}
-        </div>
       </div>
       <PolaroidStage
         badge={badge}
@@ -83,6 +79,8 @@ export function Hero({
         miraCaption={polaroids.miraCaption}
         dragHint={polaroids.dragHint}
         resetLabel="Put the photos back"
+        secrets={secrets}
+        secretFound={secretFound}
       />
     </section>
   );

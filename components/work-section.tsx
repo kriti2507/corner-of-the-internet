@@ -6,15 +6,17 @@ export function WorkSection({
   lede,
   points,
   links,
+  anchorId = "work",
 }: {
   kicker: string;
   title: string;
   lede: string;
   points: readonly { title: string; body: string }[];
   links: readonly { label: string; href: string }[];
+  anchorId?: string;
 }) {
   return (
-    <section className="band" id="work" aria-labelledby="work-heading">
+    <section className="band" id={anchorId} aria-labelledby="work-heading">
       <div className="wrap split">
         <div>
           <p className="script kicker">{kicker}</p>

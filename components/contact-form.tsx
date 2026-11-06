@@ -1,30 +1,27 @@
 "use client";
 
+import Link from "next/link";
 import { useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 
-type Topic = { value: string; label: string };
-
 type Fields = {
   name: string;
   email: string;
-  topic: string;
   message: string;
   company: string;
   website: string;
 };
 
-const empty: Fields = { name: "", email: "", topic: "product", message: "", company: "", website: "" };
+const empty: Fields = { name: "", email: "", message: "", company: "", website: "" };
 
 export function ContactForm({
-  kicker,
   title,
   lede,
-  services = [],
-  topics,
+  aboutCta,
+  messageLabel,
   submit,
   sending,
   successTitle,
@@ -32,11 +29,10 @@ export function ContactForm({
   errorFallback,
   email,
 }: {
-  kicker: string;
   title: string;
   lede: string;
-  services?: readonly { title: string; body: string }[];
-  topics: readonly Topic[];
+  aboutCta: { label: string; href: string };
+  messageLabel: string;
   submit: string;
   sending: string;
   successTitle: string;
@@ -84,22 +80,16 @@ export function ContactForm({
   }
 
   return (
-    <section className="band" id="note" aria-labelledby="note-heading">
-      <div className="wrap contact-layout">
-        <div>
-          <p className="script kicker">{kicker}</p>
-          <h2 id="note-heading">{title}</h2>
+    <div className="talk">
+      <div className="wrap talk-layout">
+        <div className="talk-copy">
+          <h2 id="talk-heading">
+            <mark className="mark mark-yellow">{title}</mark>
+          </h2>
           <p className="lede">{lede}</p>
-          {services.length > 0 ? (
-            <ul className="point-list">
-              {services.map((service) => (
-                <li key={service.title}>
-                  <h3>{service.title}</h3>
-                  <p>{service.body}</p>
-                </li>
-              ))}
-            </ul>
-          ) : null}
+          <Link className="btn btn-ghost" href={aboutCta.href}>
+            {aboutCta.label}
+          </Link>
         </div>
         <div className="form-card">
           {status === "sent" ? (
@@ -108,7 +98,7 @@ export function ContactForm({
               <p>{successBody}</p>
             </div>
           ) : (
-            <form onSubmit={onSubmit} noValidate>
+            <form onSubmit={onSubmit} noValidate aria-labelledby="talk-heading">
               <div className="field">
                 <Label htmlFor="name">Name</Label>
                 <Input
@@ -157,28 +147,11 @@ export function ContactForm({
                 />
               </div>
               <div className="field">
-                <Label htmlFor="topic">What do you need?</Label>
-                <select
-                  id="topic"
-                  name="topic"
-                  className="select"
-                  value={fields.topic}
-                  aria-invalid={errors.topic ? true : undefined}
-                  onChange={(event) => set("topic", event.target.value)}
-                >
-                  {topics.map((topic) => (
-                    <option key={topic.value} value={topic.value}>
-                      {topic.label}
-                    </option>
-                  ))}
-                </select>
-                {errors.topic ? <p className="field-error">{errors.topic}</p> : null}
-              </div>
-              <div className="field">
-                <Label htmlFor="message">Note</Label>
+                <Label htmlFor="message">{messageLabel}</Label>
                 <Textarea
                   id="message"
                   name="message"
+                  className="min-h-20"
                   value={fields.message}
                   aria-invalid={errors.message ? true : undefined}
                   aria-describedby={errors.message ? "message-error" : undefined}
@@ -204,17 +177,16 @@ export function ContactForm({
               </div>
               {formError ? (
                 <p className="field-error" role="alert">
-                  {formError}{" "}
-                  <a href={`mailto:${email}`}>{email}</a>
+                  {formError} <a href={`mailto:${email}`}>{email}</a>
                 </p>
               ) : null}
-              <Button type="submit" disabled={status === "sending"}>
+              <Button type="submit" variant="yellow" disabled={status === "sending"}>
                 {status === "sending" ? sending : submit}
               </Button>
             </form>
           )}
         </div>
       </div>
-    </section>
+    </div>
   );
 }

@@ -20,6 +20,7 @@ The home page carries the whole picture. Deeper pages:
 - `/` — hero, day job, latest letters, community, hike preview, Small Wins, a short consulting note, coffee teaser, and the contact form
 - `/writing` — AI Noodle from Substack, plus notes on this site. Filter chips switch between them.
 - `/blog` — notes in `content/posts`
+- `/weekends` — hub for hikes, coffee, books, and later categories such as matcha
 - `/hikes` and `/hikes/[slug]` — map, stats, season tags, and a page per trail
 - `/coffee` and `/coffee/[slug]` — placeholder cafés, filtered by tag and neighbourhood
 - `/books` and `/books/[slug]` — the book log
@@ -33,6 +34,10 @@ The home page carries the whole picture. Deeper pages:
 - Books: [`data/books.json`](data/books.json).
 - Mountain photo and the Mira illustration: put files in `public/` and set `site.photos.mountain` and `site.photos.mira`. `null` keeps the drawn placeholders.
 - Email is still `hello@yourdomain.com` on purpose. Change `site.email` when there is a real address.
+
+## Hero secrets
+
+The two draggable photos hide a card each. Edit `site.hero.secrets` in [`content/site.ts`](content/site.ts). The first item sits under the mountain photo, the second under Mira. Each has a `title`, a `body`, and an optional `cta` (`label` and `href`). These start as placeholders — do not put a real code or offer in until you mean to share it. Drag a photo, or focus it and use the arrow keys, to reveal the card. “Put the photos back” covers them again. The label is `site.hero.secretFound`.
 
 `lib/hikes.ts` and `lib/books.ts` are the swap point for a live Small Wins API. They return the same shapes the page already renders.
 

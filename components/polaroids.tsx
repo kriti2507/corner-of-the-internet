@@ -1,8 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, useState, type ReactNode } from "react";
+import { useRef, useState, type ReactNode, type Ref } from "react";
 import { MiraSketch, MountainSketch } from "@/components/sketches";
+
+type Secret = {
+  title: string;
+  body: string;
+  cta?: { label: string; href: string };
+};
 
 type Offset = { x: number; y: number };
 
@@ -20,24 +26,76 @@ function clamp(value: number, min: number, max: number) {
   return Math.min(max, Math.max(min, value));
 }
 
+function revealed(offset: Offset) {
+  return Math.hypot(offset.x, offset.y) >= 42;
+}
+
+function SecretCard({
+  secret,
+  foundLabel,
+  open,
+  className,
+}: {
+  secret: Secret;
+  foundLabel: string;
+  open: boolean;
+  className: string;
+}) {
+  const cta = secret.cta;
+  const external = cta?.href.startsWith("http");
+  return (
+    <article
+      className={`secret-perk ${className}${open ? " is-found" : ""}`}
+      aria-hidden={open ? undefined : true}
+      inert={open ? undefined : true}
+    >
+      <p className="script secret-found">{foundLabel}</p>
+      <p className="secret-title">{secret.title}</p>
+      <p>{secret.body}</p>
+      {cta ? (
+        external ? (
+          <a className="card-link" href={cta.href} target="_blank" rel="noreferrer" tabIndex={open ? undefined : -1}>
+            {cta.label}
+          </a>
+        ) : (
+          <Link className="card-link" href={cta.href} tabIndex={open ? undefined : -1}>
+            {cta.label}
+          </Link>
+        )
+      ) : null}
+    </article>
+  );
+}
+
+const DRAG_X = { min: -170, max: 190 };
+const DRAG_Y = { min: -120, max: 160 };
+
 function DraggablePhoto({
   label,
   className,
   offset,
   onOffset,
+  photoRef,
   children,
 }: {
   label: string;
   className: string;
   offset: Offset;
   onOffset: (next: Offset) => void;
+  photoRef?: Ref<HTMLDivElement>;
   children: ReactNode;
 }) {
   const drag = useRef<Offset & { ox: number; oy: number } | null>(null);
   const [dragging, setDragging] = useState(false);
 
+  function stopDrag() {
+    drag.current = null;
+    setDragging(false);
+  }
+
   return (
     <div
+      ref={photoRef}
       className={`polaroid ${className}${dragging ? " is-dragging" : ""}`}
       style={{ translate: `${offset.x}px ${offset.y}px` }}
       role="group"
@@ -52,20 +110,19 @@ function DraggablePhoto({
       onPointerMove={(event) => {
         if (!drag.current) return;
         onOffset({
-          x: clamp(drag.current.ox + event.clientX - drag.current.x, -80, 110),
-          y: clamp(drag.current.oy + event.clientY - drag.current.y, -60, 120),
+          x: clamp(drag.current.ox + event.clientX - drag.current.x, DRAG_X.min, DRAG_X.max),
+          y: clamp(drag.current.oy + event.clientY - drag.current.y, DRAG_Y.min, DRAG_Y.max),
         });
       }}
-      onPointerUp={() => {
-        drag.current = null;
-        setDragging(false);
-      }}
-      onPointerCancel={() => {
-        drag.current = null;
-        setDragging(false);
-      }}
+      onPointerUp={stopDrag}
+      onPointerCancel={stopDrag}
       onKeyDown={(event) => {
-        const step = event.shiftKey ? 24 : 12;
+        if (event.key === "Escape") {
+          event.preventDefault();
+          onOffset({ x: 0, y: 0 });
+          return;
+        }
+        const step = event.shiftKey ? 48 : 28;
         const next = { ...offset };
         if (event.key === "ArrowLeft") next.x -= step;
         else if (event.key === "ArrowRight") next.x += step;
@@ -73,7 +130,10 @@ function DraggablePhoto({
         else if (event.key === "ArrowDown") next.y += step;
         else return;
         event.preventDefault();
-        onOffset({ x: clamp(next.x, -80, 110), y: clamp(next.y, -60, 120) });
+        onOffset({
+          x: clamp(next.x, DRAG_X.min, DRAG_X.max),
+          y: clamp(next.y, DRAG_Y.min, DRAG_Y.max),
+        });
       }}
     >
       {children}
@@ -93,6 +153,8 @@ export function PolaroidStage({
   miraCaption,
   dragHint,
   resetLabel,
+  secrets,
+  secretFound,
 }: {
   badge: Badge;
   mountainSrc: string | null;
@@ -105,19 +167,41 @@ export function PolaroidStage({
   miraCaption: string;
   dragHint: string;
   resetLabel: string;
+  secrets: readonly Secret[];
+  secretFound: string;
 }) {
   const [mountain, setMountain] = useState<Offset>({ x: 0, y: 0 });
   const [mira, setMira] = useState<Offset>({ x: 0, y: 0 });
+  const firstPhoto = useRef<HTMLDivElement>(null);
   const moved = mountain.x !== 0 || mountain.y !== 0 || mira.x !== 0 || mira.y !== 0;
+  const mountainOpen = revealed(mountain);
+  const miraOpen = revealed(mira);
+  const announcement = [
+    mountainOpen && secrets[0] ? `${secretFound}. ${secrets[0].title}. ${secrets[0].body}` : "",
+    miraOpen && secrets[1] ? `${secretFound}. ${secrets[1].title}. ${secrets[1].body}` : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   return (
     <div className="stage">
+      <div className="stage-play">
       <p className="script stage-hint">{dragHint}</p>
+      <p className="sr-only" aria-live="polite">
+        {announcement}
+      </p>
+      {secrets[0] ? (
+        <SecretCard secret={secrets[0]} foundLabel={secretFound} open={mountainOpen} className="secret-a" />
+      ) : null}
+      {secrets[1] ? (
+        <SecretCard secret={secrets[1]} foundLabel={secretFound} open={miraOpen} className="secret-b" />
+      ) : null}
       <DraggablePhoto
-        label={`${mountainCaption}. ${mountainScript}. Drag to move, or use arrow keys.`}
+        label={`${mountainCaption}. ${mountainScript}. Drag away to look underneath, or use arrow keys. Escape puts this photo back.`}
         className="polaroid-a"
         offset={mountain}
         onOffset={setMountain}
+        photoRef={firstPhoto}
       >
         <span className="tape tape-yellow" aria-hidden="true" />
         <span className="frame">
@@ -136,7 +220,7 @@ export function PolaroidStage({
       </DraggablePhoto>
 
       <DraggablePhoto
-        label={`${miraCaption}. Drag to move, or use arrow keys.`}
+        label={`${miraCaption}. Drag away to look underneath, or use arrow keys. Escape puts this photo back.`}
         className="polaroid-b"
         offset={mira}
         onOffset={setMira}
@@ -171,6 +255,7 @@ export function PolaroidStage({
       <svg className="spark spark-b" viewBox="0 0 24 24" aria-hidden="true">
         <path d="M12 2 L13.4 10.6 L22 12 L13.4 13.4 L12 22 L10.6 13.4 L2 12 L10.6 10.6 Z" fill="#6d8a4e" />
       </svg>
+      </div>
 
       {moved ? (
         <button
@@ -179,6 +264,7 @@ export function PolaroidStage({
           onClick={() => {
             setMountain({ x: 0, y: 0 });
             setMira({ x: 0, y: 0 });
+            firstPhoto.current?.focus();
           }}
         >
           {resetLabel}

@@ -22,18 +22,16 @@ export const site = {
   emailIsPlaceholder: true,
 
   /**
-   * Work and community jump to home sections.
-   * Interests opens the coffee hub, which links on to books and hikes.
+   * Home blocks are anchors so the highlight can follow the scroll.
+   * About is linked from the Work with me block, not the nav.
    */
   nav: [
-    { id: "work", label: "Work", href: "/#work" },
-    { id: "writing", label: "Writing", href: "/writing" },
+    { id: "sakana", label: "Sakana", href: "/#sakana" },
+    { id: "writing", label: "AI Noodle", href: "/#writing" },
     { id: "community", label: "Community", href: "/#community" },
-    { id: "hikes", label: "Hikes", href: "/hikes" },
-    { id: "coffee", label: "Interests", href: "/coffee" },
-    { id: "small-wins", label: "Small Wins", href: "/small-wins" },
-    { id: "about", label: "About", href: "/about" },
-    { id: "note", label: "Say hi", href: "/#note" },
+    { id: "weekends", label: "Weekends", href: "/#weekends" },
+    { id: "small-wins", label: "Small Wins", href: "/#small-wins" },
+    { id: "work-with-me", label: "Work with me", href: "/#work-with-me" },
   ],
 
   /**
@@ -67,7 +65,7 @@ export const site = {
       title: "Hikes",
       path: "/hikes",
       description:
-        "Trails from the hike log, mostly Hokkaido and the ridges around Tokyo, and the books on the shelf.",
+        "Trails from the hike log, mostly Hokkaido and the ridges around Tokyo.",
     },
     coffee: {
       title: "Coffee",
@@ -80,6 +78,11 @@ export const site = {
       path: "/small-wins",
       description:
         "Small Wins is a little diary for the good things. Log one small win a day, in early access. Sign in with Google — only you can see it.",
+    },
+    weekends: {
+      title: "Weekends",
+      path: "/weekends",
+      description: "Hikes, coffee, and books — the weekend log, with room for more later.",
     },
   },
 
@@ -97,11 +100,22 @@ export const site = {
       { text: "collect small wins", mark: "blue" },
       { text: " — on mountains, in notebooks, in code." },
     ] as LeadPart[],
-    actions: [
-      { label: "Say hello", href: "/#note", variant: "ink" as const },
-      { label: "Community →", href: "/#community", variant: "ghost" as const },
-      { label: "About →", href: "/about", variant: "ghost" as const },
-      { label: "Work with me", href: "/#note", variant: "yellow" as const },
+    /**
+     * Hidden under the two hero photos. Placeholders only — no real codes.
+     * Order matches the photos: mountain, then Mira.
+     * Each item is { title, body, cta?: { label, href } }.
+     */
+    secretFound: "You found a secret",
+    secrets: [
+      {
+        title: "Secret perk #1 — placeholder",
+        body: "Add your perk here (e.g. a discount code, a free coffee chat, an early-access invite).",
+      },
+      {
+        title: "Secret perk #2 — placeholder",
+        body: "Add your perk here. Leave the link off until you have a real one.",
+        cta: { label: "Placeholder — add a link", href: "/about" },
+      },
     ],
   },
 
@@ -197,7 +211,7 @@ export const site = {
   },
 
   work: {
-    kicker: "day job",
+    kicker: "Sakana",
     title: "The agent inside Sakana Chat",
     lede: "I build AI products at Sakana in Tokyo. The day job is the agent in Sakana Chat, and Sakana Translate beside it.",
     points: [
@@ -226,7 +240,7 @@ export const site = {
   },
 
   writing: {
-    kicker: "weekends",
+    kicker: "letters",
     title: "AI Noodle",
     lede: "Growing up alongside AI, from someone who builds it. Out Saturday mornings, Tokyo time.",
     /** Verified publication feed. theainoodle.substack.com redirects to her profile. */
@@ -270,7 +284,7 @@ export const site = {
   },
 
   projects: {
-    kicker: "shipping",
+    kicker: "beta",
     title: "Small Wins",
     lede: "A little diary for the good things. Log one small win a day.",
     /**
@@ -415,9 +429,9 @@ export const site = {
   hikes: {
     kicker: "field notes",
     title: "On the mountains",
-    lede: "Trails from the hike log — mostly Hokkaido, and the ridges around Tokyo. Tap a peak or a bar.",
+    lede: "Trails from the hike log — mostly Hokkaido, and the ridges around Tokyo. Tap a bar to read one.",
     previewLede: "Mostly Hokkaido, and the ridges around Tokyo. Tap a pin.",
-    moreLabel: "See the map and the shelf →",
+    moreLabel: "See the map →",
     seasonLabel: "Season",
     trailLink: "This trail →",
     mapLabel: "Japan, north up. Pins are placed by hand.",
@@ -497,10 +511,9 @@ export const site = {
   },
 
   consulting: {
-    kicker: "consulting",
-    title: "Work with me",
-    lede: "I consult for businesses on AI products and agents — a workflow you already run, or a tool-using agent your team can keep. Send a note and I'll write back about a call.",
-    cta: { label: "Work with me", href: "/#note" },
+    title: "Let's talk",
+    lede: "I consult for businesses on AI products and agents — a workflow you already run, or a tool-using agent your team can keep. Send a message and I'll write back about a call.",
+    aboutCta: { label: "About me", href: "/about" },
   },
 
   coffee: {
@@ -558,6 +571,58 @@ export const site = {
         body: "Titles from the log. A note can point at one.",
         href: "/books",
         link: "Browse the shelf →",
+      },
+    ],
+  },
+
+  /**
+   * Featured slugs. null means the latest hike or book by date,
+   * and the first café. Set a slug to pin a specific card.
+   * Add a category here to grow the /weekends hub. available: false
+   * shows a coming-soon card and does not invent entries.
+   */
+  weekends: {
+    kicker: "weekends",
+    title: "Weekends",
+    lede: "One hike, one book, one counter from the log. The rest is one page away.",
+    seeAll: "See all weekends →",
+    featured: {
+      hike: null as string | null,
+      book: null as string | null,
+      cafe: null as string | null,
+    },
+    hikeLink: "All the hikes →",
+    bookLink: "All the books →",
+    cafeLink: "All the cafés →",
+    comingSoon: "Coming soon",
+    categories: [
+      {
+        id: "hikes",
+        title: "Hikes",
+        body: "The map, the stats, and a page for every trail.",
+        href: "/hikes",
+        available: true,
+      },
+      {
+        id: "coffee",
+        title: "Coffee",
+        body: "Counters to fill in. The cards here are still placeholders.",
+        href: "/coffee",
+        available: true,
+      },
+      {
+        id: "books",
+        title: "Books",
+        body: "Titles from the log, and any note that points at one.",
+        href: "/books",
+        available: true,
+      },
+      {
+        id: "matcha",
+        title: "Matcha",
+        body: "Coming soon. Nothing here yet.",
+        href: "",
+        available: false,
       },
     ],
   },
@@ -659,30 +724,8 @@ export const site = {
   },
 
   contact: {
-    kicker: "a note",
-    title: "Write me a note",
-    lede: "Tell me what you are trying to ship, or just say hello.",
-    services: [
-      {
-        title: "AI products",
-        body: "A workflow your team already runs, shaped into something people open on a Tuesday.",
-      },
-      {
-        title: "Agents",
-        body: "Tools, sandboxes, and skills — and a clear edge for what the agent should not do.",
-      },
-      {
-        title: "A working session",
-        body: "With the people who will keep it after the call, not a deck that leaves with me.",
-      },
-    ],
-    topics: [
-      { value: "product", label: "An AI product" },
-      { value: "agent", label: "An agent for my team" },
-      { value: "workshop", label: "A working session" },
-      { value: "hello", label: "Just saying hello" },
-    ],
-    submit: "Send the note",
+    messageLabel: "Message",
+    submit: "Send",
     sending: "Sending…",
     successTitle: "Got it.",
     successBody: "I'll write back soon.",

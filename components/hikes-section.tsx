@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import rings from "@/data/japan-rings.json";
 import type { Hike } from "@/lib/hikes";
 import { formatDay, formatDuration, formatHours, formatMeters } from "@/lib/format";
@@ -89,6 +89,7 @@ export function HikesSection({
   moreLabel?: string;
 }) {
   const [selected, setSelected] = useState(hikes[hikes.length - 1]?.title ?? "");
+  const panelRef = useRef<HTMLElement>(null);
   const [bounds, setBounds] = useState<Bounds>(JAPAN);
   const [region, setRegion] = useState<string | null>(null);
   const [season, setSeason] = useState<string | null>(null);
@@ -155,6 +156,13 @@ export function HikesSection({
     return season ? hikes.filter((item) => item.tags.includes(season)) : hikes;
   }
 
+  function showTrail(title: string, scroll: boolean) {
+    setSelected(title);
+    if (!scroll) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    panelRef.current?.scrollIntoView({ block: "nearest", behavior: reduce ? "auto" : "smooth" });
+  }
+
   function selectRegion(next: string | null) {
     setRegion(next);
     const base = pool();
@@ -180,7 +188,7 @@ export function HikesSection({
   }
 
   return (
-    <section className="band band-tight" id="hikes" aria-labelledby="hikes-heading">
+    <section className={preview ? "band band-tight" : "band band-tight hikes-compact"} id="hikes" aria-labelledby="hikes-heading">
       <div className="wrap">
         <p className="script kicker">{kicker}</p>
         {preview ? <h2 id="hikes-heading">{title}</h2> : <h1 id="hikes-heading">{title}</h1>}
@@ -247,7 +255,7 @@ export function HikesSection({
           </div>
         )}
 
-        <div className={preview ? "hike-preview" : "hike-layout"}>
+        <div className={preview ? "hike-preview" : "hike-map"}>
           {preview ? (
             <div className="preview-copy">
               {hike ? (
@@ -288,13 +296,13 @@ export function HikesSection({
                       aria-label={label}
                       aria-pressed={active}
                       onClick={() => {
-                        if (group.items.length === 1) setSelected(group.items[0].title);
+                        if (group.items.length === 1) showTrail(group.items[0].title, true);
                         else setBounds(boundsFor(group.items));
                       }}
                       onKeyDown={(event) => {
                         if (event.key !== "Enter" && event.key !== " ") return;
                         event.preventDefault();
-                        if (group.items.length === 1) setSelected(group.items[0].title);
+                        if (group.items.length === 1) showTrail(group.items[0].title, true);
                         else setBounds(boundsFor(group.items));
                       }}
                     />
@@ -324,12 +332,43 @@ export function HikesSection({
             <figcaption>{mapLabel}</figcaption>
           </figure>
 
-          {!preview && hike ? (
-            <article className="detail-card" aria-live="polite">
+        </div>
+
+        {preview ? null : (
+        <div className="elev-block">
+          <div className="elev" role="list" aria-label="Metres climbed, earliest to latest">
+            {shown.map((item) => (
+              <button
+                key={item.title}
+                type="button"
+                className="elev-item"
+                aria-pressed={item.title === selected}
+                aria-controls="hike-detail"
+                aria-label={`${item.title}, ${formatDay(item.date)}. Summit ${formatMeters(item.heightM)}, climbed ${formatMeters(item.climbedM)}, ${formatDuration(item.durationMin)}.`}
+                onMouseEnter={() => setSelected(item.title)}
+                onFocus={() => setSelected(item.title)}
+                onClick={() => showTrail(item.title, true)}
+              >
+                <span
+                  className="elev-bar"
+                  style={{
+                    height: `${16 + (item.climbedM / maxClimbed) * 84}px`,
+                    background: REGION_COLOR[item.region] ?? "#efd15f",
+                  }}
+                />
+                <span className="elev-name">{item.title}</span>
+              </button>
+            ))}
+          </div>
+          {hike ? (
+            <article className="hike-panel" id="hike-detail" ref={panelRef}>
               <p className="card-kicker">{hike.region}</p>
-              <h3>{hike.title}</h3>
+              <h2 className="hike-panel-title">{hike.title}</h2>
               <p>
                 <time dateTime={hike.date}>{formatDay(hike.date)}</time>
+              </p>
+              <p className="hike-blurb">
+                Summit {formatMeters(hike.heightM)}, climbed {formatMeters(hike.climbedM)}, {formatDuration(hike.durationMin)} on the trail.
               </p>
               <dl className="detail-stats">
                 <div>
@@ -345,13 +384,6 @@ export function HikesSection({
                   <dd>{formatDuration(hike.durationMin)}</dd>
                 </div>
               </dl>
-              <div
-                className="compare"
-                aria-hidden="true"
-                title={`${hike.climbedM} metres climbed, summit ${hike.heightM}`}
-              >
-                <span style={{ width: `${Math.min(100, (hike.climbedM / hike.heightM) * 100)}%` }} />
-              </div>
               {hike.pinApproximate ? <p className="quiet-note">{approxNote}</p> : null}
               {hike.lat == null ? <p className="quiet-note">This one is not on the map yet.</p> : null}
               <p>
@@ -359,38 +391,24 @@ export function HikesSection({
                   This trail →
                 </Link>
               </p>
-              <p className="tag-row">
-                {hike.tags.map((tag) => (
-                  <Link key={tag} href={`/tags/${tag}`}>
-                    {tag}
-                  </Link>
-                ))}
-              </p>
             </article>
           ) : null}
         </div>
+        )}
 
         {preview ? null : (
-        <div className="elev" role="list" aria-label="Metres climbed, earliest to latest">
-          {shown.map((item) => (
-            <button
-              key={item.title}
-              type="button"
-              className="elev-item"
-              aria-pressed={item.title === selected}
-              onClick={() => setSelected(item.title)}
-            >
-              <span
-                className="elev-bar"
-                style={{
-                  height: `${18 + (item.climbedM / maxClimbed) * 120}px`,
-                  background: REGION_COLOR[item.region] ?? "#efd15f",
-                }}
-              />
-              <span className="elev-name">{item.title}</span>
-            </button>
-          ))}
-        </div>
+          <ul className="hike-grid">
+            {shown.map((item) => (
+              <li key={item.slug}>
+                <Link className="hike-chip" href={`/hikes/${item.slug}`}>
+                  <span className="hike-chip-name">{item.title}</span>
+                  <span className="hike-chip-meta">
+                    {item.region} · {formatDay(item.date)} · {formatMeters(item.climbedM)}
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
         )}
       </div>
     </section>

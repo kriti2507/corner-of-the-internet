@@ -10,6 +10,7 @@ export function ProjectsSection({
   note,
   cta,
   others = [],
+  anchorId = "projects",
 }: {
   kicker: string;
   title: string;
@@ -27,9 +28,10 @@ export function ProjectsSection({
     href: string;
     link: string;
   }[];
+  anchorId?: string;
 }) {
   return (
-    <section className="band" id="projects" aria-labelledby="projects-heading">
+    <section className="band" id={anchorId} aria-labelledby="projects-heading">
       <div className="wrap project-layout">
         <article className="sticker tone-yellow project-feature" data-tilt="2">
           <p className="script kicker">{kicker}</p>

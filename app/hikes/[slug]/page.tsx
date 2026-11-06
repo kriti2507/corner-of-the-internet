@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { NoteList, TagLinks } from "@/components/notes";
 import { site } from "@/content/site";
 import { formatDay, formatDuration, formatMeters } from "@/lib/format";
@@ -29,6 +30,13 @@ export default async function HikePage({ params }: { params: Promise<{ slug: str
   return (
     <section className="band" aria-labelledby="hike-heading">
       <div className="wrap journal">
+        <Breadcrumbs
+          items={[
+            { label: site.weekends.title, href: "/weekends" },
+            { label: site.hikes.title, href: "/hikes" },
+            { label: hike.title },
+          ]}
+        />
         <p className="script kicker">{hike.region}</p>
         <h1 id="hike-heading">{hike.title}</h1>
         <p className="lede">
