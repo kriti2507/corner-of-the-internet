@@ -133,9 +133,11 @@ export default async function Page() {
           anchorId="small-wins"
           kicker={site.projects.kicker}
           title={site.projects.title}
+          badge={site.projects.badge}
           lede={site.projects.lede}
           url={site.projects.url}
-          points={site.projects.points}
+          tryLabel={site.projects.tryLabel}
+          steps={site.projects.steps}
           note={site.projects.note}
           cta={site.projects.cta}
         />

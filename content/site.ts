@@ -296,18 +296,30 @@ export const site = {
   },
 
   projects: {
-    kicker: "beta",
+    kicker: "what I'm building",
     title: "Small Wins",
-    lede: "A little diary for the good things. Log one small win a day.",
+    badge: "beta",
+    lede: "A little diary for the good things. Log one small win a day and watch each part of your life fill in.",
     /**
      * Public app URL, when there is one. Null hides the outbound link
      * so the site never points at a guess.
      */
-    url: null as string | null,
-    points: [
-      "One entry a day — a hike, a page, a fix, a conversation.",
-      "Each part of life fills in on its own colour.",
-      "Early access. Sign in with Google, and only you can see it.",
+    url: "https://small-wins-live.vercel.app/" as string | null,
+    tryLabel: "Try the beta",
+    /** The real first-run flow, from the app's StarterPicker and QuickAdd. */
+    steps: [
+      {
+        title: "Sign in with Google",
+        body: "Only you can see what you log.",
+      },
+      {
+        title: "Pick what to track",
+        body: "Choose up to three starters, like Workout, Reading or Sleep. Rename them or add your own later.",
+      },
+      {
+        title: "Type today's win",
+        body: "One line, like “ran 5k in 27 min”. Small Wins files it under the right aspect and fills in the day.",
+      },
     ],
     note: "The hike log and the bookshelf on this site are slices of that same habit.",
     cta: { label: "See Small Wins →", href: "/small-wins" },
@@ -337,31 +349,50 @@ export const site = {
     tryLabel: "Try the beta",
     startLabel: "Start logging wins",
     url: "https://small-wins-live.vercel.app/",
-    sampleNote: "A sample grid, not a real diary. Darker squares are bigger wins.",
-    ranges: ["30d", "90d", "1y", "All"],
+    flowTitle: "How it starts",
+    flow: [
+      {
+        title: "Sign in with Google",
+        body: "No password to make up. Only you can see what you log.",
+      },
+      {
+        title: "Pick up to three things to track",
+        body: "Workout, Journal, Reading, Meditation, Sleep, Learning, Gratitude, Cooking or Walk. Each one comes with its own colour and fields.",
+      },
+      {
+        title: "Type today's win",
+        body: "One line in the box at the top. Small Wins puts it in the right place and the day fills in.",
+      },
+    ],
     features: [
       {
-        kicker: "time capsule",
-        title: "Your month at a glance",
-        body: "Each coloured square is a win from that day. Darker squares are bigger wins — a longer workout, a further hike. Zoom from thirty days out to a year, or the whole log, and look back at past months.",
-        image: "/small-wins/time-capsule.png",
-        width: 780,
-        height: 1632,
-        alt: "Small Wins Time Capsule for a month, with green and purple squares on the days a win was logged.",
+        kicker: "quick add",
+        title: "Log a win in one line",
+        body: "“What's your win today?” Type it the way you'd say it — “ran 5k in 27 min”, “read 30 pages”. Small Wins picks the aspect and fills in the numbers from your words, never guessing a value you didn't write. A clear win saves straight away with an Undo; anything ambiguous opens a draft for you to check.",
+        mock: "quick-add" as const,
       },
       {
         kicker: "aspects",
-        title: "The parts of life you track",
-        body: "You start with Workout and Journal. Add your own — Hikes, Books, Runs — with a name, a colour, and fields such as Distance (km) or Pages. Number fields can shade higher-is-better or lower-is-better, so the grid knows what a big win is.",
+        title: "Make the starters yours",
+        body: "Your starters arrive ready to use: Reading counts Pages, Sleep counts Hours, Walk counts Steps. Use ⋯ to rename or delete one, or + Add more to track something of your own — Hikes, Runs, Japanese — with a name, a colour, and fields such as Distance (km). Number fields shade higher-is-better or lower-is-better, so the grid knows what a big win is.",
         image: "/small-wins/aspects.png",
         width: 780,
         height: 1340,
-        alt: "Workout and Journal tiles, each filled with a grid of coloured squares.",
+        alt: "Workout and Journal aspect tiles, each filled with a grid of coloured squares.",
+      },
+      {
+        kicker: "time capsule",
+        title: "Your month at a glance",
+        body: "Every aspect you log shows up on the calendar in its own colour. Darker squares are bigger wins — a longer workout, more pages. Step back through past months to see what each one held.",
+        image: "/small-wins/time-capsule.png",
+        width: 780,
+        height: 1632,
+        alt: "Small Wins Time Capsule for October, with green and purple squares on the days a win was logged.",
       },
       {
         kicker: "the entry",
         title: "A photo, and the story if you want it",
-        body: "One entry a day is the habit. A twenty-minute walk counts. Add a photo, and write the story when a hike, a trip, or a book is worth more than the number.",
+        body: "A twenty-minute walk counts. Add a photo, and write the story when a hike, a trip, or a book is worth more than the number.",
         image: "/small-wins/story.png",
         width: 780,
         height: 1688,
