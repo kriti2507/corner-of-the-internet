@@ -106,6 +106,8 @@ export function Header({
                   (pathname === "/weekends" ||
                     pathname.startsWith("/hikes") ||
                     pathname.startsWith("/coffee") ||
+                    pathname.startsWith("/places") ||
+                    pathname.startsWith("/japanese") ||
                     pathname.startsWith("/books")));
               const current = pageMatch || (onHome && active === item.id);
               return (

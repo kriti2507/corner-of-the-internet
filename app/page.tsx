@@ -5,13 +5,13 @@ import { CommunitySection } from "@/components/community-section";
 import { ContactForm } from "@/components/contact-form";
 import { Hero } from "@/components/hero";
 import { ProjectsSection } from "@/components/projects-section";
-import { WeekendsTeaser } from "@/components/weekends-teaser";
+import { WeekendsHome } from "@/components/weekends/weekends-home";
 import { WorkSection } from "@/components/work-section";
 import { WritingSection } from "@/components/writing-section";
 import { getEvents } from "@/lib/events";
-import { featuredWeekend } from "@/lib/featured";
 import { getPosts } from "@/lib/posts";
 import { postsInSeries } from "@/lib/journal";
+import { weekendSummary } from "@/lib/weekends";
 
 function badgeFor(event: CalendarEvent | undefined) {
   if (!event) {
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
 export default async function Page() {
   const [writing, events] = await Promise.all([getPosts(), getEvents()]);
   const nextMeetup = events.upcoming[0];
-  const featured = featuredWeekend(site.weekends.featured);
+  const weekend = weekendSummary();
 
   return (
     <>
@@ -125,18 +125,7 @@ export default async function Page() {
         />
       </div>
       <div className="home-block home-weekends">
-        <WeekendsTeaser
-          kicker={site.weekends.kicker}
-          title={site.weekends.title}
-          lede={site.weekends.lede}
-          seeAll={site.weekends.seeAll}
-          hike={featured.hike}
-          book={featured.book}
-          cafe={featured.cafe}
-          hikeLink={site.weekends.hikeLink}
-          bookLink={site.weekends.bookLink}
-          cafeLink={site.weekends.cafeLink}
-        />
+        <WeekendsHome summary={weekend} />
       </div>
       <div className="home-block home-wins">
         <span id="projects" className="alias-anchor" />

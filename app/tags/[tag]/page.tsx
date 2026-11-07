@@ -1,4 +1,5 @@
 import { NoteList, TagLinks } from "@/components/notes";
+import { placeWhere } from "@/content/places";
 import { site } from "@/content/site";
 import { forTag, allTags } from "@/lib/tags";
 import { tagLabel } from "@/lib/slug";
@@ -41,11 +42,10 @@ export default async function TagPage({ params }: { params: Promise<{ tag: strin
           <ul className="cafe-grid">
             {found.cafes.map((cafe) => (
               <li key={cafe.slug} className="cafe-card">
-                {cafe.placeholder ? <span className="tape tape-yellow placeholder-tape">Placeholder</span> : null}
                 <h3>
-                  <Link href={`/coffee/${cafe.slug}`}>{cafe.name}</Link>
+                  <Link href={`/places/${cafe.slug}`}>{cafe.name}</Link>
                 </h3>
-                <p className="cafe-area">{cafe.neighbourhood}</p>
+                <p className="cafe-area">{placeWhere(cafe)}</p>
                 <TagLinks tags={cafe.tags} />
               </li>
             ))}
