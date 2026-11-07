@@ -32,6 +32,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const cafes = post.cafes.map((item) => getCafe(item)).filter((item) => item !== null);
   const books = post.books.map((item) => getBook(item)).filter((item) => item !== null);
   const hikes = post.hikes.map((item) => getHike(item)).filter((item) => item !== null);
+  const series = post.series ? site.work.series.find((item) => item.slug === post.series) ?? null : null;
 
   return (
     <article className="band" aria-labelledby="post-heading">
@@ -41,6 +42,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         <h1 id="post-heading">{post.title}</h1>
         <p className="lede">{post.summary}</p>
         <TagLinks tags={post.tags} />
+        {series ? (
+          <p className="note">
+            {site.work.partOf} <Link href={`/series/${series.slug}`}>{series.title} →</Link>
+          </p>
+        ) : null}
         {post.external ? (
           <p>
             <External className="btn btn-ink" href={post.external}>

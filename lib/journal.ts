@@ -13,6 +13,10 @@ export type JournalPost = {
   books: string[];
   hikes: string[];
   external: string | null;
+  /** Slug from site.work.series, or null. */
+  series: string | null;
+  /** Reading order inside a series. Falls back to date. */
+  part: number | null;
   sample: boolean;
   draft: boolean;
   body: string;
@@ -73,6 +77,8 @@ function readPosts(): JournalPost[] {
         books: asList(data.books),
         hikes: asList(data.hikes),
         external: asString(data.external) || null,
+        series: asString(data.series) || null,
+        part: Number.isFinite(Number(asString(data.part))) && asString(data.part) ? Number(asString(data.part)) : null,
         sample: data.sample === true,
         draft: data.draft === true,
         body,
@@ -93,4 +99,16 @@ export function getJournalPost(slug: string) {
 
 export function postsMentioning(kind: "cafes" | "books" | "hikes", slug: string) {
   return getJournalPosts().filter((post) => post[kind].includes(slug));
+}
+
+/** Notes in a series, in reading order: `part` first, then oldest date first. */
+export function postsInSeries(series: string) {
+  return getJournalPosts()
+    .filter((post) => post.series === series)
+    .sort((a, b) => {
+      if (a.part !== null && b.part !== null) return a.part - b.part;
+      if (a.part !== null) return -1;
+      if (b.part !== null) return 1;
+      return a.date.localeCompare(b.date);
+    });
 }

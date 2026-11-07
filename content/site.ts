@@ -158,8 +158,8 @@ export const site = {
         kicker: "Day job",
         tone: "blue" as const,
         tilt: "1",
-        title: "The agent inside Sakana Chat",
-        body: "Tool calling, code sandboxes, skills — plus Sakana Translate.",
+        title: "The agent inside Sakana App",
+        body: "Notes from building it: memory, MCP, and the tools it reaches for.",
         href: "/#work",
         link: "More on work →",
       },
@@ -208,30 +208,46 @@ export const site = {
 
   work: {
     kicker: "Sakana",
-    title: "The agent inside Sakana Chat",
-    lede: "I build AI products at Sakana in Tokyo. The day job is the agent in Sakana Chat, and Sakana Translate beside it.",
-    points: [
+    title: "The agent inside Sakana App",
+    lede: "I build AI products at Sakana in Tokyo. Right now that's the agent inside Sakana App. I write up what I learn while building it, one topic at a time.",
+    /**
+     * Each card opens /series/<slug>. A note joins a series with
+     * `series: <slug>` in its frontmatter. Add, rename, or reorder here.
+     */
+    series: [
       {
-        title: "Tool calling",
-        body: "The agent can reach for a tool instead of inventing an answer it does not have.",
+        slug: "memory",
+        title: "Remembering, and Forgetting",
+        body: "Memory: what the agent keeps between conversations, how it finds it again, and what it lets go.",
+        intro:
+          "How the agent in Sakana App remembers. What gets saved, how it's found again, and what should be forgotten.",
       },
       {
-        title: "Code sandboxes",
-        body: "When the answer has to be computed, it can run code in a sandbox.",
+        slug: "mcp",
+        title: "How Agents Talk to the World",
+        body: "MCP: how the agent plugs into other tools and data through the Model Context Protocol.",
+        intro:
+          "Notes on the Model Context Protocol: how the agent connects to tools and data that live outside it.",
       },
       {
-        title: "Skills",
-        body: "Repeatable skills for the kinds of jobs people actually bring to the chat.",
-      },
-      {
-        title: "Sakana Translate",
-        body: "Translate, proofread, and ask — across Japanese, English, and Chinese.",
+        slug: "tools",
+        title: "When the Agent Needs to Do, Not Say",
+        body: "Tools: tool calling, code sandboxes, and skills. Something to reach for instead of guessing.",
+        intro:
+          "Giving the model tools: tool calling, code sandboxes, and skills. The agent reaches for something instead of inventing an answer.",
       },
     ],
+    seriesKicker: "Sakana App",
+    countOne: "1 note →",
+    countMany: "{n} notes →",
+    countNone: "First note soon →",
+    seriesEmpty: "The first note in this series is on the way.",
+    seriesPart: "Part",
+    seriesBack: "← All three topics",
+    partOf: "Part of the series",
     links: [
       { label: "Sakana", href: "https://sakana.ai" },
-      { label: "Sakana Chat", href: "https://chat.sakana.ai" },
-      { label: "Sakana Translate", href: "https://translate.sakana.ai" },
+      { label: "Sakana App", href: "https://chat.sakana.ai" },
     ],
   },
 
@@ -509,7 +525,7 @@ export const site = {
       {
         when: "Now",
         title: "AI developer at Sakana AI",
-        body: "The agent inside Sakana Chat — tool calling, code sandboxes, and skills — and Sakana Translate.",
+        body: "The agent inside Sakana App — memory, MCP, and tools: tool calling, code sandboxes, and skills.",
         href: "/#work",
         link: "The day job →",
         placeholder: false,

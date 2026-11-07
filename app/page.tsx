@@ -10,6 +10,7 @@ import { WorkSection } from "@/components/work-section";
 import { WritingSection } from "@/components/writing-section";
 import { getEvents } from "@/lib/events";
 import { getPosts } from "@/lib/posts";
+import { postsInSeries } from "@/lib/journal";
 import { weekendSummary } from "@/lib/weekends";
 
 function badgeFor(event: CalendarEvent | undefined) {
@@ -83,7 +84,13 @@ export default async function Page() {
           kicker={site.work.kicker}
           title={site.work.title}
           lede={site.work.lede}
-          points={site.work.points}
+          series={site.work.series.map((item) => ({
+            slug: item.slug,
+            title: item.title,
+            body: item.body,
+            count: postsInSeries(item.slug).length,
+          }))}
+          counts={{ one: site.work.countOne, many: site.work.countMany, none: site.work.countNone }}
           links={site.work.links}
         />
       </div>
