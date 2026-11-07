@@ -221,22 +221,22 @@ export const site = {
     series: [
       {
         slug: "memory",
-        title: "Memory",
-        body: "What the agent keeps between conversations, how it finds it again, and what it should forget.",
+        title: "Remembering, and Forgetting",
+        body: "Memory: what the agent keeps between conversations, how it finds it again, and what it lets go.",
         intro:
           "How the agent in Sakana App remembers. What gets saved, how it's found again, and what should be forgotten.",
       },
       {
         slug: "mcp",
-        title: "MCP",
-        body: "How the agent plugs into other tools and data through the Model Context Protocol.",
+        title: "How Agents Talk to the World",
+        body: "MCP: how the agent plugs into other tools and data through the Model Context Protocol.",
         intro:
           "Notes on the Model Context Protocol: how the agent connects to tools and data that live outside it.",
       },
       {
         slug: "tools",
-        title: "Tools",
-        body: "Tool calling, code sandboxes, and skills: giving the model something to reach for instead of guessing.",
+        title: "When the Agent Needs to Do, Not Say",
+        body: "Tools: tool calling, code sandboxes, and skills. Something to reach for instead of guessing.",
         intro:
           "Giving the model tools: tool calling, code sandboxes, and skills. The agent reaches for something instead of inventing an answer.",
       },
