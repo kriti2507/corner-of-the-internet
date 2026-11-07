@@ -1,17 +1,27 @@
+import Link from "next/link";
 import { External } from "@/components/external";
+
+export type SeriesCard = {
+  slug: string;
+  title: string;
+  body: string;
+  count: number;
+};
 
 export function WorkSection({
   kicker,
   title,
   lede,
-  points,
+  series,
+  counts,
   links,
   anchorId = "work",
 }: {
   kicker: string;
   title: string;
   lede: string;
-  points: readonly { title: string; body: string }[];
+  series: readonly SeriesCard[];
+  counts: { one: string; many: string; none: string };
   links: readonly { label: string; href: string }[];
   anchorId?: string;
 }) {
@@ -31,10 +41,19 @@ export function WorkSection({
           </ul>
         </div>
         <ul className="point-list">
-          {points.map((point) => (
-            <li key={point.title}>
-              <h3>{point.title}</h3>
-              <p>{point.body}</p>
+          {series.map((item) => (
+            <li key={item.slug}>
+              <Link className="point-card" href={`/series/${item.slug}`}>
+                <h3>{item.title}</h3>
+                <p>{item.body}</p>
+                <span className="card-link">
+                  {item.count === 0
+                    ? counts.none
+                    : item.count === 1
+                      ? counts.one
+                      : counts.many.replace("{n}", String(item.count))}
+                </span>
+              </Link>
             </li>
           ))}
         </ul>

@@ -11,6 +11,7 @@ import { WritingSection } from "@/components/writing-section";
 import { getEvents } from "@/lib/events";
 import { featuredWeekend } from "@/lib/featured";
 import { getPosts } from "@/lib/posts";
+import { postsInSeries } from "@/lib/journal";
 
 function badgeFor(event: CalendarEvent | undefined) {
   if (!event) {
@@ -83,7 +84,13 @@ export default async function Page() {
           kicker={site.work.kicker}
           title={site.work.title}
           lede={site.work.lede}
-          points={site.work.points}
+          series={site.work.series.map((item) => ({
+            slug: item.slug,
+            title: item.title,
+            body: item.body,
+            count: postsInSeries(item.slug).length,
+          }))}
+          counts={{ one: site.work.countOne, many: site.work.countMany, none: site.work.countNone }}
           links={site.work.links}
         />
       </div>
