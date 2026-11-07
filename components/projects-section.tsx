@@ -1,73 +1,78 @@
 import Link from "next/link";
 import { External } from "@/components/external";
+import { StarterDemo } from "@/components/starter-demo";
 
 export function ProjectsSection({
   kicker,
   title,
+  badge,
   lede,
   url,
-  points,
+  tryLabel,
+  steps,
   note,
   cta,
-  others = [],
   anchorId = "projects",
 }: {
   kicker: string;
   title: string;
+  badge: string;
   lede: string;
   url: string | null;
-  points: readonly string[];
+  tryLabel: string;
+  steps: readonly { title: string; body: string }[];
   note: string;
   cta: { label: string; href: string };
-  others?: readonly {
-    kicker: string;
-    tone: "blue" | "pink" | "yellow" | "green" | "peach";
-    tilt: string;
-    title: string;
-    body: string;
-    href: string;
-    link: string;
-  }[];
   anchorId?: string;
 }) {
   return (
     <section className="band" id={anchorId} aria-labelledby="projects-heading">
-      <div className="wrap project-layout">
-        <article className="sticker tone-yellow project-feature" data-tilt="2">
-          <p className="script kicker">{kicker}</p>
-          <h2 id="projects-heading">{title}</h2>
-          <p className="lede">{lede}</p>
-          {url ? (
-            <External className="btn btn-ink" href={url}>
-              Open Small Wins →
-            </External>
-          ) : (
-            <Link className="btn btn-ink" href={cta.href}>
-              {cta.label}
-            </Link>
-          )}
-        </article>
-        <div>
-          <ol className="challenge">
-            {points.map((point) => (
-              <li key={point}>{point}</li>
-            ))}
-          </ol>
-          <p className="note">{note}</p>
-          {others.length > 0 ? (
-            <ul className="side-grid">
-              {others.map((item) => (
-                <li key={item.href}>
-                  <Link className={`sticker tone-${item.tone}`} data-tilt={item.tilt} href={item.href}>
-                    <p className="card-kicker">{item.kicker}</p>
-                    <h3>{item.title}</h3>
-                    <p className="card-body">{item.body}</p>
-                    <span className="card-link">{item.link}</span>
-                  </Link>
+      <div className="wrap">
+        <p className="script kicker">{kicker}</p>
+        <div className="section-head">
+          <h2 id="projects-heading">
+            {title} <span className="sw-badge">{badge}</span>
+          </h2>
+          <Link className="text-link" href={cta.href}>
+            {cta.label}
+          </Link>
+        </div>
+        <p className="lede">{lede}</p>
+
+        <div className="wins-layout">
+          <div>
+            <ol className="wins-steps">
+              {steps.map((step) => (
+                <li key={step.title}>
+                  <h3>{step.title}</h3>
+                  <p>{step.body}</p>
                 </li>
               ))}
-            </ul>
-          ) : null}
+            </ol>
+            <div className="hero-actions wins-actions">
+              {url ? (
+                <External className="btn btn-ink" href={url}>
+                  {tryLabel} →
+                </External>
+              ) : null}
+            </div>
+            <p className="note wins-note">
+              {note.split(/(hike log|bookshelf)/).map((part) =>
+                part === "hike log" ? (
+                  <Link key={part} href="/hikes">
+                    hike log
+                  </Link>
+                ) : part === "bookshelf" ? (
+                  <Link key={part} href="/books">
+                    bookshelf
+                  </Link>
+                ) : (
+                  part
+                ),
+              )}
+            </p>
+          </div>
+          <StarterDemo compact />
         </div>
       </div>
     </section>
