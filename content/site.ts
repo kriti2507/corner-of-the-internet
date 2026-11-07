@@ -1,6 +1,8 @@
 /**
  * Edit this file to change copy, links, and placeholders.
  * Hike and book logs live in data/hikes.json and data/books.json.
+ * Weekends copy (hikes, reading, places, Japanese) lives in content/weekends.ts,
+ * and the places themselves in content/places.ts.
  *
  * Email is still a placeholder. GitHub and LinkedIn are Kriti's real profiles.
  * There is no top ticker — she asked for it to be removed.
@@ -51,9 +53,9 @@ export const site = {
       description: "Notes on this site. Some are samples. A file can also point at a Substack letter.",
     },
     books: {
-      title: "Books",
+      title: "Reading",
       path: "/books",
-      description: "Books from the log, with the series name when it is written in the title.",
+      description: "Every book Kriti has read this year, newest first, with a page for each.",
     },
     about: {
       title: "About",
@@ -65,13 +67,7 @@ export const site = {
       title: "Hikes",
       path: "/hikes",
       description:
-        "Trails from the hike log, mostly Hokkaido and the ridges around Tokyo.",
-    },
-    coffee: {
-      title: "Coffee",
-      path: "/coffee",
-      description:
-        "Placeholder cafés Kriti will fill in, plus Japanese study, notebooks, Tokyo, and the mountains.",
+        "Every hike from Kriti's log on a map of Japan, mostly Hokkaido and the ridges around Tokyo, with metres climbed and time on the trail.",
     },
     smallWins: {
       title: "Small Wins",
@@ -82,7 +78,7 @@ export const site = {
     weekends: {
       title: "Weekends",
       path: "/weekends",
-      description: "Hikes, coffee, and books — the weekend log, with room for more later.",
+      description: "Kriti's weekends: hikes across Japan, the books she reads, cafés, matcha and onsen she has been to, and her Japanese study.",
     },
   },
 
@@ -427,14 +423,6 @@ export const site = {
   },
 
   hikes: {
-    kicker: "field notes",
-    title: "On the mountains",
-    lede: "Trails from the hike log — mostly Hokkaido, and the ridges around Tokyo. Tap a bar to read one.",
-    previewLede: "Mostly Hokkaido, and the ridges around Tokyo. Tap a pin.",
-    moreLabel: "See the map →",
-    seasonLabel: "Season",
-    trailLink: "This trail →",
-    mapLabel: "Japan, north up. Pins are placed by hand.",
     approxNote: "This pin is approximate.",
   },
 
@@ -467,36 +455,7 @@ export const site = {
   } as Record<string, { lat: number; lng: number; approximate?: boolean }>,
 
   books: {
-    kicker: "notebook",
-    title: "The shelf",
-    lede: "Books from the log. Pull one out.",
-    hubLede: "The same log, with a page for each title. A tag appears only when the series name is written in the title.",
-    readLabel: "Logged",
-    openLabel: "Open the page →",
     emptyNotes: "No notes point at this book yet.",
-  },
-
-  cafes: {
-    kicker: "placeholder",
-    title: "Cafés",
-    lede: "A corner for counters and coffee. These cards are placeholders — the names are not real yet.",
-    places: [
-      {
-        name: "[café name]",
-        area: "[neighborhood, Tokyo]",
-        note: "Placeholder. Not a real café yet.",
-      },
-      {
-        name: "[café name]",
-        area: "[neighborhood, Tokyo]",
-        note: "Placeholder. A real order and a real note will land here.",
-      },
-      {
-        name: "[café name]",
-        area: "[on the way to a trail]",
-        note: "Placeholder. Nothing here is a recommendation yet.",
-      },
-    ],
   },
 
   about: {
@@ -516,116 +475,7 @@ export const site = {
     aboutCta: { label: "About me", href: "/about" },
   },
 
-  coffee: {
-    kicker: "a corner",
-    title: "Coffee and the rest",
-    lede: "Counters, a language in the margins, and the other things that don't fit on a résumé. These café cards are placeholders — the names are not real yet.",
-    teaserTitle: "Coffee and other interests",
-    teaserLede: "The café names are still placeholders. The rest is Japanese study, notebooks, and the city between the trails.",
-    seeAll: "See the corner →",
-    allLabel: "All",
-    tagLabel: "Tag",
-    areaLabel: "Neighbourhood",
-    pageLink: "The page →",
-    ticketKicker: "on the ticket",
-    interestsKicker: "besides",
-    interestsTitle: "Other interests",
-    interestsLede:
-      "Japanese study sits in the margins. Between the product and the table, I am on a mountain, in a notebook, or writing down one small win.",
-    interests: [
-      {
-        kicker: "Language",
-        tone: "yellow" as const,
-        tilt: "2",
-        title: "Japanese",
-        body: "JLPT N1 is in progress. Study sits in the margins.",
-      },
-      {
-        kicker: "Notebook",
-        tone: "pink" as const,
-        tilt: "3",
-        title: "One small win",
-        body: "Written down so the day does not disappear.",
-      },
-      {
-        kicker: "City",
-        tone: "blue" as const,
-        tilt: "1",
-        title: "Tokyo",
-        body: "Tables, trails, and the walk between them.",
-      },
-      {
-        kicker: "Ridges",
-        tone: "green" as const,
-        tilt: "4",
-        title: "Mountains",
-        body: "Mostly Hokkaido, and the hills around the city.",
-        href: "/hikes",
-        link: "See the trails →",
-      },
-      {
-        kicker: "Shelf",
-        tone: "peach" as const,
-        tilt: "5",
-        title: "Books",
-        body: "Titles from the log. A note can point at one.",
-        href: "/books",
-        link: "Browse the shelf →",
-      },
-    ],
-  },
 
-  /**
-   * Featured slugs. null means the latest hike or book by date,
-   * and the first café. Set a slug to pin a specific card.
-   * Add a category here to grow the /weekends hub. available: false
-   * shows a coming-soon card and does not invent entries.
-   */
-  weekends: {
-    kicker: "weekends",
-    title: "Weekends",
-    lede: "One hike, one book, one counter from the log. The rest is one page away.",
-    seeAll: "See all weekends →",
-    featured: {
-      hike: null as string | null,
-      book: null as string | null,
-      cafe: null as string | null,
-    },
-    hikeLink: "All the hikes →",
-    bookLink: "All the books →",
-    cafeLink: "All the cafés →",
-    comingSoon: "Coming soon",
-    categories: [
-      {
-        id: "hikes",
-        title: "Hikes",
-        body: "The map, the stats, and a page for every trail.",
-        href: "/hikes",
-        available: true,
-      },
-      {
-        id: "coffee",
-        title: "Coffee",
-        body: "Counters to fill in. The cards here are still placeholders.",
-        href: "/coffee",
-        available: true,
-      },
-      {
-        id: "books",
-        title: "Books",
-        body: "Titles from the log, and any note that points at one.",
-        href: "/books",
-        available: true,
-      },
-      {
-        id: "matcha",
-        title: "Matcha",
-        body: "Coming soon. Nothing here yet.",
-        href: "",
-        available: false,
-      },
-    ],
-  },
 
   blog: {
     kicker: "journal",
@@ -640,13 +490,13 @@ export const site = {
   tags: {
     kicker: "tag",
     title: "Tagged",
-    lede: "Notes, cafés, books, and hikes that carry this tag.",
+    lede: "Notes, places, books, and hikes that carry this tag.",
     notes: "Notes",
-    cafes: "Cafés",
+    cafes: "Places",
     books: "Books",
     hikes: "Hikes",
     emptyNotes: "No notes with this tag.",
-    emptyCafes: "No cafés with this tag.",
+    emptyCafes: "No places with this tag.",
     emptyBooks: "No books with this tag.",
     emptyHikes: "No hikes with this tag.",
   },

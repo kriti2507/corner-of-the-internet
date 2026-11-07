@@ -58,7 +58,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           <ul className="text-links">
             {cafes.map((cafe) => (
               <li key={cafe.slug}>
-                <Link href={`/coffee/${cafe.slug}`}>{cafe.name}</Link>
+                <Link href={`/places/${cafe.slug}`}>{cafe.name}</Link>
               </li>
             ))}
             {books.map((book) => (
