@@ -25,6 +25,7 @@ The home page carries the whole picture. Deeper pages:
 - `/coffee` and `/coffee/[slug]` — placeholder cafés, filtered by tag and neighbourhood
 - `/books` and `/books/[slug]` — the book log
 - `/tags/[tag]` — notes, cafés, books, and hikes that share a tag
+- `/series/[slug]` — one page per Sakana App topic (Memory, MCP, Tools), listing the notes in that series
 - `/about` — a timeline of what the site already knows
 - `/small-wins` — product introduction for the Small Wins app
 
@@ -69,6 +70,21 @@ The body can link to [/coffee/example-counter](/coffee/example-counter).
 - Set `draft: true` to hide a note. Set `sample: true` to show it with a Sample mark.
 - To tag a Substack letter without copying it, set `external` to the letter URL and leave the body as a sentence about the link. `/writing` still loads the AI Noodle feed, and skips a feed item when a note already uses that URL.
 - `npm run build` picks up new files. No database.
+
+### Sakana App series
+
+The Sakana section on the home page shows one card per topic. The topics live in `site.work.series` in [`content/site.ts`](content/site.ts) — add, rename, or reorder them there. Each card opens `/series/<slug>`.
+
+A note joins a series with two extra frontmatter lines:
+
+```markdown
+series: memory
+part: 2
+```
+
+- `series` is `memory`, `mcp`, or `tools` (or any slug you add).
+- `part` is optional. Without it, notes in a series are ordered oldest first.
+- A note that lives on Substack can still join a series: set `external` too, and the card links out.
 
 ## Email
 
