@@ -18,7 +18,7 @@ All copy, links, photo paths, and placeholders live in [`content/site.ts`](conte
 The home page carries the whole picture. Deeper pages:
 
 - `/` — hero, day job, latest letters, community, hike preview, Small Wins, a short consulting note, coffee teaser, and the contact form
-- `/writing` — AI Noodle from Substack, plus notes on this site. Filter chips switch between them.
+- `/writing` — AI Noodle from Substack, plus notes on this site, in clusters. Visitors can group by Topic (default), Top (likes + comments + restacks), Newest or Oldest; `?view=top` links straight to a grouping. Topics, their colours and which letter goes where live in `site.writing.topics` in `content/site.ts`; a new letter no topic lists is matched on keywords, else lands in "More letters".
 - `/blog` — notes in `content/posts`
 - `/weekends` — hub for hikes, coffee, books, and later categories such as matcha
 - `/hikes` and `/hikes/[slug]` — map, stats, season tags, and a page per trail
@@ -68,7 +68,7 @@ The body can link to [/coffee/example-counter](/coffee/example-counter).
 - Hike tags are the region plus the season of the logged date. Book tags are only a series name when it is written in the title, like Clifton Chronicles. Do not invent a genre.
 - Café cards in the repo are placeholders. Replace the name, neighbourhood, note, and tags, and set `placeholder: false`, before treating one as real. Example tags to use then: `pour-over`, `roaster`, `work-friendly`, `dessert`.
 - Set `draft: true` to hide a note. Set `sample: true` to show it with a Sample mark.
-- To tag a Substack letter without copying it, set `external` to the letter URL and leave the body as a sentence about the link. `/writing` still loads the AI Noodle feed, and skips a feed item when a note already uses that URL.
+- To tag a Substack letter without copying it, set `external` to the letter URL and leave the body as a sentence about the link. `/writing` still loads every AI Noodle letter, and skips one when a note already uses that URL.
 - `npm run build` picks up new files. No database.
 
 ### Sakana App series
@@ -102,4 +102,4 @@ See [`.env.example`](.env.example).
 
 Import the repo in Vercel and leave the framework preset on Next.js. No `vercel.json` and no environment variables are required for the site to build. Add the mail variables only when you want delivery.
 
-Writing (The AI Noodle RSS) and the community calendar (Luma iCal) revalidate about once an hour.
+Writing (the AI Noodle archive API, with the RSS feed as a fallback) and the community calendar (Luma iCal) revalidate about once an hour.
