@@ -179,6 +179,8 @@ a { color: inherit; }
 .mark-yellow { background-image: linear-gradient(#ffe56a, #ffe56a); }
 .mark-green { background-image: linear-gradient(#c9e39a, #c9e39a); }
 .mark-blue { background-image: linear-gradient(#b7d4f5, #b7d4f5); }
+.mark-red { background-image: linear-gradient(#f4ada3, #f4ada3); }
+.mark-lavender { background-image: linear-gradient(#d6cbef, #d6cbef); }
 
 .hero-actions {
   display: flex;
@@ -1149,11 +1151,12 @@ button.cafe-card[aria-pressed="true"] {
   overflow: hidden;
 }
 .home-block { position: relative; border-bottom: 2px solid var(--ink); }
-.home-sakana { background: #e3eef8; }
-.home-noodle { background: #f7efe6; }
-.home-community { background: #f6e2dc; }
-.home-weekends { background: #e8e0d0; }
-.home-wins { background: #faf5ec; }
+/* One tint per section, matching its hero highlight. */
+.home-sakana { background: #dde9f6; }
+.home-noodle { background: #f6dcd6; }
+.home-community { background: #f8edc8; }
+.home-weekends { background: #e2ebd4; }
+.home-wins { background: #ebe5f4; }
 .talk { padding: 1.35rem 0 1.6rem; background: var(--cream); }
 .talk-layout { display: grid; gap: 1rem; align-items: start; }
 .talk-copy h2 {

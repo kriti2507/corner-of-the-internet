@@ -8,7 +8,7 @@
  * There is no top ticker — she asked for it to be removed.
  */
 
-export type Mark = "pink" | "yellow" | "green" | "blue";
+export type Mark = "pink" | "yellow" | "green" | "blue" | "red" | "lavender";
 
 export type LeadPart = { text: string; mark?: Mark };
 
@@ -87,13 +87,13 @@ export const site = {
     monogram: "Kriti",
     lead: [
       { text: "I build AI products " },
-      { text: "at Sakana", mark: "pink" },
+      { text: "at Sakana", mark: "blue" },
       { text: ", " },
-      { text: "write AI Noodle", mark: "yellow" },
+      { text: "write AI Noodle", mark: "red" },
       { text: ", " },
-      { text: "host Women in AI Tokyo", mark: "green" },
+      { text: "host Women in Tech", mark: "yellow" },
       { text: " and " },
-      { text: "collect small wins", mark: "blue" },
+      { text: "collect small wins", mark: "lavender" },
       { text: " — on mountains, in notebooks, in code." },
     ] as LeadPart[],
     /**
