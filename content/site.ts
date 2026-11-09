@@ -8,7 +8,7 @@
  * There is no top ticker — she asked for it to be removed.
  */
 
-export type Mark = "pink" | "yellow" | "green" | "blue";
+export type Mark = "pink" | "yellow" | "green" | "blue" | "red" | "lavender";
 
 export type LeadPart = { text: string; mark?: Mark };
 
@@ -87,13 +87,13 @@ export const site = {
     monogram: "Kriti",
     lead: [
       { text: "I build AI products " },
-      { text: "at Sakana", mark: "pink" },
+      { text: "at Sakana", mark: "blue" },
       { text: ", " },
-      { text: "write AI Noodle", mark: "yellow" },
+      { text: "write AI Noodle", mark: "red" },
       { text: ", " },
-      { text: "host Women in AI Tokyo", mark: "green" },
+      { text: "host Women in Tech", mark: "yellow" },
       { text: " and " },
-      { text: "collect small wins", mark: "blue" },
+      { text: "collect small wins", mark: "lavender" },
       { text: " — on mountains, in notebooks, in code." },
     ] as LeadPart[],
     /**
@@ -445,18 +445,19 @@ export const site = {
 
   community: {
     kicker: "community",
-    title: "Women in AI/Tech Tokyo",
-    lede: "A cafe, a question, about twenty of us. The next table is whatever the public calendar says.",
+    title: "Women in Tech",
+    lede: "A monthly meetup for women and non-binary people working in tech, or finding their way in. Come for the conversation, leave knowing a few more people in the field.",
     calendarUrl: "https://luma.com/calendar/cal-SGe7q4ZRJ8WRTcv",
     /** Public iCal. Confirmed: returns text/calendar for Women x Tech. */
     icsUrl:
       "https://api.lu.ma/ics/get?entity=calendar&id=cal-SGe7q4ZRJ8WRTcv",
     calendarLabel: "The calendar →",
     saveLabel: "Save a seat →",
-    pastTitle: "Earlier tables",
+    nextLabel: "Next meetup",
+    pastTitle: "Past meetups",
     pastLink: "See the page →",
-    empty: "The next table isn't posted yet. The calendar is the place to watch.",
-    fallbackNote: "The live calendar didn't answer, so this is the last table I saved.",
+    empty: "The next meetup isn't posted yet. Follow the calendar to hear first.",
+    fallbackNote: "The live calendar didn't answer, so this is the last meetup I saved.",
     fallbackEvents: [
       {
         id: "evt-fallback-nov29",

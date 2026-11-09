@@ -179,6 +179,8 @@ a { color: inherit; }
 .mark-yellow { background-image: linear-gradient(#ffe56a, #ffe56a); }
 .mark-green { background-image: linear-gradient(#c9e39a, #c9e39a); }
 .mark-blue { background-image: linear-gradient(#b7d4f5, #b7d4f5); }
+.mark-red { background-image: linear-gradient(#f4ada3, #f4ada3); }
+.mark-lavender { background-image: linear-gradient(#d6cbef, #d6cbef); }
 
 .hero-actions {
   display: flex;
@@ -640,6 +642,57 @@ button.cafe-card[aria-pressed="true"] {
 
 .event-card { max-width: 40rem; }
 .event-card p { margin: 0.2rem 0; }
+
+/* Community: next-meetup ticket (date stub + details). */
+.meetup-card {
+  flex-direction: row;
+  max-width: 40rem;
+  padding: 0;
+  overflow: hidden;
+  background: var(--paper);
+}
+.meetup-date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 6.5rem;
+  padding: 1rem 0.9rem;
+  background: var(--script);
+  color: var(--paper);
+  border-right: 2px solid var(--ink);
+  text-align: center;
+  line-height: 1;
+}
+.meetup-month, .meetup-weekday {
+  font-size: 0.78rem;
+  font-weight: 750;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.meetup-day {
+  margin: 0.25rem 0 0.3rem;
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-size: 2.8rem;
+  font-weight: 620;
+  letter-spacing: -0.03em;
+}
+.meetup-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  padding: 1.05rem 1.25rem 1.15rem;
+}
+.meetup-body .card-kicker { color: var(--script); }
+.meetup-body h3 { margin: 0.1rem 0 0.1rem; font-size: 1.6rem; }
+.meetup-meta { margin: 0 0 0.7rem; color: var(--muted); font-weight: 600; }
+.meetup-cta { min-height: 2.4rem; padding: 0.4rem 1rem; font-size: 0.95rem; }
+@media (max-width: 480px) {
+  .meetup-date { min-width: 5.2rem; padding-inline: 0.6rem; }
+  .meetup-day { font-size: 2.3rem; }
+  .meetup-body h3 { font-size: 1.35rem; }
+}
 .quiet-note { color: var(--script); font-family: var(--font-caveat), cursive; font-size: 1.35rem; margin: 0.2rem 0 0.4rem; }
 
 .field-band {
@@ -1098,11 +1151,12 @@ button.cafe-card[aria-pressed="true"] {
   overflow: hidden;
 }
 .home-block { position: relative; border-bottom: 2px solid var(--ink); }
-.home-sakana { background: #e3eef8; }
-.home-noodle { background: #f7efe6; }
-.home-community { background: #e6f0e2; }
-.home-weekends { background: #e8e0d0; }
-.home-wins { background: #faf5ec; }
+/* One tint per section, matching its hero highlight. */
+.home-sakana { background: #dde9f6; }
+.home-noodle { background: #f6dcd6; }
+.home-community { background: #f8edc8; }
+.home-weekends { background: #e2ebd4; }
+.home-wins { background: #ebe5f4; }
 .talk { padding: 1.35rem 0 1.6rem; background: var(--cream); }
 .talk-layout { display: grid; gap: 1rem; align-items: start; }
 .talk-copy h2 {

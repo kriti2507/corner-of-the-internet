@@ -120,6 +120,7 @@ export default async function Page() {
           calendarUrl={site.community.calendarUrl}
           calendarLabel={site.community.calendarLabel}
           saveLabel={site.community.saveLabel}
+          nextLabel={site.community.nextLabel}
           pastTitle={site.community.pastTitle}
           pastLink={site.community.pastLink}
         />

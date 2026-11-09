@@ -2,11 +2,42 @@ import type { CalendarEvent } from "@/content/site";
 import { External } from "@/components/external";
 import { formatTokyo } from "@/lib/format";
 
+/**
+ * Venue + city, no street or postal code:
+ * "Chotto Matcha - Asakusa, Taito City, Tokyo 111-0033, Japan" → "Chotto Matcha Asakusa · Tokyo".
+ */
 function shortPlace(location: string) {
-  if (location.length < 72) return location;
-  const parts = location.split(",").map((part) => part.trim()).filter(Boolean);
-  const city = parts.find((part) => /tokyo/i.test(part)) ?? parts.at(-1);
-  return city && city !== parts[0] ? `${parts[0]} · ${city}` : parts[0];
+  const parts = location
+    .split(",")
+    .map((part) => part.replace(/\b\d{3}-?\d{4}\b/g, "").replace(/\s{2,}/g, " ").trim())
+    .filter((part) => part && !/^japan$/i.test(part));
+  const venue = (parts[0] ?? "").replace(/\s+-\s+/g, " ");
+  const city = parts.length > 1 ? parts.at(-1) : undefined;
+  return city ? `${venue} · ${city}` : venue;
+}
+
+/** Luma titles repeat the brand ("Women x Tech · Tokyo · Connections over Matcha"); keep the event name. */
+function eventName(title: string) {
+  const parts = title.split("·").map((part) => part.trim()).filter(Boolean);
+  return parts.at(-1) ?? title;
+}
+
+function tokyoParts(iso: string) {
+  const date = new Date(iso);
+  const part = (options: Intl.DateTimeFormatOptions) =>
+    new Intl.DateTimeFormat("en-GB", { timeZone: "Asia/Tokyo", ...options }).format(date);
+  return {
+    month: part({ month: "short" }),
+    day: part({ day: "numeric" }),
+    weekday: part({ weekday: "short" }),
+    time: part({ hour: "2-digit", minute: "2-digit", hourCycle: "h23" }),
+  };
+}
+
+function timeRange(start: string, end: string | null) {
+  const from = tokyoParts(start).time;
+  if (!end || Number.isNaN(new Date(end).getTime())) return `${from} JST`;
+  return `${from}–${tokyoParts(end).time} JST`;
 }
 
 export function CommunitySection({
@@ -20,6 +51,7 @@ export function CommunitySection({
   calendarUrl,
   calendarLabel,
   saveLabel,
+  nextLabel,
   past = [],
   pastTitle,
   pastLink,
@@ -34,6 +66,7 @@ export function CommunitySection({
   calendarUrl: string;
   calendarLabel: string;
   saveLabel: string;
+  nextLabel?: string;
   past?: CalendarEvent[];
   pastTitle: string;
   pastLink: string;
@@ -56,21 +89,39 @@ export function CommunitySection({
           <p className="empty-card">{empty}</p>
         ) : (
           <ul className="event-list">
-            {events.map((event) => (
-              <li key={event.id} className="sticker tone-green event-card" data-tilt="4">
-                <p className="card-kicker">On the calendar</p>
-                <h3>{event.title}</h3>
-                <p>
-                  <time dateTime={event.start}>{formatTokyo(event.start)}</time>
-                </p>
-                {event.location ? <p>{shortPlace(event.location)}</p> : null}
-                {event.url ? (
-                  <External className="card-link" href={event.url}>
-                    {saveLabel}
-                  </External>
-                ) : null}
-              </li>
-            ))}
+            {events.map((event) => {
+              const when = tokyoParts(event.start);
+              return (
+                <li key={event.id} className="sticker meetup-card" data-tilt="4">
+                  <div className="meetup-date" aria-hidden="true">
+                    <span className="meetup-month">{when.month}</span>
+                    <span className="meetup-day">{when.day}</span>
+                    <span className="meetup-weekday">{when.weekday}</span>
+                  </div>
+                  <div className="meetup-body">
+                    <p className="card-kicker">{nextLabel ?? "Next meetup"}</p>
+                    <h3>{eventName(event.title)}</h3>
+                    <p className="meetup-meta">
+                      <time dateTime={event.start}>
+                        <span className="sr-only">{formatTokyo(event.start)}, </span>
+                        {timeRange(event.start, event.end)}
+                      </time>
+                      {event.location ? (
+                        <>
+                          <span aria-hidden="true"> · </span>
+                          {shortPlace(event.location)}
+                        </>
+                      ) : null}
+                    </p>
+                    {event.url ? (
+                      <External className="btn btn-ink meetup-cta" href={event.url}>
+                        {saveLabel}
+                      </External>
+                    ) : null}
+                  </div>
+                </li>
+              );
+            })}
           </ul>
         )}
         {past.length > 0 ? (
@@ -81,7 +132,7 @@ export function CommunitySection({
                 const body = (
                   <>
                     <time dateTime={event.start}>{formatTokyo(event.start)}</time>
-                    <h3>{event.title}</h3>
+                    <h3>{eventName(event.title)}</h3>
                     {event.location ? <p>{shortPlace(event.location)}</p> : null}
                     {event.url ? <span className="card-link">{pastLink}</span> : null}
                   </>
