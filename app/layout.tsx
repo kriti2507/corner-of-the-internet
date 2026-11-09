@@ -3,6 +3,7 @@ import { Caveat, Fraunces, Outfit } from "next/font/google";
 import { site } from "@/content/site";
 import { HashScroll } from "@/components/hash-scroll";
 import { Header } from "@/components/header";
+import { SeasonFall } from "@/components/season-fall";
 import { SiteFooter } from "@/components/site-footer";
 import { getTokyoWeather } from "@/lib/tokyo-weather";
 import "./globals.css";
@@ -66,6 +67,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
           noteHref="/#note"
           links={site.footer.links}
         />
+        <SeasonFall />
       </body>
     </html>
   );
