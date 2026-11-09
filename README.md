@@ -71,6 +71,35 @@ The body can link to [/coffee/example-counter](/coffee/example-counter).
 - To tag a Substack letter without copying it, set `external` to the letter URL and leave the body as a sentence about the link. `/writing` still loads the AI Noodle feed, and skips a feed item when a note already uses that URL.
 - `npm run build` picks up new files. No database.
 
+### Formatting and photos
+
+```markdown
+Text with *italic* (or _italic_), **bold**, ~~crossed out~~, and `code`.
+
+## A heading
+
+> A quote, or something someone said at the counter.
+
+1. Numbered list
+2. Second item
+
+- Bullet list
+
+---
+
+![Matcha latte on the counter](/posts/my-post-slug/latte.jpg "Caption under the photo")
+
+![first photo](/posts/my-post-slug/a.jpg)
+![second photo](/posts/my-post-slug/b.jpg)
+```
+
+- Each line is its own paragraph. Leave a blank line between blocks.
+- Put photos in `public/posts/<post-slug>/` and link them as `/posts/<post-slug>/<file>`.
+- An image alone on its line becomes a full-width photo. Text in `"quotes"` after the path becomes the caption.
+- Two or more image lines in a row (no blank line between them) become a photo grid.
+- Resize phone photos to about 1600px wide before adding them (e.g. squoosh.app). Under ~400 KB each keeps pages fast.
+- Always write the alt text inside `![...]`. It is what screen readers and search engines read.
+
 ### Sakana App series
 
 The Sakana section on the home page shows one card per topic. The topics live in `site.work.series` in [`content/site.ts`](content/site.ts) — add, rename, or reorder them there. Each card opens `/series/<slug>`.
