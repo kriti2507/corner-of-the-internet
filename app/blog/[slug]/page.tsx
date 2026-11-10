@@ -12,7 +12,10 @@ import { formatDay } from "@/lib/format";
 import { JsonLd, absolute, personData } from "@/lib/structured-data";
 
 export function generateStaticParams() {
-  return getJournalPosts().map((post) => ({ slug: post.slug }));
+  const slugs = getJournalPosts().map((post) => ({ slug: post.slug }));
+  // Cache Components needs at least one param. With no notes yet, this one
+  // 404s (there's no post called "none") and isn't in the sitemap.
+  return slugs.length > 0 ? slugs : [{ slug: "none" }];
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
