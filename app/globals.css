@@ -1072,29 +1072,107 @@ button.cafe-card[aria-pressed="true"] {
 .journal { position: relative; padding-top: 0.4rem; }
 .journal-body { max-width: 40rem; }
 .journal-body a { font-weight: 650; }
-.timeline { list-style: none; margin: 1.4rem 0 0; padding: 0 0 0 1.4rem; border-left: 2px solid var(--ink); display: grid; gap: 1rem; }
-.timeline li { position: relative; }
-.timeline li::before {
+/* About: the story, told in chapters along one line. */
+.story-quote { margin: 0.4rem 0 0.2rem; max-width: 40rem; }
+.story-quote p {
+  margin: 0;
+  font-family: var(--font-lora), Georgia, serif;
+  font-style: italic;
+  font-size: clamp(1.25rem, 2.2vw, 1.5rem);
+  line-height: 1.45;
+}
+.story-quote cite { display: block; margin-top: 0.4rem; font-style: normal; font-size: 0.9rem; font-weight: 650; color: var(--muted); }
+.story-quote cite::before { content: "— "; }
+.story-toc { display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 1.1rem 0 0; padding: 0; list-style: none; counter-reset: toc; }
+.story-toc li { counter-increment: toc; }
+.story-toc a {
+  display: inline-block;
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  padding: 0.25rem 0.75rem;
+  background: var(--paper);
+  font-size: 0.9rem;
+  font-weight: 650;
+  text-decoration: none;
+}
+.story-toc a::before { content: counter(toc) ". "; color: var(--muted); }
+.story-toc a:hover { background: var(--yellow); }
+
+.story { list-style: none; margin: 0; padding: 0 0 0 1.6rem; border-left: 2px dashed var(--ink); display: grid; gap: 3rem; }
+.story-chapter { position: relative; scroll-margin-top: 7.5rem; }
+.story-chapter::before {
   content: "";
   position: absolute;
-  left: -1.55rem;
-  top: 1.1rem;
-  width: 12px;
-  height: 12px;
+  left: calc(-1.6rem - 9px);
+  top: 0.35rem;
+  width: 16px;
+  height: 16px;
   border: 2px solid var(--ink);
   border-radius: 50%;
   background: var(--yellow);
 }
-.timeline li.is-placeholder::before { background: var(--paper); }
-.timeline-card {
+.story-head { margin-bottom: 0.9rem; }
+.story-head .card-kicker { display: flex; flex-wrap: wrap; align-items: center; gap: 0.55rem; }
+.story-pin {
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  padding: 0.12rem 0.55rem;
+  letter-spacing: 0.06em;
+}
+.story-title { margin: 0.45rem 0 0; font-size: clamp(1.75rem, 3.2vw, 2.4rem); }
+.story-body { display: grid; gap: 1.6rem; align-items: start; }
+.story-text { max-width: 40rem; }
+.story-text p {
+  margin: 0 0 1.05rem;
+  font-family: var(--font-lora), Georgia, serif;
+  font-size: 1.1rem;
+  line-height: 1.75;
+}
+.story-text p.story-big {
+  font-size: clamp(1.22rem, 2vw, 1.38rem);
+  line-height: 1.6;
+  margin-bottom: 1.2rem;
+}
+.story-text a { font-weight: 650; text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 2px; text-decoration-color: var(--script); }
+
+.story-odds {
   position: relative;
   border: 2px solid var(--ink);
   border-radius: 14px;
   background: var(--paper);
   box-shadow: 4px 4px 0 var(--ink);
-  padding: 0.9rem 1rem 1rem;
+  padding: 1.3rem 1.1rem 1rem;
+  transform: rotate(1deg);
+  max-width: 22rem;
 }
-.timeline-card .placeholder-tape { top: -12px; }
+.story-odds-title { margin: 0 0 0.4rem; font-size: 1.6rem; line-height: 1; }
+.story-odds dl { margin: 0; display: grid; gap: 0.45rem; }
+.story-odds dl > div { display: grid; grid-template-columns: 6.6rem 1fr; gap: 0.6rem; align-items: baseline; border-bottom: 1px dashed rgba(28, 39, 68, 0.3); padding-bottom: 0.35rem; }
+.story-odds dl > div:last-child { border-bottom: 0; }
+.story-odds dt { font-family: var(--font-fraunces), Georgia, serif; font-weight: 650; font-size: 1.2rem; }
+.story-odds dd { margin: 0; font-size: 0.92rem; color: var(--muted); }
+.story-odds dl > div:last-child dt { background: var(--yellow); padding: 0 0.25rem; justify-self: start; border-radius: 4px; }
+.story-odds-note { margin: 0.7rem 0 0; font-size: 0.82rem; color: var(--muted); line-height: 1.45; }
+
+.story-dot {
+  max-width: 40rem;
+  margin: 0.4rem 0 0;
+  padding: 0.15rem 0 0.15rem 1rem;
+  border-left: 3px solid var(--script);
+  font-family: var(--font-lora), Georgia, serif;
+  font-style: italic;
+  font-size: 1.12rem;
+  line-height: 1.6;
+  color: var(--script);
+}
+.story-dot .card-link { font-family: var(--font-outfit), ui-sans-serif, system-ui, sans-serif; font-style: normal; font-size: 0.92rem; white-space: nowrap; color: var(--ink); }
+.story-closer { margin: 3rem 0 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.8rem; }
+.story-closer .script { font-size: 2.2rem; line-height: 1; }
+
+@media (min-width: 900px) {
+  .story-body.has-aside { grid-template-columns: minmax(0, 40rem) minmax(16rem, 21rem); gap: 2.4rem; }
+}
+
 
 @media (min-width: 900px) {
   .sw-hero-grid { grid-template-columns: 1fr 1fr; }
