@@ -263,6 +263,116 @@ export const site = {
     allLabel: "All the letters →",
     seeAll: "See all the letters →",
     filters: { all: "All", site: "On this site", noodle: "AI Noodle" },
+    /**
+     * Public archive API. Gives every letter (not just the last 20 in the
+     * RSS feed) plus likes, comments, restacks and word count.
+     */
+    archiveUrl: "https://unplannedwriter.substack.com/api/v1/archive",
+    /** The "Group by" switch on /writing. The first one is the default. */
+    views: [
+      { id: "topic", label: "Topic" },
+      { id: "top", label: "Top", hint: "Ranked by likes, comments and restacks on Substack" },
+      { id: "newest", label: "Newest" },
+      { id: "oldest", label: "Oldest" },
+    ],
+    /**
+     * Topic clusters on /writing. A letter goes to the first topic that
+     * lists its slug (the part after /p/ in the URL). A new letter that no
+     * topic lists is matched on keywords in its title and subtitle, and
+     * lands in `otherTopic` if nothing matches.
+     * `order` sorts letters inside the cluster: "oldest" reads a series in order.
+     */
+    topics: [
+      {
+        id: "building",
+        name: "Building with AI",
+        blurb: "Vibe Check and friends: shipping real software when AI writes most of the code.",
+        tone: "blue",
+        order: "oldest",
+        slugs: [
+          "confessions-of-a-vibe-coder-from",
+          "vibe-check-1-finding-your-app-idea",
+          "vibe-check-2-choosing-your-tech-stack",
+          "start-with-visual-branding",
+          "vibe-check-3-product-documentation",
+          "everyone-can-start-almost-nobody",
+        ],
+        keywords: ["vibe", "coding", "coder", "tech stack", "spec", "agentic", "ship", "build"],
+      },
+      {
+        id: "mind",
+        name: "AI and the way we think",
+        blurb: "Attention, friction and autopilot: what happens to a brain that leans on AI.",
+        tone: "pink",
+        order: "newest",
+        slugs: [
+          "is-claude-the-new-instagram",
+          "the-friction-you-actually-want",
+          "were-raising-a-generation-that-was",
+          "we-are-building-a-fragmented-attention",
+          "we-are-building-a-fragmented-attention-b83",
+          "your-brain-on-autopilot",
+          "is-chatgpt-killing-my-creativity",
+        ],
+        keywords: ["brain", "attention", "think", "friction", "addict", "creativity", "sharp", "stupid"],
+      },
+      {
+        id: "future",
+        name: "AI, work and what comes next",
+        blurb: "Jobs, trust and a thought experiment about the year 2100.",
+        tone: "yellow",
+        order: "newest",
+        slugs: [
+          "the-world-in-2100-what-happens-when",
+          "the-psychology-of-why-ai-will-replace",
+          "why-humans-trust-ai-more-than-other",
+        ],
+        keywords: ["future", "2100", "jobs", "career", "trust", "replace"],
+      },
+      {
+        id: "habits",
+        name: "Habits and the stories in our heads",
+        blurb: "Resolutions, defaults, dopamine, and the excuses we tell ourselves.",
+        tone: "green",
+        order: "newest",
+        slugs: [
+          "i-debugged-my-fear-of-betting-on",
+          "your-brain-is-lying-to-you-and-youre",
+          "building-habits-that-survive-real",
+          "why-new-years-resolutions-die-out",
+          "the-new-year-new-me-syndrome",
+        ],
+        keywords: ["habit", "resolution", "new year", "fear", "procrastinat", "dopamine", "discipline"],
+      },
+    ] as WritingTopic[],
+    otherTopic: {
+      id: "more",
+      name: "More letters",
+      blurb: "Everything else from AI Noodle.",
+      tone: "peach",
+      order: "newest",
+      slugs: [],
+      keywords: [],
+    } as WritingTopic,
+    journalTopic: {
+      id: "journal",
+      name: "On this site",
+      blurb: "Notes that live here, and can point at a café, a book or a hike.",
+      tone: "paper",
+      order: "newest",
+      slugs: [],
+      keywords: [],
+    } as WritingTopic,
+    viewCopy: {
+      groupBy: "Group by",
+      jumpTo: "Jump to",
+      topHead: "Most loved",
+      topBlurb: "The three letters readers liked, commented on and restacked the most.",
+      restHead: "The rest, by popularity",
+      restBlurb: "Ranked by likes, comments and restacks on Substack.",
+      noStats: "Substack's numbers didn't load, so these are newest first for now.",
+      year: "letters from",
+    },
     fallbackNote:
       "The live feed didn't answer, so these are saved copies of recent letters.",
     fallbackPosts: [
@@ -652,6 +762,27 @@ export type Post = {
   url: string;
   date: string;
   excerpt: string;
+};
+
+export type WritingTopic = {
+  id: string;
+  name: string;
+  blurb: string;
+  tone: "blue" | "pink" | "yellow" | "green" | "peach" | "paper";
+  order: "newest" | "oldest";
+  slugs: string[];
+  keywords: string[];
+};
+
+/** A letter from the Substack archive, with Substack's public numbers. */
+export type Letter = Post & {
+  slug: string;
+  likes: number;
+  comments: number;
+  restacks: number;
+  words: number;
+  /** 1 = Substack's top letter. Null when Substack leaves it out of "top". */
+  rank: number | null;
 };
 
 export type CalendarEvent = {
