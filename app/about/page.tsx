@@ -1,9 +1,18 @@
 import Link from "next/link";
+import { Lora } from "next/font/google";
 import type { ReactNode } from "react";
 import { site } from "@/content/site";
 import { pageMetadata } from "@/lib/page-meta";
 
 export const metadata = pageMetadata("about");
+
+/** A text serif for the long-form story, so it reads like a story. */
+const lora = Lora({
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  variable: "--font-lora",
+  display: "swap",
+});
 
 /** Turns "[label](href)" inside a paragraph into a link. */
 function withLinks(text: string): ReactNode[] {
@@ -28,7 +37,7 @@ export default function AboutPage() {
   const page = site.aboutPage;
 
   return (
-    <>
+    <div className={`about-story ${lora.variable}`}>
       <section className="band band-tight" aria-labelledby="about-page-heading">
         <div className="wrap">
           <p className="script kicker">{page.kicker}</p>
@@ -62,8 +71,10 @@ export default function AboutPage() {
 
                   <div className={chapter.odds ? "story-body has-aside" : "story-body"}>
                     <div className="story-text">
-                      {chapter.paragraphs.map((paragraph) => (
-                        <p key={paragraph}>{withLinks(paragraph)}</p>
+                      {chapter.paragraphs.map((paragraph, i) => (
+                        <p key={paragraph} className={i === 0 ? "story-open" : undefined}>
+                          {withLinks(paragraph)}
+                        </p>
                       ))}
                     </div>
 
@@ -86,8 +97,7 @@ export default function AboutPage() {
 
                   {chapter.dot ? (
                     <p className="story-dot">
-                      <span className="script story-dot-label">the dot →</span>
-                      <span>{chapter.dot.text}</span>{" "}
+                      {chapter.dot.text}{" "}
                       <Link className="card-link" href={chapter.dot.href}>
                         {chapter.dot.link}
                       </Link>
@@ -97,28 +107,6 @@ export default function AboutPage() {
               </li>
             ))}
           </ol>
-        </div>
-      </section>
-
-      <section className="band" aria-labelledby="dots-heading">
-        <div className="wrap">
-          <p className="script kicker">{page.dots.kicker}</p>
-          <h2 id="dots-heading">{page.dots.title}</h2>
-          <p className="lede">{page.dots.lede}</p>
-          <ul className="dots-map">
-            {page.dots.items.map((item) => (
-              <li key={item.then}>
-                <Link href={item.href}>
-                  <span className="dots-then">{item.then}</span>
-                  <span className="dots-arrow" aria-hidden="true">
-                    →
-                  </span>
-                  <span className="sr-only">became</span>
-                  <span className="dots-now">{item.now}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
           <p className="story-closer">
             <span className="script">{page.closer}</span>{" "}
             <Link className="card-link" href={page.closerLink.href}>
@@ -127,6 +115,7 @@ export default function AboutPage() {
           </p>
         </div>
       </section>
-    </>
+
+    </div>
   );
 }
