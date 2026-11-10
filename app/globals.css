@@ -95,6 +95,9 @@ a { color: inherit; }
   letter-spacing: -0.04em;
   text-decoration: none;
 }
+.logo { display: inline-flex; align-items: center; gap: 0.32em; }
+.logo-home { width: 0.82em; height: 0.82em; flex: none; transform: translateY(-0.04em) rotate(-4deg); }
+.logo:hover .logo-home { transform: translateY(-0.12em) rotate(-4deg); transition: transform 0.15s ease; }
 
 .nav-scroll {
   overflow-x: auto;
