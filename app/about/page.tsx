@@ -104,6 +104,7 @@ export default function AboutPage() {
         <div className="wrap">
           <p className="script kicker">{page.dots.kicker}</p>
           <h2 id="dots-heading">{page.dots.title}</h2>
+          <p className="lede">{page.dots.lede}</p>
           <ul className="dots-map">
             {page.dots.items.map((item) => (
               <li key={item.then}>
