@@ -69,7 +69,7 @@ export default function AboutPage() {
 
                     {chapter.odds ? (
                       <aside className="story-odds" aria-label={chapter.odds.title}>
-                        <span className="tape tape-yellow" aria-hidden="true" />
+                        <span className={`tape tape-${chapter.odds.tape}`} aria-hidden="true" />
                         <p className="script story-odds-title">{chapter.odds.title}</p>
                         <dl>
                           {chapter.odds.rows.map((row) => (
