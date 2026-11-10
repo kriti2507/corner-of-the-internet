@@ -14,8 +14,10 @@ export type LeadPart = { text: string; mark?: Mark };
 
 export const site = {
   name: "Kriti Agarwal",
+  /** The live address. Sitemaps, link previews and structured data use it. */
+  url: "https://heykriti.com",
   description:
-    "Kriti Agarwal builds AI products at Sakana in Tokyo, writes AI Noodle, hosts Women in AI Tokyo, and logs small wins from the mountains.",
+    "Kriti Agarwal builds AI products at Sakana in Tokyo, writes AI Noodle, hosts Women x Tech in Tokyo, and logs small wins from the mountains.",
   /**
    * The footer, the contact-form fallback, and the contact API (as the
    * default inbox for form notes) all read this value.
@@ -50,7 +52,7 @@ export const site = {
     blog: {
       title: "Journal",
       path: "/blog",
-      description: "Notes on this site. Some are samples. A file can also point at a Substack letter.",
+      description: "Notes written on this site — Tokyo guides, cafés, books and hikes — alongside the AI Noodle letters on Substack.",
     },
     books: {
       title: "Reading",
@@ -91,26 +93,28 @@ export const site = {
       { text: ", " },
       { text: "write AI Noodle", mark: "red" },
       { text: ", " },
-      { text: "host Women in Tech", mark: "yellow" },
+      { text: "host Women x Tech", mark: "yellow" },
       { text: " and " },
       { text: "collect small wins", mark: "lavender" },
       { text: " — on mountains, in notebooks, in code." },
     ] as LeadPart[],
     /**
-     * Hidden under the two hero photos. Placeholders only — no real codes.
-     * Order matches the photos: mountain, then Mira.
+     * Hidden under the two hero photos. Order matches the photos: mountain, then Mira.
      * Each item is { title, body, cta?: { label, href } }.
+     * A `?perk=` link pre-fills the contact form (see contact.perks) so you know
+     * which secret someone found.
      */
     secretFound: "You found a secret",
     secrets: [
       {
-        title: "Secret perk #1 — placeholder",
-        body: "Add your perk here (e.g. a discount code, a free coffee chat, an early-access invite).",
+        title: "A free coffee chat",
+        body: "You looked under the photo, so the first coffee is on me. Tell me what you're curious about — AI, Tokyo, mountains, anything.",
+        cta: { label: "Claim it →", href: "/?perk=coffee#note" },
       },
       {
-        title: "Secret perk #2 — placeholder",
-        body: "Add your perk here. Leave the link off until you have a real one.",
-        cta: { label: "Placeholder — add a link", href: "/about" },
+        title: "A free build session",
+        body: "Bring one small thing you want AI to do for you. We'll build it together in an hour, and you'll leave with something that works.",
+        cta: { label: "Claim it →", href: "/?perk=build#note" },
       },
     ],
   },
@@ -188,7 +192,7 @@ export const site = {
         kicker: "Monthly",
         tone: "green" as const,
         tilt: "4",
-        title: "Women in AI, Tokyo",
+        title: "Women x Tech, Tokyo",
         body: "A cafe, a question, about twenty of us. First table: late November.",
         href: "/#community",
         link: "Save a seat →",
@@ -555,7 +559,7 @@ export const site = {
 
   community: {
     kicker: "community",
-    title: "Women in Tech",
+    title: "Women x Tech",
     lede: "A monthly meetup for women and non-binary people working in tech, or finding their way in. Come for the conversation, leave knowing a few more people in the field.",
     calendarUrl: "https://luma.com/calendar/cal-SGe7q4ZRJ8WRTcv",
     /** Public iCal. Confirmed: returns text/calendar for Women x Tech. */
@@ -650,7 +654,7 @@ export const site = {
   blog: {
     kicker: "journal",
     title: "Notes",
-    lede: "Files in this repo. A sample is marked. A file can also point at a Substack letter without pasting it here.",
+    lede: "Notes written here, not on Substack: Tokyo guides, cafés, books and hikes.",
     empty: "No notes yet.",
     externalLabel: "Read it on Substack →",
     mentions: "Mentioned here",
@@ -750,6 +754,11 @@ export const site = {
     successTitle: "Got it.",
     successBody: "I'll write back soon.",
     errorFallback: "That didn't send. Email me instead:",
+    /** Message pre-filled when someone arrives from a hero secret (?perk=…). */
+    perks: {
+      coffee: "I found the secret under the mountain photo — I'd love a coffee chat. ",
+      build: "I found the secret under Mira — I'd love a build session. ",
+    } as Record<string, string>,
   },
 
   footer: {

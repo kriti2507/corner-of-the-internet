@@ -9,9 +9,13 @@ import { getHike } from "@/lib/hikes";
 import { getJournalPost, getJournalPosts } from "@/lib/journal";
 import { renderMarkdown } from "@/lib/markdown";
 import { formatDay } from "@/lib/format";
+import { JsonLd, absolute, personData } from "@/lib/structured-data";
 
 export function generateStaticParams() {
-  return getJournalPosts().map((post) => ({ slug: post.slug }));
+  const slugs = getJournalPosts().map((post) => ({ slug: post.slug }));
+  // Cache Components needs at least one param. With no notes yet, this one
+  // 404s (there's no post called "none") and isn't in the sitemap.
+  return slugs.length > 0 ? slugs : [{ slug: "none" }];
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
@@ -21,6 +25,17 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: post.title,
     description: post.summary,
+    alternates: { canonical: `/blog/${post.slug}` },
+    openGraph: {
+      title: post.title,
+      description: post.summary,
+      url: `/blog/${post.slug}`,
+      siteName: site.name,
+      type: "article",
+      publishedTime: post.date || undefined,
+      authors: [site.name],
+      tags: post.tags,
+    },
   };
 }
 
@@ -36,6 +51,21 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
   return (
     <article className="band" aria-labelledby="post-heading">
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          headline: post.title,
+          description: post.summary,
+          datePublished: post.date || undefined,
+          url: absolute(`/blog/${post.slug}`),
+          mainEntityOfPage: absolute(`/blog/${post.slug}`),
+          keywords: post.tags.join(", "),
+          inLanguage: "en",
+          author: personData,
+          publisher: personData,
+        }}
+      />
       <div className="wrap journal">
         {post.sample ? <SampleMark /> : null}
         <p className="script kicker">{formatDay(post.date)}</p>

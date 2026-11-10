@@ -43,6 +43,8 @@ function SecretCard({
 }) {
   const cta = secret.cta;
   const external = cta?.href.startsWith("http");
+  // A ?perk= link reloads the page so the contact form can read it and pre-fill.
+  const plain = !external && cta?.href.includes("?");
   return (
     <article
       className={`secret-perk ${className}${open ? " is-found" : ""}`}
@@ -55,6 +57,10 @@ function SecretCard({
       {cta ? (
         external ? (
           <a className="card-link" href={cta.href} target="_blank" rel="noreferrer" tabIndex={open ? undefined : -1}>
+            {cta.label}
+          </a>
+        ) : plain ? (
+          <a className="card-link" href={cta.href} tabIndex={open ? undefined : -1}>
             {cta.label}
           </a>
         ) : (

@@ -3,9 +3,19 @@ import { notFound } from "next/navigation";
 import "@/app/weekends.css";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { NoteList, TagLinks } from "@/components/notes";
-import { getPlace, getPlaces, kindLabel, placeWhere } from "@/content/places";
+import { getPlace, getPlaces, kindLabel, placeWhere, type Place } from "@/content/places";
 import { weekends } from "@/content/weekends";
 import { postsMentioning } from "@/lib/journal";
+import { JsonLd, absolute, personId } from "@/lib/structured-data";
+
+/** schema.org types for each kind of place. */
+const PLACE_SCHEMA: Record<Place["kind"], string> = {
+  cafe: "CafeOrCoffeeShop",
+  matcha: "CafeOrCoffeeShop",
+  onsen: "TouristAttraction",
+  park: "Park",
+  trip: "TouristDestination",
+};
 
 export function generateStaticParams() {
   return getPlaces().map((place) => ({ slug: place.slug }));
@@ -38,6 +48,19 @@ export default async function PlacePage({ params }: { params: Promise<{ slug: st
 
   return (
     <section className="band wk-scope" data-lane="places" aria-labelledby="place-heading">
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": PLACE_SCHEMA[place.kind],
+          name: place.name,
+          description: place.note,
+          url: absolute(`/places/${place.slug}`),
+          hasMap: place.mapUrl,
+          address: { "@type": "PostalAddress", addressLocality: place.area, addressRegion: place.region, addressCountry: "JP" },
+          // Pins are approximate (city-level), so no GeoCoordinates here.
+          subjectOf: { "@type": "WebPage", url: absolute(`/places/${place.slug}`), author: { "@id": personId } },
+        }}
+      />
       <div className="wrap">
         <Breadcrumbs
           items={[
