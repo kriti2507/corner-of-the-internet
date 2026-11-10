@@ -91,6 +91,17 @@ export function Header({
     <header className="site-header">
       <div className="wrap header-row">
         <Link className="logo" href="/">
+          <svg className="logo-home" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M3.5 11.2 12 4l8.5 7.2M6 9.6V20h4.4v-5.2h3.2V20H18V9.6"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.1"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path d="M10.4 20v-5.2h3.2V20" fill="#efd15f" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+          </svg>
           {mark}
           <span className="sr-only"> home</span>
         </Link>
