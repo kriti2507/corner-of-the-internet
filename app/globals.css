@@ -944,9 +944,8 @@ button.cafe-card[aria-pressed="true"] {
 .footer-email:hover { color: var(--script); }
 .footer-made {
   grid-column: 1 / -1;
-  margin: 0.4rem 0 0;
-  padding-top: 0.9rem;
-  border-top: 1px solid rgb(28 39 68 / 0.15);
+  margin: 0.6rem 0 0;
+  text-align: center;
   font-size: 0.85rem;
   color: var(--muted);
 }
