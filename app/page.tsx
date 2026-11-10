@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { site, type CalendarEvent } from "@/content/site";
-import { badgeParts } from "@/lib/format";
+import { site } from "@/content/site";
 import { CommunitySection } from "@/components/community-section";
 import { ContactForm } from "@/components/contact-form";
 import { Hero } from "@/components/hero";
@@ -12,30 +11,6 @@ import { getEvents } from "@/lib/events";
 import { getPosts } from "@/lib/posts";
 import { postsInSeries } from "@/lib/journal";
 import { weekendSummary } from "@/lib/weekends";
-
-function badgeFor(event: CalendarEvent | undefined) {
-  if (!event) {
-    return {
-      kicker: site.meetup.kicker,
-      month: site.meetup.fallbackMonth,
-      day: "",
-      year: site.meetup.fallbackYear,
-      seats: site.meetup.seatsLabel,
-      href: "/#community",
-      dated: false,
-    };
-  }
-  const parts = badgeParts(event.start);
-  return {
-    kicker: site.meetup.kicker,
-    month: parts.month,
-    day: parts.day,
-    year: parts.year,
-    seats: site.meetup.seatsLabel,
-    href: "/#community",
-    dated: true,
-  };
-}
 
 export const metadata: Metadata = {
   title: { absolute: site.name },
@@ -64,7 +39,6 @@ export default async function Page() {
           greeting={site.hero.greeting}
           monogram={site.hero.monogram}
           lead={site.hero.lead}
-          badge={badgeFor(nextMeetup)}
           photos={site.photos}
           polaroids={{
             mountainCaption: site.polaroids.mountain.caption,

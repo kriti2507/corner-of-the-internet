@@ -12,16 +12,6 @@ type Secret = {
 
 type Offset = { x: number; y: number };
 
-type Badge = {
-  kicker: string;
-  month: string;
-  day: string;
-  year: string;
-  seats: string;
-  href: string;
-  dated: boolean;
-};
-
 function clamp(value: number, min: number, max: number) {
   return Math.min(max, Math.max(min, value));
 }
@@ -148,7 +138,6 @@ function DraggablePhoto({
 }
 
 export function PolaroidStage({
-  badge,
   mountainSrc,
   mountainAlt,
   miraSrc,
@@ -162,7 +151,6 @@ export function PolaroidStage({
   secrets,
   secretFound,
 }: {
-  badge: Badge;
   mountainSrc: string | null;
   mountainAlt: string;
   miraSrc: string | null;
@@ -203,7 +191,7 @@ export function PolaroidStage({
         <SecretCard secret={secrets[1]} foundLabel={secretFound} open={miraOpen} className="secret-b" />
       ) : null}
       <DraggablePhoto
-        label={`${mountainCaption}. ${mountainScript}. Drag away to look underneath, or use arrow keys. Escape puts this photo back.`}
+        label={`${[mountainCaption, mountainScript, mountainWhere].filter(Boolean).join(". ")}. Drag away to look underneath, or use arrow keys. Escape puts this photo back.`}
         className="polaroid-a"
         offset={mountain}
         onOffset={setMountain}
@@ -217,7 +205,7 @@ export function PolaroidStage({
           ) : (
             <MountainSketch />
           )}
-          <span className="frame-caption">{mountainCaption}</span>
+          {mountainCaption ? <span className="frame-caption">{mountainCaption}</span> : null}
         </span>
         <span className="polaroid-script">
           {mountainScript}
@@ -242,18 +230,6 @@ export function PolaroidStage({
           <span className="frame-caption">{miraCaption}</span>
         </span>
       </DraggablePhoto>
-
-      <Link className="meetup-badge" href={badge.href}>
-        <span className="badge-kicker">{badge.kicker}</span>
-        <span className="badge-date">
-          {badge.month}
-          {badge.dated ? ` ${badge.day}` : ` ${badge.year}`}
-        </span>
-        <span className="badge-meta">
-          {badge.dated ? `${badge.year} · ` : ""}
-          {badge.seats}
-        </span>
-      </Link>
 
       <svg className="spark spark-a" viewBox="0 0 24 24" aria-hidden="true">
         <path d="M12 1 L14 10 L23 12 L14 14 L12 23 L10 14 L1 12 L10 10 Z" fill="#1c2744" />

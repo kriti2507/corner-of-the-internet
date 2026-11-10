@@ -124,8 +124,8 @@ export const site = {
    * Null keeps the drawn placeholder.
    */
   photos: {
-    mountain: null as string | null,
-    mountainAlt: "Kriti on a mountain",
+    mountain: "/photos/daibosatsu.webp" as string | null,
+    mountainAlt: "Kriti smiling on Daibosatsu-rei, with Mount Fuji, autumn forests and Lake Daibosatsu behind",
     mira: "/photos/mira.webp" as string | null,
     miraAlt:
       "Illustration of Mira, the AI Noodle character: a woman with long wavy dark hair, round glasses, a red cardigan and cream trousers, holding a coffee in front of Tokyo Tower and cherry blossoms",
@@ -133,9 +133,9 @@ export const site = {
 
   polaroids: {
     mountain: {
-      caption: "[you, on a mountain]",
+      caption: "",
       script: "that's me",
-      where: "[where + when]",
+      where: "Daibosatsu, Nov ’26",
     },
     mira: {
       caption: "Mira, from AI Noodle",
