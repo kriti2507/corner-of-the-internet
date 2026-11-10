@@ -126,8 +126,9 @@ export const site = {
   photos: {
     mountain: null as string | null,
     mountainAlt: "Kriti on a mountain",
-    mira: null as string | null,
-    miraAlt: "Mira, the illustration from AI Noodle",
+    mira: "/photos/mira.webp" as string | null,
+    miraAlt:
+      "Illustration of Mira, the AI Noodle character: a woman with long wavy dark hair, round glasses, a red cardigan and cream trousers, holding a coffee in front of Tokyo Tower and cherry blossoms",
   },
 
   polaroids: {
@@ -137,7 +138,7 @@ export const site = {
       where: "[where + when]",
     },
     mira: {
-      caption: "[Mira illustration from AI Noodle]",
+      caption: "Mira, star of my AI Noodle Substack",
     },
     dragHint: "drag the photos",
   },
