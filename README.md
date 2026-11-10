@@ -34,7 +34,7 @@ The home page carries the whole picture. Deeper pages:
 - Hikes: [`data/hikes.json`](data/hikes.json). Map pins are in `site.hikePins`.
 - Books: [`data/books.json`](data/books.json).
 - Mountain photo and the Mira illustration: put files in `public/` and set `site.photos.mountain` and `site.photos.mira`. `null` keeps the drawn placeholders.
-- Email is still `hello@yourdomain.com` on purpose. Change `site.email` when there is a real address.
+- Email is `ping@heykriti.com` (`site.email`). The contact form sends there through Resend — see `.env.example`.
 
 ## Hero secrets
 

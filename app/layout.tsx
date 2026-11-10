@@ -66,6 +66,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
           email={site.email}
           noteHref="/#note"
           links={site.footer.links}
+          madeWith={site.footer.madeWith}
         />
         <SeasonFall />
       </body>

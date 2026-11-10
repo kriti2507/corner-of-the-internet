@@ -147,8 +147,11 @@ export default async function Page() {
         <span id="consulting" className="alias-anchor" />
         <span id="note" className="alias-anchor" />
         <ContactForm
+          kicker={site.consulting.kicker}
           title={site.consulting.title}
           lede={site.consulting.lede}
+          offers={site.consulting.offers}
+          closer={site.consulting.closer}
           aboutCta={site.consulting.aboutCta}
           messageLabel={site.contact.messageLabel}
           submit={site.contact.submit}

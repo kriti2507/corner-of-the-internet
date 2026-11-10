@@ -18,8 +18,11 @@ type Fields = {
 const empty: Fields = { name: "", email: "", message: "", company: "", website: "" };
 
 export function ContactForm({
+  kicker,
   title,
   lede,
+  offers,
+  closer,
   aboutCta,
   messageLabel,
   submit,
@@ -29,8 +32,11 @@ export function ContactForm({
   errorFallback,
   email,
 }: {
+  kicker: string;
   title: string;
   lede: string;
+  offers: readonly { label: string; body: string }[];
+  closer: string;
   aboutCta: { label: string; href: string };
   messageLabel: string;
   submit: string;
@@ -83,10 +89,18 @@ export function ContactForm({
     <div className="talk">
       <div className="wrap talk-layout">
         <div className="talk-copy">
-          <h2 id="talk-heading">
-            <mark className="mark mark-yellow">{title}</mark>
-          </h2>
+          <p className="script talk-kicker">{kicker}</p>
+          <h2 id="talk-heading">{title}</h2>
           <p className="lede">{lede}</p>
+          <ul className="talk-offers">
+            {offers.map((offer) => (
+              <li key={offer.label}>
+                <strong>{offer.label}</strong>
+                <span>{offer.body}</span>
+              </li>
+            ))}
+          </ul>
+          <p className="talk-closer">{closer}</p>
           <Link className="btn btn-ghost" href={aboutCta.href}>
             {aboutCta.label}
           </Link>
@@ -180,7 +194,7 @@ export function ContactForm({
                   {formError} <a href={`mailto:${email}`}>{email}</a>
                 </p>
               ) : null}
-              <Button type="submit" variant="yellow" disabled={status === "sending"}>
+              <Button type="submit" disabled={status === "sending"}>
                 {status === "sending" ? sending : submit}
               </Button>
             </form>

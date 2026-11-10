@@ -1,3 +1,5 @@
+import { site } from "@/content/site";
+
 const hits = new Map<string, number[]>();
 
 function limited(ip: string) {
@@ -57,19 +59,22 @@ export async function POST(request: Request) {
   };
 
   const key = process.env.RESEND_API_KEY;
-  const to = process.env.CONTACT_TO_EMAIL;
-  const from = process.env.CONTACT_FROM_EMAIL;
+  // Notes land in site.email unless CONTACT_TO_EMAIL says otherwise.
+  // The sender must be on a domain verified in Resend (heykriti.com).
+  const to = process.env.CONTACT_TO_EMAIL || site.email;
+  const from = process.env.CONTACT_FROM_EMAIL || `Kriti's site <${site.email}>`;
 
   if (!key) {
     console.info("[contact] logged without email delivery", note);
+    // Locally that's fine. In production, a "sent!" that went nowhere is
+    // worse than an error, so the form falls back to the mailto link.
+    if (process.env.NODE_ENV === "production") {
+      return Response.json(
+        { ok: false, error: "Mail isn't switched on yet. Email me instead:" },
+        { status: 503 },
+      );
+    }
     return Response.json({ ok: true, delivered: false });
-  }
-  if (!to || !from) {
-    console.error("[contact] RESEND_API_KEY is set but CONTACT_TO_EMAIL or CONTACT_FROM_EMAIL is missing");
-    return Response.json(
-      { ok: false, error: "Mail isn't fully configured yet." },
-      { status: 500 },
-    );
   }
 
   const response = await fetch("https://api.resend.com/emails", {

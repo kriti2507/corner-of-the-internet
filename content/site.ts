@@ -4,7 +4,7 @@
  * Weekends copy (hikes, reading, places, Japanese) lives in content/weekends.ts,
  * and the places themselves in content/places.ts.
  *
- * Email is still a placeholder. GitHub and LinkedIn are Kriti's real profiles.
+ * Email is ping@heykriti.com. GitHub and LinkedIn are Kriti's real profiles.
  * There is no top ticker — she asked for it to be removed.
  */
 
@@ -17,11 +17,11 @@ export const site = {
   description:
     "Kriti Agarwal builds AI products at Sakana in Tokyo, writes AI Noodle, hosts Women in AI Tokyo, and logs small wins from the mountains.",
   /**
-   * PLACEHOLDER — replace with Kriti's real address when she has one.
-   * The footer and the contact fallback both read this value.
+   * The footer, the contact-form fallback, and the contact API (as the
+   * default inbox for form notes) all read this value.
    */
-  email: "hello@yourdomain.com",
-  emailIsPlaceholder: true,
+  email: "ping@heykriti.com",
+  emailIsPlaceholder: false,
 
   /**
    * Home blocks are anchors so the highlight can follow the scroll.
@@ -199,7 +199,7 @@ export const site = {
         tone: "peach" as const,
         tilt: "5",
         title: "Work with me",
-        body: "I consult for businesses on AI products and agents — a workflow you already run, or a tool-using agent your team can keep.",
+        body: "I help traditional businesses put AI to work, and teach people how to use it well.",
         href: "/#note",
         link: "Book a call →",
       },
@@ -628,8 +628,20 @@ export const site = {
   },
 
   consulting: {
+    kicker: "work with me",
     title: "Let's talk",
-    lede: "I consult for businesses on AI products and agents — a workflow you already run, or a tool-using agent your team can keep. Send a message and I'll write back about a call.",
+    lede: "Two ways I can help:",
+    offers: [
+      {
+        label: "For businesses",
+        body: "I help traditional businesses use the power of AI — finding the slow, manual parts of how you work and building simple tools that take them off your plate.",
+      },
+      {
+        label: "For people",
+        body: "I teach people how to use AI well — what it's good at, where it trips up, and how to make it part of your everyday work.",
+      },
+    ],
+    closer: "Tell me a little about what you're working on, and I'll write back.",
     aboutCta: { label: "About me", href: "/about" },
   },
 
@@ -737,11 +749,13 @@ export const site = {
     sending: "Sending…",
     successTitle: "Got it.",
     successBody: "I'll write back soon.",
-    errorFallback: "That didn't send. Email me and I'll pick it up there.",
+    errorFallback: "That didn't send. Email me instead:",
   },
 
   footer: {
     prompt: "write me a note —",
+    /** Shown at the very bottom of every page. */
+    madeWith: "made with ☕, ❤️ and AI",
     links: [
       { label: "Substack", href: "https://unplannedwriter.substack.com" },
       { label: "GitHub", href: "https://github.com/kriti2507" },
