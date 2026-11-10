@@ -753,7 +753,7 @@ export const site = {
   },
 
   footer: {
-    prompt: "or write me a note —",
+    prompt: "write me a note —",
     /** Shown at the very bottom of every page. */
     madeWith: "made with ☕, ❤️ and AI",
     links: [
