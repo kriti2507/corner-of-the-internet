@@ -6,6 +6,7 @@ import { Header } from "@/components/header";
 import { SeasonFall } from "@/components/season-fall";
 import { SiteFooter } from "@/components/site-footer";
 import { getTokyoWeather } from "@/lib/tokyo-weather";
+import { JsonLd, siteData } from "@/lib/structured-data";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -26,8 +27,16 @@ const caveat = Caveat({
   display: "swap",
 });
 
+/**
+ * Link previews and canonical URLs need an absolute base. Production uses the
+ * real domain; preview builds use their own URL so previews still render.
+ */
 const metadataBase = new URL(
-  process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000",
+  process.env.VERCEL_ENV === "production"
+    ? site.url
+    : process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "http://localhost:3000",
 );
 
 export const metadata: Metadata = {
@@ -41,9 +50,12 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Kriti Agarwal",
     description: site.description,
+    url: "/",
+    siteName: site.name,
     type: "website",
     locale: "en_US",
   },
+  alternates: { canonical: "/" },
 };
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {
@@ -55,6 +67,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
       className={`${outfit.variable} ${fraunces.variable} ${caveat.variable} h-full antialiased`}
     >
       <body className="min-h-full">
+        <JsonLd data={siteData} />
         <a className="skip" href="#content">
           Skip to content
         </a>

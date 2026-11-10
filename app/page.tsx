@@ -160,6 +160,7 @@ export default async function Page() {
           successBody={site.contact.successBody}
           errorFallback={site.contact.errorFallback}
           email={site.email}
+          perks={site.contact.perks}
         />
       </div>
     </>

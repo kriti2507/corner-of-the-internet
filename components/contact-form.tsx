@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -31,6 +31,7 @@ export function ContactForm({
   successBody,
   errorFallback,
   email,
+  perks,
 }: {
   kicker: string;
   title: string;
@@ -45,11 +46,27 @@ export function ContactForm({
   successBody: string;
   errorFallback: string;
   email: string;
+  /** Message to pre-fill when the page is opened with ?perk=<key>. */
+  perks: Record<string, string>;
 }) {
   const [fields, setFields] = useState<Fields>(empty);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [formError, setFormError] = useState("");
+
+  // A hero secret links to /?perk=<key>#note. Pre-fill the message once.
+  // The query stays in the URL: rewriting it makes the router re-render the page.
+  useEffect(() => {
+    const perk = new URLSearchParams(window.location.search).get("perk");
+    if (!perk) return;
+    const text = perks[perk];
+    if (!text) return;
+    // After hydration, so the server and client render the same empty form.
+    const frame = window.requestAnimationFrame(() =>
+      setFields((current) => (current.message ? current : { ...current, message: text })),
+    );
+    return () => window.cancelAnimationFrame(frame);
+  }, [perks]);
 
   function set<K extends keyof Fields>(key: K, value: Fields[K]) {
     setFields((current) => ({ ...current, [key]: value }));
