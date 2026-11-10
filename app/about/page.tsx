@@ -22,10 +22,17 @@ function withLinks(text: string): ReactNode[] {
   for (const match of text.matchAll(pattern)) {
     const index = match.index ?? 0;
     if (index > last) parts.push(text.slice(last, index));
+    const href = match[2];
     parts.push(
-      <Link key={index} href={match[2]}>
-        {match[1]}
-      </Link>,
+      href.startsWith("http") ? (
+        <a key={index} href={href} target="_blank" rel="noopener noreferrer">
+          {match[1]}
+        </a>
+      ) : (
+        <Link key={index} href={href}>
+          {match[1]}
+        </Link>
+      ),
     );
     last = index + match[0].length;
   }
@@ -42,7 +49,10 @@ export default function AboutPage() {
         <div className="wrap">
           <p className="script kicker">{page.kicker}</p>
           <h1 id="about-page-heading">{page.title}</h1>
-          <p className="lede">{page.lede}</p>
+          <blockquote className="story-quote">
+            <p>{page.lede}</p>
+            <cite>{page.ledeCredit}</cite>
+          </blockquote>
           <nav aria-label="Chapters">
             <ol className="story-toc">
               {page.chapters.map((chapter) => (
@@ -71,11 +81,15 @@ export default function AboutPage() {
 
                   <div className={chapter.odds ? "story-body has-aside" : "story-body"}>
                     <div className="story-text">
-                      {chapter.paragraphs.map((paragraph, i) => (
-                        <p key={paragraph} className={i === 0 ? "story-open" : undefined}>
-                          {withLinks(paragraph)}
-                        </p>
-                      ))}
+                      {chapter.paragraphs.map((paragraph) => {
+                        const big = typeof paragraph !== "string";
+                        const text = big ? paragraph.text : paragraph;
+                        return (
+                          <p key={text} className={big ? "story-big" : undefined}>
+                            {withLinks(text)}
+                          </p>
+                        );
+                      })}
                     </div>
 
                     {chapter.odds ? (
