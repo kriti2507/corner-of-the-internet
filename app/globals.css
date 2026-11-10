@@ -932,18 +932,23 @@ button.cafe-card[aria-pressed="true"] {
   padding: 1.6rem 0 2.4rem;
 }
 .footer-grid { display: grid; gap: 1.2rem; }
-.footer-prompt { display: block; font-size: 1.8rem; text-decoration: none; line-height: 1; }
+.footer-note { margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.2rem 0.55rem; }
+.footer-prompt { font-size: 1.45rem; text-decoration: none; line-height: 1; }
 .footer-email {
-  display: block;
-  width: fit-content;
-  margin-top: 0.2rem;
-  font-family: var(--font-fraunces), Georgia, serif;
-  font-size: clamp(1.7rem, 4vw, 2.7rem);
-  font-weight: 560;
-  letter-spacing: -0.03em;
+  font-weight: 650;
+  font-size: 1.02rem;
   text-decoration: underline;
-  text-underline-offset: 6px;
-  line-height: 1.1;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 4px;
+}
+.footer-email:hover { color: var(--script); }
+.footer-made {
+  grid-column: 1 / -1;
+  margin: 0.4rem 0 0;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgb(28 39 68 / 0.15);
+  font-size: 0.85rem;
+  color: var(--muted);
 }
 .footer-links { display: flex; flex-wrap: wrap; gap: 0.35rem 0.9rem; list-style: none; margin: 0; padding: 0; align-items: end; }
 .footer-links a { text-decoration: none; font-size: 0.92rem; }
@@ -1163,7 +1168,22 @@ button.cafe-card[aria-pressed="true"] {
   margin-bottom: 0.15rem;
   font-size: clamp(1.7rem, 3vw, 2.35rem);
 }
-.talk-copy .lede { margin: 0.55rem 0 0.85rem; font-size: 1rem; }
+.talk-kicker { margin: 0; font-size: 1.4rem; line-height: 1; }
+.talk-copy .lede { margin: 0.55rem 0 0.5rem; font-size: 1rem; }
+.talk-offers { list-style: none; margin: 0 0 0.9rem; padding: 0; display: grid; gap: 0.6rem; max-width: 40rem; }
+.talk-offers li {
+  display: grid;
+  gap: 0.15rem;
+  padding: 0.7rem 0.9rem;
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  background: var(--paper);
+}
+.talk-offers li:nth-child(1) { box-shadow: 4px 4px 0 var(--peach); }
+.talk-offers li:nth-child(2) { box-shadow: 4px 4px 0 var(--blue); }
+.talk-offers strong { font-size: 0.95rem; }
+.talk-offers span { font-size: 0.98rem; line-height: 1.5; color: var(--muted); }
+.talk-closer { margin: 0 0 0.9rem; max-width: 40rem; }
 .talk .form-card form { gap: 0.55rem; }
 .talk .success-note { min-height: 0; padding: 0.4rem 0; }
 .talk .success-title { font-size: 1.8rem; }
