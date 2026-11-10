@@ -1,22 +1,11 @@
 import type { LeadPart } from "@/content/site";
 import { PolaroidStage } from "@/components/polaroids";
 
-type Badge = {
-  kicker: string;
-  month: string;
-  day: string;
-  year: string;
-  seats: string;
-  href: string;
-  dated: boolean;
-};
-
 export function Hero({
   name,
   greeting,
   monogram,
   lead,
-  badge,
   photos,
   polaroids,
   secrets,
@@ -26,7 +15,6 @@ export function Hero({
   greeting: string;
   monogram: string;
   lead: readonly LeadPart[];
-  badge: Badge;
   photos: {
     mountain: string | null;
     mountainAlt: string;
@@ -68,7 +56,6 @@ export function Hero({
         </p>
       </div>
       <PolaroidStage
-        badge={badge}
         mountainSrc={photos.mountain}
         mountainAlt={photos.mountainAlt}
         miraSrc={photos.mira}
