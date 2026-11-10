@@ -138,7 +138,7 @@ export const site = {
       where: "[where + when]",
     },
     mira: {
-      caption: "Mira, star of my AI Noodle Substack",
+      caption: "Mira, from AI Noodle",
     },
     dragHint: "drag the photos",
   },
