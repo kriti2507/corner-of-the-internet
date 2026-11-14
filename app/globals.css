@@ -1073,8 +1073,11 @@ button.cafe-card[aria-pressed="true"] {
   font-weight: 650;
 }
 .journal { position: relative; padding-top: 0.4rem; }
-.journal-body { max-width: 40rem; }
-.journal-body a { font-weight: 650; }
+.journal-body { max-width: 40rem; margin-top: 1.4rem; }
+.journal-body a { font-weight: 650; text-decoration: underline; text-underline-offset: 0.18em; }
+.journal-body p { margin: 0 0 0.9rem; line-height: 1.65; }
+.journal-body h2, .journal-body h3 { margin: 1.8rem 0 0.6rem; }
+.journal-body ul { margin: 0 0 0.9rem; padding-left: 1.2rem; display: grid; gap: 0.55rem; list-style: disc; line-height: 1.55; }
 /* About: the story, told in chapters along one line. */
 .story-quote { margin: 0.4rem 0 0.2rem; max-width: 40rem; }
 .story-quote p {

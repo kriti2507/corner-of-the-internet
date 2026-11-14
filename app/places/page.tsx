@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import "@/app/weekends.css";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { PlacesBrowser } from "@/components/weekends/places-browser";
@@ -30,6 +31,11 @@ export default function PlacesPage() {
           <p className="lede">
             {places.length} places across {regions} regions, all places I&apos;ve been to. Anything in quotes
             is my own note from Google Maps.
+          </p>
+          <p style={{ margin: 0 }}>
+            <Link className="wk-link" href="/blog/best-coffee-in-sapporo">
+              Guide: the best coffee in Sapporo →
+            </Link>
           </p>
         </div>
         <PlacesBrowser places={places} />
