@@ -32,9 +32,19 @@ export default function PlacesPage() {
             {places.length} places across {regions} regions, all places I&apos;ve been to. Anything in quotes
             is my own note from Google Maps.
           </p>
-          <p style={{ margin: 0 }}>
+          <p style={{ margin: 0, display: "flex", flexWrap: "wrap", gap: "0.4rem 1.1rem" }}>
+            <span>Sapporo guides:</span>
             <Link className="wk-link" href="/blog/best-coffee-in-sapporo">
-              Guide: the best coffee in Sapporo →
+              Coffee →
+            </Link>
+            <Link className="wk-link" href="/blog/matcha-and-tea-in-sapporo">
+              Matcha &amp; tea →
+            </Link>
+            <Link className="wk-link" href="/blog/onsen-in-and-around-sapporo">
+              Onsen →
+            </Link>
+            <Link className="wk-link" href="/blog/sapporo-outdoors-and-day-trips">
+              Outdoors →
             </Link>
           </p>
         </div>

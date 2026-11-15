@@ -50,3 +50,5 @@ Sapporo takes coffee seriously. The old local style is a dark roast brewed throu
 ## Still on my list
 
 Morihico, the original shop of Sapporo's biggest coffee brand, and Tokumitsu Coffee on Odori. I haven't made it to either yet.
+
+If you're in Sapporo for a few days, there's also [matcha and tea](/blog/matcha-and-tea-in-sapporo), [where to soak](/blog/onsen-in-and-around-sapporo) and [where to get outside](/blog/sapporo-outdoors-and-day-trips).
