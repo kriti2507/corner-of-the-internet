@@ -4,6 +4,10 @@ date: 2026-11-15
 summary: Seventeen Sapporo coffee places I actually went to, sorted by what you're in the mood for, from pour-over and lattes to espresso, a place to work, or a view.
 tags: [sapporo-coffee, hokkaido]
 cafes: [node-coffee, marumi-coffee-odori, marumi-coffee-nakajima-park, ippo-ippo, tsukisai-coffee, rain-coffee-stand, standard-coffee-lab, baristart-coffee, sal-coffee, love-espresso, postman-oak, poool-sapporo, ueshima-coffee-apia, pop-in, mingus-coffee, starbucks-sapporo-parco, starbucks-sapporo-asahigaoka]
+guide: sapporo
+short: Coffee
+section: sapporo
+part: 1
 draft: false
 ---
 
@@ -50,5 +54,3 @@ Sapporo takes coffee seriously. The old local style is a dark roast brewed throu
 ## Still on my list
 
 Morihico, the original shop of Sapporo's biggest coffee brand, and Tokumitsu Coffee on Odori. I haven't made it to either yet.
-
-If you're in Sapporo for a few days, there's also [matcha and tea](/blog/matcha-and-tea-in-sapporo), [where to soak](/blog/onsen-in-and-around-sapporo) and [where to get outside](/blog/sapporo-outdoors-and-day-trips).

@@ -4,6 +4,10 @@ date: 2026-11-15
 summary: Three hot springs I actually went to from Sapporo: a ¥500 local bath one stop from the station, a modern bathhouse with a bath for everything, and a tea-brown seaside spring in Ishikari.
 tags: [sapporo-onsen, hokkaido]
 cafes: [kura-no-yu-naebo, hana-yuzuki, banya-no-yu-ishikari, jozankei-bridge]
+guide: sapporo
+short: Onsen
+section: sapporo
+part: 3
 draft: false
 ---
 

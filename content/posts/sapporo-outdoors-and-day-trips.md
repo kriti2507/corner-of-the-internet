@@ -4,6 +4,10 @@ date: 2026-11-15
 summary: The Sapporo parks, short hikes, viewpoints and easy day trips I actually went to, from a 30-minute summit in the city to the Jōzankei gorge in autumn.
 tags: [sapporo-outdoors, hokkaido]
 cafes: [natural-life-style-sabi, sankakuyama-trail, heiwa-falls, tenjinyama-ryokuchi, shiroi-koibito-park, sapporo-lake-observation-deck, jozankei-bridge]
+guide: sapporo
+short: Parks, hikes & day trips
+section: sapporo
+part: 4
 draft: false
 ---
 
@@ -24,5 +28,3 @@ Sapporo's mountains start right at the edge of the city, so you can be on a trai
 - **[Jōzankei Bridge](/places/jozankei-bridge)**. The classic view of the hot-spring town's gorge, about an hour from Sapporo by bus. Best in autumn.
 - **[Sapporo Lake Observation Deck](/places/sapporo-lake-observation-deck)**. A free lookout over the lake and dam above Jōzankei. You need a car.
 - On the way, stop at **[Natural Life Style sabi](/places/natural-life-style-sabi)** for curry and matcha.
-
-When you're done, warm up at [an onsen](/blog/onsen-in-and-around-sapporo), or start the day with [good coffee](/blog/best-coffee-in-sapporo) or [matcha](/blog/matcha-and-tea-in-sapporo).

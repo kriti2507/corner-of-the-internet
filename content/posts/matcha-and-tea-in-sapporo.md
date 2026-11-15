@@ -4,6 +4,10 @@ date: 2026-11-15
 summary: The Sapporo matcha and tea places I actually went to, from a Kyoto tea farm's shop by the station to a tea house from 1933 that's famous for its matcha soft serve.
 tags: [sapporo-tea, hokkaido]
 cafes: [d-matcha-kyoto-sapporo, gyokusuien, johnsons-tea-lounge, mashu-jingu-no-mori, natural-life-style-sabi, the-alley-daimaru-sapporo, standard-coffee-lab]
+guide: sapporo
+short: Matcha & tea
+section: sapporo
+part: 2
 draft: false
 ---
 
@@ -27,5 +31,3 @@ Sapporo is a coffee city first, but there's good matcha and tea if you know wher
 ## A matcha latte at a coffee place
 
 - **[Standard Coffee Lab.](/places/standard-coffee-lab)**, Tanukikoji. "White chocolate matcha latte with beautiful latte art." More in [the coffee guide](/blog/best-coffee-in-sapporo).
-
-If you're in Sapporo for a few days, there's also [where to soak](/blog/onsen-in-and-around-sapporo) and [where to get outside](/blog/sapporo-outdoors-and-day-trips).
