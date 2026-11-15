@@ -284,6 +284,12 @@ a.wk-lane:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--
 .wk-detail-main h1 { margin: 0; }
 .wk-detail-note { padding: 1.1rem 1.2rem; font-size: 1.1rem; line-height: 1.5; border-left: 5px solid var(--lane); }
 .wk-detail-note .wk-latest-label { margin-bottom: 0.3rem; }
+.wk-about { display: grid; gap: 0.6rem; line-height: 1.6; }
+.wk-about .subhead { margin: 0.4rem 0 0; }
+.wk-about p { margin: 0; }
+.wk-about ul { margin: 0; padding-left: 1.2rem; display: grid; gap: 0.25rem; list-style: disc; }
+.wk-about .wk-latest-label { margin-top: 0.3rem; }
+.wk-about-source { font-size: 0.85rem; color: var(--muted, #6b6b6b); }
 .wk-facts { display: grid; gap: 0; margin: 0; padding: 0.4rem 1.1rem; }
 .wk-facts div { display: flex; justify-content: space-between; gap: 1rem; padding: 0.6rem 0; border-bottom: 1px solid var(--wk-line); }
 .wk-facts div:last-child { border-bottom: 0; }

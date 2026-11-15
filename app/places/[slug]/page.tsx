@@ -88,6 +88,33 @@ export default async function PlacePage({ params }: { params: Promise<{ slug: st
                 <p style={{ margin: 0 }}>{place.note}</p>
               )}
             </div>
+            {place.visited ? (
+              <p style={{ margin: 0 }}>
+                <span className="wk-latest-label">When I went</span> {place.visited}
+              </p>
+            ) : null}
+            {place.about?.length ? (
+              <div className="wk-about">
+                <h2 className="subhead">About the place</h2>
+                {place.about.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+                {place.goodToKnow?.length ? (
+                  <>
+                    <p className="wk-latest-label">Good to know</p>
+                    <ul>
+                      {place.goodToKnow.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </>
+                ) : null}
+                <p className="wk-about-source">
+                  From the shop&apos;s own info and what visitors say in reviews. Hours change, so check Google Maps
+                  before you go.
+                </p>
+              </div>
+            ) : null}
             <TagLinks tags={place.tags} />
             <p style={{ margin: 0 }}>
               <a className="wk-link" href={place.mapUrl} target="_blank" rel="noopener noreferrer">

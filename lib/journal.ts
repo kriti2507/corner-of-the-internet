@@ -15,8 +15,14 @@ export type JournalPost = {
   external: string | null;
   /** Slug from site.work.series, or null. */
   series: string | null;
-  /** Reading order inside a series. Falls back to date. */
+  /** Reading order inside a series or guide section. Falls back to date. */
   part: number | null;
+  /** Slug from content/guides.ts, or null. */
+  guide: string | null;
+  /** Section id inside that guide, or null. */
+  section: string | null;
+  /** Short label for guide tiles, e.g. "February". Falls back to the title. */
+  short: string | null;
   sample: boolean;
   draft: boolean;
   body: string;
@@ -79,6 +85,9 @@ function readPosts(): JournalPost[] {
         external: asString(data.external) || null,
         series: asString(data.series) || null,
         part: Number.isFinite(Number(asString(data.part))) && asString(data.part) ? Number(asString(data.part)) : null,
+        guide: asString(data.guide) || null,
+        section: asString(data.section) || null,
+        short: asString(data.short) || null,
         sample: data.sample === true,
         draft: data.draft === true,
         body,
@@ -101,14 +110,23 @@ export function postsMentioning(kind: "cafes" | "books" | "hikes", slug: string)
   return getJournalPosts().filter((post) => post[kind].includes(slug));
 }
 
+function byPart(a: JournalPost, b: JournalPost) {
+  if (a.part !== null && b.part !== null) return a.part - b.part;
+  if (a.part !== null) return -1;
+  if (b.part !== null) return 1;
+  return a.date.localeCompare(b.date);
+}
+
 /** Notes in a series, in reading order: `part` first, then oldest date first. */
 export function postsInSeries(series: string) {
   return getJournalPosts()
     .filter((post) => post.series === series)
-    .sort((a, b) => {
-      if (a.part !== null && b.part !== null) return a.part - b.part;
-      if (a.part !== null) return -1;
-      if (b.part !== null) return 1;
-      return a.date.localeCompare(b.date);
-    });
+    .sort(byPart);
+}
+
+/** Posts in a guide section, in reading order. Leave section out for the whole guide. */
+export function postsInGuide(guide: string, section?: string) {
+  return getJournalPosts()
+    .filter((post) => post.guide === guide && (section === undefined || post.section === section))
+    .sort(byPart);
 }

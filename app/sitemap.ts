@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { guides } from "@/content/guides";
 import { getPlaces } from "@/content/places";
 import { site } from "@/content/site";
 import { getBooks } from "@/lib/books";
@@ -12,7 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const posts = getJournalPosts();
   const latest = posts[0]?.date;
 
-  const pages = ["/", "/writing", "/blog", "/weekends", "/places", "/hikes", "/books", "/japanese", "/small-wins", "/about"];
+  const pages = ["/", "/writing", "/blog", "/weekends", "/places", "/guides", "/hikes", "/books", "/japanese", "/small-wins", "/about"];
 
   return [
     ...pages.map((path) => ({
@@ -26,6 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.8,
     })),
+    ...guides.map((guide) => ({ url: absolute(`/guides/${guide.slug}`), priority: 0.8 })),
     ...site.work.series.map((item) => ({ url: absolute(`/series/${item.slug}`), priority: 0.6 })),
     ...getPlaces().map((place) => ({ url: absolute(`/places/${place.slug}`), priority: 0.6 })),
     ...getHikes().map((hike) => ({ url: absolute(`/hikes/${hike.slug}`), lastModified: hike.date, priority: 0.5 })),
