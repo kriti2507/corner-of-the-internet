@@ -29,7 +29,8 @@ export default function PlacesPage() {
           <h1 id="places-heading">Places</h1>
           <p className="lede">
             {places.length} places across {regions} regions, all places I&apos;ve been to. Anything in quotes
-            is my own note from Google Maps.
+            is my own note from Google Maps. Coffee reviews and shopping guides live in{" "}
+            <a href="/coffee">the Coffee Notebook</a>.
           </p>
         </div>
         <PlacesBrowser places={places} />

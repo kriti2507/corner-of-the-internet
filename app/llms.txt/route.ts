@@ -22,6 +22,7 @@ export function GET() {
     `- [Home](${absolute("/")}): Sakana work, AI Noodle, Women x Tech meetups, Small Wins, and working together`,
     `- [Writing](${absolute("/writing")}): AI Noodle letters from Substack and notes on this site`,
     `- [Places](${absolute("/places")}): cafés, matcha, onsen, gardens and trips in Japan, from places I've visited`,
+    `- [Coffee Notebook](${absolute("/coffee")}): every coffee I buy in Japan (Kaldi drip bags, konbini, beans, café cups) with ratings, prices, maps and guides such as the best drip bags at Kaldi`,
     `- [Hikes](${absolute("/hikes")}): every hike I've logged in Japan, on a map`,
     `- [Reading](${absolute("/books")}): books I've read`,
     `- [Japanese](${absolute("/japanese")}): learning Japanese toward JLPT N1`,

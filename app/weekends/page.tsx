@@ -5,6 +5,7 @@ import { japanese, weekends, type LaneId } from "@/content/weekends";
 import { formatDay, formatMeters } from "@/lib/format";
 import { pageMetadata } from "@/lib/page-meta";
 import { weekendSummary } from "@/lib/weekends";
+import { CoffeeStrip } from "@/components/weekends/coffee-strip";
 
 export const metadata = pageMetadata("weekends");
 
@@ -155,6 +156,7 @@ export default function WeekendsPage() {
           </article>
         </div>
       </div>
+      <CoffeeStrip />
     </section>
   );
 }

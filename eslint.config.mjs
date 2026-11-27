@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // The Coffee Notebook is its own app with its own config.
+    "coffee/**",
   ]),
 ]);
 
