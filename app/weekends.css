@@ -14,8 +14,6 @@
   --wk-reading-tint: #e1e8f3;
   --wk-places: #8a5a2b;
   --wk-places-tint: #f1e5d6;
-  --wk-coffee: #6b3a1e;
-  --wk-coffee-tint: #f6e6c6;
   --wk-japanese: #b4432d;
   --wk-japanese-tint: #f6e1da;
   --wk-line: rgba(28, 39, 68, 0.16);
@@ -25,7 +23,6 @@
 
 [data-lane="hikes"] { --lane: var(--wk-hikes); --lane-tint: var(--wk-hikes-tint); }
 [data-lane="reading"] { --lane: var(--wk-reading); --lane-tint: var(--wk-reading-tint); }
-[data-lane="coffee"] { --lane: var(--wk-coffee); --lane-tint: var(--wk-coffee-tint); }
 [data-lane="places"] { --lane: var(--wk-places); --lane-tint: var(--wk-places-tint); }
 [data-lane="japanese"] { --lane: var(--wk-japanese); --lane-tint: var(--wk-japanese-tint); }
 
@@ -136,8 +133,8 @@
 
 .wk-lanes {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 0.9rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.1rem;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -196,8 +193,6 @@ a.wk-lane:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--
 /* ---------- /weekends hub ---------- */
 
 .wk-hub { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.3rem; }
-/* Five lanes in two columns: the last one spans the row. */
-.wk-hub > :last-child:nth-child(odd) { grid-column: 1 / -1; }
 .wk-panel { display: grid; gap: 1rem; padding: 1.4rem; align-content: start; }
 .wk-panel-head { display: flex; gap: 0.9rem; align-items: center; }
 .wk-panel-head h2 { margin: 0; font-size: clamp(1.6rem, 2.6vw, 2rem); }
@@ -366,10 +361,6 @@ a.wk-lane:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--
 /* ---------- responsive ---------- */
 
 @media (max-width: 1040px) {
-  .wk-lanes { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-}
-
-@media (max-width: 760px) {
   .wk-lanes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
@@ -397,4 +388,35 @@ a.wk-lane:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--
 @media (prefers-reduced-motion: reduce) {
   .wk-lane, .wk-place, .wk-map .wk-pin circle { transition: none; }
   a.wk-lane:hover { transform: none; }
+}
+
+/* ---------- The Coffee Notebook strip (links into the /coffee app) ---------- */
+
+.wk-coffee {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  margin-top: 1.3rem;
+  background: #2a1a12;
+  color: #fbf6ea;
+  border: 1.5px solid var(--ink);
+  border-radius: var(--wk-radius);
+  box-shadow: var(--wk-shadow);
+  overflow: hidden;
+}
+.wk-coffee a { color: inherit; text-decoration: none; }
+.wk-coffee-main { display: grid; gap: 0.35rem; padding: 1.4rem 1.6rem; align-content: start; }
+.wk-coffee-ja { font-family: var(--font-fraunces), Georgia, serif; font-size: 1.1rem; letter-spacing: 0.2em; color: #e9b44c; }
+.wk-coffee-title { font-family: var(--font-fraunces), Georgia, serif; font-size: clamp(1.6rem, 2.6vw, 2rem); line-height: 1.1; }
+.wk-coffee-sub { color: rgba(251, 246, 234, 0.78); max-width: 36rem; }
+.wk-coffee-link { margin-top: 0.4rem; font-weight: 600; color: #e9b44c; }
+.wk-coffee-main:hover .wk-coffee-link { text-decoration: underline; }
+.wk-coffee-list { list-style: none; margin: 0; padding: 0.6rem 0; border-left: 1px solid rgba(251, 246, 234, 0.16); }
+.wk-coffee-list a { display: grid; padding: 0.7rem 1.4rem; }
+.wk-coffee-list a:hover { background: rgba(251, 246, 234, 0.06); }
+.wk-coffee-list li + li a { border-top: 1px dashed rgba(251, 246, 234, 0.16); }
+.wk-coffee-item { font-weight: 600; }
+.wk-coffee-meta { font-size: 0.85rem; color: rgba(251, 246, 234, 0.65); }
+@media (max-width: 760px) {
+  .wk-coffee { grid-template-columns: 1fr; }
+  .wk-coffee-list { border-left: 0; border-top: 1px solid rgba(251, 246, 234, 0.16); }
 }

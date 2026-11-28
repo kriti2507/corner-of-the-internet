@@ -4,7 +4,6 @@ import { placeWhere, kindLabel } from "@/content/places";
 import { weekends } from "@/content/weekends";
 import { formatDay, formatMeters } from "@/lib/format";
 import type { WeekendSummary } from "@/lib/weekends";
-import { CoffeeLaneCard } from "@/components/weekends/coffee-lane";
 
 function LaneTop({ lane }: { lane: keyof typeof weekends.lanes }) {
   const copy = weekends.lanes[lane];
@@ -18,7 +17,7 @@ function LaneTop({ lane }: { lane: keyof typeof weekends.lanes }) {
   );
 }
 
-/** The Weekends block on the home page: five lanes, one number and one latest entry each. */
+/** The Weekends block on the home page: four lanes, one number and one latest entry each. */
 export function WeekendsHome({ summary }: { summary: WeekendSummary }) {
   const { hikes, reading, places, japanese } = summary;
   const hike = hikes.recent[0];
@@ -86,10 +85,6 @@ export function WeekendsHome({ summary }: { summary: WeekendSummary }) {
               ) : null}
               <span className="wk-link">{weekends.lanes.reading.link}</span>
             </Link>
-          </li>
-
-          <li>
-            <CoffeeLaneCard />
           </li>
 
           <li>

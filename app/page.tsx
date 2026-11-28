@@ -5,6 +5,7 @@ import { ContactForm } from "@/components/contact-form";
 import { Hero } from "@/components/hero";
 import { ProjectsSection } from "@/components/projects-section";
 import { WeekendsHome } from "@/components/weekends/weekends-home";
+import { CoffeeStrip } from "@/components/weekends/coffee-strip";
 import { WorkSection } from "@/components/work-section";
 import { WritingSection } from "@/components/writing-section";
 import { getEvents } from "@/lib/events";
@@ -101,6 +102,7 @@ export default async function Page() {
       </div>
       <div className="home-block home-weekends">
         <WeekendsHome summary={weekend} />
+        <CoffeeStrip />
       </div>
       <div className="home-block home-wins">
         <span id="projects" className="alias-anchor" />
