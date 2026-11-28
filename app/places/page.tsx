@@ -7,7 +7,7 @@ import { site } from "@/content/site";
 import { weekends } from "@/content/weekends";
 
 const description =
-  "Cafés, matcha, onsen, gardens and trips around Japan that Kriti has been to, from Tokyo and Sapporo to Kumejima, with her own notes.";
+  "Onsen, gardens and trips around Japan that Kriti has been to, from Tokyo and Hokkaido to Okinawa, with her own notes.";
 
 export const metadata: Metadata = {
   title: "Places",
@@ -28,9 +28,9 @@ export default function PlacesPage() {
           <p className="script kicker">around Japan</p>
           <h1 id="places-heading">Places</h1>
           <p className="lede">
-            {places.length} places across {regions} regions, all places I&apos;ve been to. Anything in quotes
-            is my own note from Google Maps. Coffee reviews and shopping guides live in{" "}
-            <a href="/coffee">the Coffee Notebook</a>.
+            {places.length} onsen, gardens and trips across {regions} regions, all places I&apos;ve been to.
+            Anything in quotes is my own note from Google Maps. Cafés and matcha live in{" "}
+            <a href="/coffee/places">the Coffee Notebook</a>.
           </p>
         </div>
         <PlacesBrowser places={places} />

@@ -1,17 +1,18 @@
 /**
  * Copy for the Weekends block on the home page, the /weekends hub,
- * and the four lanes: hikes, reading, places and Japanese.
+ * and the five lanes: hikes, reading, coffee, places and Japanese.
  *
  * Hikes and books come from data/hikes.json and data/books.json.
- * Places come from content/places.ts. The Japanese lane is written here.
+ * Places come from content/places.ts. Coffee comes from the Coffee Notebook's
+ * feed (lib/coffee.ts). The Japanese lane is written here.
  */
 
-export type LaneId = "hikes" | "reading" | "places" | "japanese";
+export type LaneId = "hikes" | "reading" | "coffee" | "places" | "japanese";
 
 export const weekends = {
   kicker: "off the clock",
   title: "Weekends",
-  lede: "Mountains, books, cafés and Japanese. What I do when I'm not building.",
+  lede: "Mountains, books, coffee, onsen and Japanese. What I do when I'm not building.",
   seeAll: "The whole weekend log →",
 
   lanes: {
@@ -31,13 +32,21 @@ export const weekends = {
       link: "The bookshelf →",
       blurb: "What I read this year, in order, with a page for each book.",
     },
+    coffee: {
+      label: "Coffee",
+      mark: "珈",
+      markReading: "kō, the first character of kōhī, coffee",
+      href: "/coffee",
+      link: "Open the notebook →",
+      blurb: "Every coffee I buy, and the cafés and matcha bars I sit in, with maps and ratings.",
+    },
     places: {
       label: "Places",
       mark: "旅",
       markReading: "tabi, travel",
       href: "/places",
       link: "All the places →",
-      blurb: "Cafés, matcha, onsen, gardens and trips around Japan, with my own notes.",
+      blurb: "Onsen, gardens and trips around Japan, with my own notes.",
     },
     japanese: {
       label: "Japanese",
@@ -50,7 +59,7 @@ export const weekends = {
   } satisfies Record<LaneId, { label: string; mark: string; markReading: string; href: string; link: string; blurb: string }>,
 
   /** The place shown on the home card. Pick any slug from content/places.ts. */
-  featuredPlace: "miyano-yu",
+  featuredPlace: "akitaya-takahashi-farm",
   /** The word shown on the home card. Pick any `ja` from japanese.words below. */
   featuredWord: "雲海",
 };
@@ -89,7 +98,7 @@ export const japanese = {
     { ja: "登山口", kana: "とざんぐち", romaji: "tozanguchi", en: "trailhead", lane: "hikes" },
     { ja: "頂上", kana: "ちょうじょう", romaji: "chōjō", en: "summit", lane: "hikes" },
     { ja: "百名山", kana: "ひゃくめいざん", romaji: "hyakumeizan", en: "Japan's 100 famous mountains", lane: "hikes" },
-    { ja: "抹茶", kana: "まっちゃ", romaji: "matcha", en: "powdered green tea", lane: "places" },
+    { ja: "抹茶", kana: "まっちゃ", romaji: "matcha", en: "powdered green tea", lane: "coffee" },
     { ja: "露天風呂", kana: "ろてんぶろ", romaji: "rotenburo", en: "outdoor bath", lane: "places" },
     { ja: "古本屋", kana: "ふるほんや", romaji: "furuhon'ya", en: "second-hand bookshop", lane: "reading" },
     { ja: "読書", kana: "どくしょ", romaji: "dokusho", en: "reading", lane: "reading" },

@@ -10,8 +10,6 @@ import { JsonLd, absolute, personId } from "@/lib/structured-data";
 
 /** schema.org types for each kind of place. */
 const PLACE_SCHEMA: Record<Place["kind"], string> = {
-  cafe: "CafeOrCoffeeShop",
-  matcha: "CafeOrCoffeeShop",
   onsen: "TouristAttraction",
   park: "Park",
   trip: "TouristDestination",

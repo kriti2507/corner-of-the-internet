@@ -6,8 +6,6 @@ import { JapanMap } from "@/components/weekends/japan-map";
 import { PLACE_KINDS, placeWhere, type Place, type PlaceKind } from "@/content/places";
 
 const KIND_COLOR: Record<PlaceKind, string> = {
-  cafe: "#b07a45",
-  matcha: "#7d9c4a",
   onsen: "#d0654b",
   park: "#4f8a73",
   trip: "#6a87b8",

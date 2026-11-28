@@ -82,7 +82,7 @@ export const site = {
     weekends: {
       title: "Weekends",
       path: "/weekends",
-      description: "Kriti's weekends: hikes across Japan, the books she reads, cafés, matcha and onsen she has been to, and her Japanese study.",
+      description: "Kriti's weekends: hikes across Japan, the books she reads, the coffee and cafés she rates, onsen and gardens she has been to, and her Japanese study.",
     },
   },
 
@@ -797,7 +797,7 @@ export const site = {
           "In June 2026 I finally made it to Tokyo, the city I'd sulked about not getting years earlier, and joined [Sakana AI](/#sakana). The work, the people, the culture: it all makes sense to me.",
           { big: true, text: "I've been lucky. I found AI early and get to build with it every day, and most people haven't had that chance." },
           "So I spend part of my time helping people learn it and helping businesses use it. So far I've [worked with two businesses](/#work-with-me), taking slow, repetitive work off their plates so they can focus on what matters.",
-          "Outside work, I [write](/writing). I haven't found a niche, so I write about whatever I want. (I'm told this is a problem. It's also fun.) I build things, like a [tracker](https://lets-hike-together.vercel.app/) for the Hyakumeizan, Japan's 100 famous mountains, all of which I plan to climb in the next few years. I [read](/books). I hunt for [cafés](/places) and matcha lattes, and I've recently discovered nitro cold brew, which is where my money goes now.",
+          "Outside work, I [write](/writing). I haven't found a niche, so I write about whatever I want. (I'm told this is a problem. It's also fun.) I build things, like a [tracker](https://lets-hike-together.vercel.app/) for the Hyakumeizan, Japan's 100 famous mountains, all of which I plan to climb in the next few years. I [read](/books). I hunt for [cafés](/coffee) and matcha lattes, and I've recently discovered nitro cold brew, which is where my money goes now.",
           "I invest, and I live modestly. Not frugal, not fancy. Somewhere in the middle, as usual.",
         ],
         odds: null,

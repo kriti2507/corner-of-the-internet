@@ -5,7 +5,7 @@ import { japanese, weekends, type LaneId } from "@/content/weekends";
 import { formatDay, formatMeters } from "@/lib/format";
 import { pageMetadata } from "@/lib/page-meta";
 import { weekendSummary } from "@/lib/weekends";
-import { CoffeeStrip } from "@/components/weekends/coffee-strip";
+import { CoffeePanel } from "@/components/weekends/coffee-lane";
 
 export const metadata = pageMetadata("weekends");
 
@@ -99,6 +99,8 @@ export default function WeekendsPage() {
             </Link>
           </article>
 
+          <CoffeePanel />
+
           <article className="wk-card wk-panel" data-lane="places" aria-label={weekends.lanes.places.label}>
             <PanelHead lane="places" />
             <dl className="wk-panel-stats">
@@ -156,7 +158,6 @@ export default function WeekendsPage() {
           </article>
         </div>
       </div>
-      <CoffeeStrip />
     </section>
   );
 }
