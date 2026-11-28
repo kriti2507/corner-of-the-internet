@@ -589,34 +589,6 @@ export const site = {
     approxNote: "This pin is approximate.",
   },
 
-  /**
-   * Coordinates are not in the log. Keyed by hike title so a future API
-   * can replace the JSON without losing the map.
-   */
-  hikePins: {
-    Maruyama: { lat: 43.054, lng: 141.318 },
-    Shiripayama: { lat: 43.24, lng: 140.79 },
-    Takaosan: { lat: 35.625, lng: 139.243 },
-    Tsukubasan: { lat: 36.226, lng: 140.107 },
-    Akabokko: { lat: 35.776, lng: 139.259 },
-    Kinpusan: { lat: 35.872, lng: 138.625 },
-    Iwanaidake: { lat: 42.956, lng: 140.548 },
-    "Mt Oyama": { lat: 35.441, lng: 139.231 },
-    Mitake: { lat: 35.783, lng: 139.152 },
-    "Shioya Maruyama": { lat: 43.21, lng: 140.94 },
-    Ashibetsu: { lat: 43.236, lng: 142.284 },
-    Nokogiriyama: { lat: 35.16, lng: 139.826 },
-    Nekodake: { lat: 36.104, lng: 138.271 },
-    Yoteizan: { lat: 42.827, lng: 140.811 },
-    Asahidake: { lat: 43.664, lng: 142.854 },
-    Eniwadake: { lat: 42.793, lng: 141.285 },
-    Takimidai: { lat: 42.97, lng: 141.15, approximate: true },
-    Hakkenzan: { lat: 42.96, lng: 141.225 },
-    "Mt Chausu": { lat: 37.123, lng: 139.963 },
-    Tonodake: { lat: 35.487, lng: 139.147 },
-    Jinbasan: { lat: 35.701, lng: 139.155 },
-  } as Record<string, { lat: number; lng: number; approximate?: boolean }>,
-
   books: {
     emptyNotes: "No notes point at this book yet.",
   },

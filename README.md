@@ -31,7 +31,7 @@ The home page carries the whole picture. Deeper pages:
 
 `/work`, `/projects`, `/community`, and `/consulting` redirect to the matching section on the home page.
 
-- Hikes: [`data/hikes.json`](data/hikes.json). Map pins are in `site.hikePins`.
+- Hikes: [`data/hikes.json`](data/hikes.json), one hike per line, pins included. See “Adding a hike” below.
 - Books: [`data/books.json`](data/books.json).
 - Mountain photo and the Mira illustration: put files in `public/` and set `site.photos.mountain` and `site.photos.mira`. `null` keeps the drawn placeholders.
 - Email is `ping@heykriti.com` (`site.email`). The contact form sends there through Resend — see `.env.example`.
@@ -41,6 +41,23 @@ The home page carries the whole picture. Deeper pages:
 The two draggable photos hide a card each. Edit `site.hero.secrets` in [`content/site.ts`](content/site.ts). The first item sits under the mountain photo, the second under Mira. Each has a `title`, a `body`, and an optional `cta` (`label` and `href`). These start as placeholders — do not put a real code or offer in until you mean to share it. Drag a photo, or focus it and use the arrow keys, to reveal the card. “Put the photos back” covers them again. The label is `site.hero.secretFound`.
 
 `lib/hikes.ts` and `lib/books.ts` are the swap point for a live Small Wins API. They return the same shapes the page already renders.
+
+## Adding a hike
+
+Hikes are logged in Small Wins first, then copied into [`data/hikes.json`](data/hikes.json): one JSON object per line, oldest first. `smallWinsId` is the Small Wins entry id, so a hike is never added twice. The page, the ridgeline, the map, the totals and the detail page all read this one file, so a new line is all a new hike needs.
+
+```json
+{"smallWinsId":25,"title":"Kumotoriyama","region":"Tokyo","date":"2026-12-06","height_of_mountain_m":2017,"climbed_m":1100,"duration_min":540,"lat":35.855,"lng":138.944,
+ "days":2,"huts":["Kumotori Sanso"],
+ "notes":{"access":"How I got there and back.","trail":"What the walk was like.","feeling":"How it felt."},
+ "photo":"/photos/hikes/kumotoriyama.webp","photoAlt":"What the photo shows"}
+```
+
+- Required: `smallWinsId`, `title`, `region` (prefecture), `date`, `height_of_mountain_m`, `climbed_m`, `lat`, `lng`. `duration_min` can be `null`.
+- `pinApproximate: true` when the pin is a guess. The detail page says so.
+- `notes` has three optional parts: `access`, `trail` and `feeling`. Any of them shows a “What I want to remember” section.
+- `days` and `huts` are for multi-day hikes. `huts` lists one hut per night, in order.
+- `photo` is a path under `public/` (put new ones in `public/photos/hikes/`). Without one, the page draws the mountain from its height and season.
 
 ## How to write a post and tag cafés, books, and hikes
 

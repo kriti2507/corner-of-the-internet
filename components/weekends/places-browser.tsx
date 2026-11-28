@@ -11,6 +11,13 @@ const KIND_COLOR: Record<PlaceKind, string> = {
   trip: "#6a87b8",
 };
 
+/** A one-character stamp per kind, like the 山 and 旅 marks on the home page. */
+const STAMP: Record<PlaceKind, string> = {
+  onsen: "湯",
+  park: "庭",
+  trip: "旅",
+};
+
 const REGION_ORDER = ["Tokyo", "Hokkaido", "Tohoku", "Kyoto", "Okinawa"];
 
 function regionRank(region: string) {
@@ -73,7 +80,7 @@ export function PlacesBrowser({ places }: { places: Place[] }) {
           </button>
         ))}
       </div>
-      <div className="wk-filters" role="toolbar" aria-label="Region" style={{ marginBottom: "1.4rem" }}>
+      <div className="wk-filters sb-filters" role="toolbar" aria-label="Region">
         <button type="button" className="wk-filter" aria-pressed={region === null} onClick={() => setRegion(null)}>
           All of Japan
         </button>
@@ -90,52 +97,61 @@ export function PlacesBrowser({ places }: { places: Place[] }) {
         ))}
       </div>
 
-      <div className="wk-places-layout">
-        <JapanMap
-          label="Map of the places shown"
-          caption="Pins are approximate. Tap one to find the card."
-          activeId={active}
-          onSelect={select}
-          points={visible.map((place) => ({
-            id: place.slug,
-            lat: place.lat,
-            lng: place.lng,
-            label: `${place.name}, ${placeWhere(place)}`,
-            color: KIND_COLOR[place.kind],
-          }))}
-        />
-        <div>
+      <div className="sb-browse">
+        <div className="sb-browse-side">
+          <JapanMap
+            label="Map of the places shown"
+            caption="Pins are approximate. Tap one to find the postcard."
+            activeId={active}
+            onSelect={select}
+            points={visible.map((place) => ({
+              id: place.slug,
+              lat: place.lat,
+              lng: place.lng,
+              label: `${place.name}, ${placeWhere(place)}`,
+              color: KIND_COLOR[place.kind],
+            }))}
+          />
+        </div>
+        <div className="sb-months">
           {groups.length === 0 ? <p className="wk-muted">Nothing here with these filters yet.</p> : null}
           {groups.map(([name, items]) => (
-            <section key={name} className="wk-region-group" aria-labelledby={`region-${name}`}>
-              <h2 id={`region-${name}`}>
-                {name} <small>{items.length}</small>
+            <section key={name} className="sb-month" aria-labelledby={`region-${name}`}>
+              <h2 id={`region-${name}`} className="sb-month-head">
+                <span className="script">{name}</span>
+                <small>{items.length}</small>
               </h2>
-              <ul className="wk-place-grid">
-                {items.map((place) => {
+              <ul className="sb-postcard-grid">
+                {items.map((place, index) => {
                   const kindCopy = PLACE_KINDS.find((item) => item.id === place.kind);
                   return (
                     <li key={place.slug}>
                       <article
                         id={`place-${place.slug}`}
-                        className="wk-card wk-place"
+                        className="sb-postcard"
                         data-kind={place.kind}
+                        data-tilt={(index % 5) + 1}
                         data-active={active === place.slug}
                         onMouseEnter={() => setActive(place.slug)}
                       >
-                        <div className="wk-place-top wk-kind" data-kind={place.kind}>
-                          <span className="wk-pill">{kindCopy?.label}</span>
-                          <span className="wk-place-where">{place.area === place.region ? "" : place.area}</span>
-                        </div>
+                        <span className="sb-stamp" aria-hidden="true">
+                          {STAMP[place.kind]}
+                        </span>
+                        <p className="sb-postcard-kind">
+                          {kindCopy?.label}
+                          {place.area === place.region ? "" : ` · ${place.area}`}
+                        </p>
                         <h3>
                           <Link href={`/places/${place.slug}`}>{place.name}</Link>
                         </h3>
                         {place.myNote ? (
-                          <p className="wk-place-note wk-quote">{place.note}</p>
+                          <p className="sb-postcard-note sb-postcard-mine">
+                            <span className="script">I wrote:</span> “{place.note}”
+                          </p>
                         ) : (
-                          <p className="wk-place-note wk-muted">{place.note}</p>
+                          <p className="sb-postcard-note">{place.note}</p>
                         )}
-                        <div className="wk-place-foot">
+                        <div className="sb-postcard-foot">
                           <Link href={`/places/${place.slug}`}>Details</Link>
                           <a href={place.mapUrl} target="_blank" rel="noopener noreferrer">
                             Google Maps ↗
