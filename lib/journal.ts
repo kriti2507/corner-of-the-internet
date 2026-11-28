@@ -42,10 +42,19 @@ function parseValue(raw: string): string | boolean | string[] {
     if (!inner) return [];
     return inner
       .split(",")
-      .map((part) => part.trim().replace(/^['"]|['"]$/g, ""))
+      .map((part) => unquote(part.trim()))
       .filter(Boolean);
   }
-  return value.replace(/^['"]|['"]$/g, "");
+  return unquote(value);
+}
+
+/** Strip one pair of matching wrapping quotes, so a title that ends in a quote keeps it. */
+function unquote(value: string): string {
+  const first = value[0];
+  if (value.length >= 2 && (first === '"' || first === "'") && value.endsWith(first)) {
+    return value.slice(1, -1);
+  }
+  return value;
 }
 
 function parseFrontmatter(raw: string) {
