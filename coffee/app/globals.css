@@ -409,3 +409,6 @@ a.chip:hover { background: var(--espresso); color: var(--paper); }
   .stamps svg { width: 104px; height: 104px; }
   .stampbook { background-image: none; }
 }
+
+/* Sections: a season label under a coffee in a section. */
+.item-season { display: inline-block; margin-top: 0.35rem; font-size: var(--step--1); color: var(--muted); }

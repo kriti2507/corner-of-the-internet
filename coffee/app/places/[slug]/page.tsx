@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { PLACE_KINDS, SITE, coffeesAt, getPlace, getPlaces, guidesMentioning, mapsLink, placeWhere } from "@/lib/content";
+import { PLACE_KINDS, SITE, coffeesAt, getPlace, getPlaces, guidesMentioning, mapsLink, placeWhere, sectionsFor } from "@/lib/content";
 import { day, titleCase } from "@/lib/format";
 import { Cups, Stamp } from "@/components/art";
-import { CoffeeCaption, Crumbs, Gallery, GuideCard, MapEmbed, PacketLink, PinIcon, SampleNote } from "@/components/bits";
+import { CoffeeCaption, Crumbs, Gallery, GuideCard, MapEmbed, PacketLink, PinIcon, SampleNote, SectionChips } from "@/components/bits";
 import { Comments } from "@/components/comments";
 
 export function generateStaticParams() {
@@ -113,6 +113,7 @@ export default async function PlacePage({ params }: { params: Promise<{ slug: st
                 <PinIcon />
                 {isChain ? "Find the nearest one" : "Open in Google Maps"}
               </a>
+              <SectionChips sections={sectionsFor(place)} />
               {place.tags.map((tag) => (
                 <span key={tag} className="chip" style={{ alignSelf: "center" }}>
                   {titleCase(tag)}

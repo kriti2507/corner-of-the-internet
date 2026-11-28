@@ -11,10 +11,11 @@ import {
   guidesMentioning,
   mapsLink,
   placeWhere,
+  sectionsFor,
 } from "@/lib/content";
 import { day, titleCase, yen } from "@/lib/format";
 import { Cups, Packet, RoastScale, TasteChart } from "@/components/art";
-import { CoffeeCaption, Crumbs, Gallery, GuideCard, PacketLink, PinIcon, SampleNote } from "@/components/bits";
+import { CoffeeCaption, Crumbs, Gallery, GuideCard, PacketLink, PinIcon, SampleNote, SectionChips } from "@/components/bits";
 import { Comments } from "@/components/comments";
 
 export function generateStaticParams() {
@@ -136,6 +137,12 @@ export default async function CoffeePage({ params }: { params: Promise<{ slug: s
                   </dd>
                 </div>
               )}
+              {coffee.season && (
+                <div>
+                  <dt>Season</dt>
+                  <dd>{coffee.season}</dd>
+                </div>
+              )}
               {coffee.date && (
                 <div>
                   <dt>Tried</dt>
@@ -169,6 +176,7 @@ export default async function CoffeePage({ params }: { params: Promise<{ slug: s
                 <PinIcon />
                 {place ? `Find ${place.name} on the map` : "Find it on the map"}
               </a>
+              <SectionChips sections={sectionsFor(coffee)} />
               {coffee.tags.map((tag) => (
                 <Link key={tag} className="chip" href={`/shelf?tag=${encodeURIComponent(tag)}`} style={{ alignSelf: "center" }}>
                   {titleCase(tag)}

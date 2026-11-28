@@ -1,6 +1,6 @@
 import Link from "next/link";
-import type { Coffee, Place, Guide } from "@/lib/content";
-import { COFFEE_KINDS, PLACE_KINDS, getPlace, placeWhere } from "@/lib/content";
+import type { Coffee, Place, Guide, Section } from "@/lib/content";
+import { COFFEE_KINDS, PLACE_KINDS, getPlace, placeWhere, sectionItems } from "@/lib/content";
 import { yen } from "@/lib/format";
 import { Cups, LetterBoard, Packet, Stamp } from "./art";
 
@@ -142,5 +142,77 @@ export function Gallery({ photos }: { photos: { src: string; alt: string; captio
         </div>
       )}
     </div>
+  );
+}
+
+/**
+ * A section as a block: its heading, then the places and coffees that match its
+ * rule. `limit` keeps the home page short; the section's own page shows all.
+ */
+export function SectionBlock({ section, limit, heading = "h2" }: { section: Section; limit?: number; heading?: "h1" | "h2" }) {
+  const { coffees, places } = sectionItems(section);
+  const shownCoffees = limit ? coffees.slice(0, limit) : coffees;
+  const shownPlaces = limit ? places.slice(0, limit) : places;
+  const total = coffees.length + places.length;
+  const hidden = total - shownCoffees.length - shownPlaces.length;
+  const id = `section-${section.slug}`;
+  const Heading = heading;
+  return (
+    <section className="section" style={{ paddingTop: 0 }} aria-labelledby={id}>
+      <div className={heading === "h1" ? undefined : "wrap"}>
+        <div className="section-head">
+          <div>
+            {section.titleJa && (
+              <span className="ja-tag" lang="ja">
+                {section.titleJa}
+              </span>
+            )}
+            <Heading id={id}>{section.title}</Heading>
+            {section.summary && <p>{section.summary}</p>}
+          </div>
+          {limit !== undefined && (
+            <Link className="more" href={`/sections/${section.slug}`}>
+              {hidden > 0 ? `All ${total}` : "Open the section"}
+            </Link>
+          )}
+        </div>
+        {heading === "h1" && section.html && <div className="prose" style={{ marginBottom: "2rem" }} dangerouslySetInnerHTML={{ __html: section.html }} />}
+        {total === 0 && <p style={{ color: "var(--muted)" }}>Nothing here yet.</p>}
+        {shownPlaces.length > 0 && (
+          <ul className="stamps" style={{ marginBottom: shownCoffees.length ? "2.2rem" : 0 }}>
+            {shownPlaces.map((place) => (
+              <li key={place.slug}>
+                <StampLink place={place} />
+              </li>
+            ))}
+          </ul>
+        )}
+        {shownCoffees.length > 0 && (
+          <ul className="shelf-grid">
+            {shownCoffees.map((coffee) => (
+              <li key={coffee.slug}>
+                <PacketLink coffee={coffee} tag={false} />
+                <CoffeeCaption coffee={coffee} />
+                {coffee.season && <span className="item-season">{coffee.season}</span>}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </section>
+  );
+}
+
+/** Small links to the sections an entry is in. */
+export function SectionChips({ sections }: { sections: Section[] }) {
+  if (sections.length === 0) return null;
+  return (
+    <>
+      {sections.map((section) => (
+        <Link key={section.slug} className="chip" href={`/sections/${section.slug}`} style={{ alignSelf: "center" }}>
+          {section.title}
+        </Link>
+      ))}
+    </>
   );
 }

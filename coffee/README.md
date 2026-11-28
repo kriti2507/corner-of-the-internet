@@ -52,11 +52,38 @@ draft: false
 The write-up, in Markdown. Use ## for small headings.
 ```
 
+`season: "Holiday 2026"` is optional too, for limited-time drinks (see Sections below).
+
 Everything except `name` is optional; the page only shows what you fill in. Without photos, the page draws a packet (or cup or can) in colours picked from the slug.
 
 ## Add a café, matcha bar or shop
 
 Same idea in `content/places/`. `kind` is `cafe`, `matcha`, `shop` or `roaster`. Paste the Google Maps link into `mapUrl`; `lat` and `lng` centre the map on the page. `note` is the short quote under the name (`myNote: true` shows it as your own words). Any coffee whose `boughtAt` is this slug shows up on the place page under "What I ordered".
+
+## Seasonal drinks and chains
+
+- On a coffee, `season: "Holiday 2026"` marks a limited-time drink. It shows as a "Season" line on the page and puts the coffee in the Seasonal drinks section.
+- On a place, `brand: Starbucks` says it's a branch of a chain. A coffee's `brand` works the same way.
+
+## Sections
+
+A section is a shelf that fills itself. `content/sections/<slug>.md` → `/coffee/sections/<slug>`, plus a block on the home page (newest six, in `order`). It lists every coffee and place that matches its rule, so a new entry shows up without touching the section:
+
+```markdown
+---
+title: "Starbucks"
+titleJa: "スタバ"          # optional
+summary: "One line under the heading."
+order: 1                   # lower comes first on the home page
+match:
+  brand: Starbucks         # coffees and places with this brand
+  # tag: matcha            # coffees and places with this tag
+  # seasonal: true         # coffees that have a season
+  # kind: canned           # coffees of this kind
+---
+```
+
+Every key under `match` has to match. Places only match on `brand` and `tag`. Coffee and place pages link to the sections they're in.
 
 ## Make a guide
 

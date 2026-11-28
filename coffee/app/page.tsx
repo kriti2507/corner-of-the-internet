@@ -1,12 +1,13 @@
 import Link from "next/link";
-import { COFFEE_KINDS, getCoffees, getGuides, getPlace, getPlaces, stats } from "@/lib/content";
+import { COFFEE_KINDS, getCoffees, getGuides, getPlace, getPlaces, getSections, stats } from "@/lib/content";
 import { day, yen } from "@/lib/format";
-import { GuideCard, PacketLink, StampLink } from "@/components/bits";
+import { GuideCard, PacketLink, SectionBlock, StampLink } from "@/components/bits";
 
 export default function Home() {
   const coffees = getCoffees();
   const guides = getGuides();
   const places = getPlaces();
+  const sections = getSections();
   const tally = stats();
   const latest = coffees.slice(0, 6);
   const priced = latest.filter((coffee) => coffee.price !== undefined);
@@ -47,6 +48,11 @@ export default function Home() {
         </div>
         <div className="shelf-under" />
       </section>
+
+      {sections.length > 0 && <div style={{ height: "2.5rem" }} aria-hidden="true" />}
+      {sections.map((section) => (
+        <SectionBlock key={section.slug} section={section} limit={6} />
+      ))}
 
       <section className="section" aria-labelledby="guides-heading">
         <div className="wrap">
