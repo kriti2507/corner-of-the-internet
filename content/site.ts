@@ -232,13 +232,11 @@ export const site = {
     index: {
       path: "/sakana",
       kicker: "Sakana App",
-      title: "Build",
-      titleMark: "notes",
+      title: "Build notes",
       lede: "What I learn while building the agent inside Sakana App: the tools it uses, what it remembers, and how it talks to everything else. Newest at the top.",
       description: "Kriti's notes from building the agent inside Sakana App, the AI chat app from Sakana AI in Tokyo.",
       crumb: "Sakana App notes",
-      startNote: "New here? Start with",
-      shared: "Learnings only. Nothing confidential, no internal numbers.",
+      startNote: "Start at No. 1 ↓",
     },
     post: {
       kicker: "Sakana App notes",

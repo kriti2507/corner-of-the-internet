@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { External } from "@/components/external";
 import { SakanaNoteCard } from "@/components/sakana";
@@ -9,11 +8,11 @@ import { sakanaNotes } from "@/lib/journal";
 const page = site.work.index;
 
 export const metadata: Metadata = {
-  title: `${page.kicker} ${page.title.toLowerCase()} ${page.titleMark}`,
+  title: `${page.kicker} ${page.title.toLowerCase()}`,
   description: page.description,
   alternates: { canonical: page.path },
   openGraph: {
-    title: `${page.kicker} ${page.title.toLowerCase()} ${page.titleMark} · ${site.name}`,
+    title: `${page.kicker} ${page.title.toLowerCase()} · ${site.name}`,
     description: page.description,
     url: page.path,
     siteName: site.name,
@@ -35,9 +34,7 @@ export default function SakanaPage() {
           <div className="sk-index-layout">
             <header className="sk-index-head">
               <p className="script kicker">{page.kicker}</p>
-              <h1 id="sakana-heading">
-                {page.title} <span className="mark mark-blue">{page.titleMark}</span>
-              </h1>
+              <h1 id="sakana-heading">{page.title}</h1>
               <p className="lede">{page.lede}</p>
               {notes.length > 0 ? (
                 <ul className="sk-stats" aria-label="At a glance">
@@ -47,14 +44,13 @@ export default function SakanaPage() {
                   <li>
                     <strong>{minutes}</strong> min of reading
                   </li>
+                  {first && notes.length > 1 ? (
+                    <li className="sk-stats-link">
+                      <a href={`#note-${first.number}`}>{page.startNote}</a>
+                    </li>
+                  ) : null}
                 </ul>
               ) : null}
-              {first && notes.length > 1 ? (
-                <p className="sk-start">
-                  {page.startNote} <Link href={`/blog/${first.slug}`}>{first.title} →</Link>
-                </p>
-              ) : null}
-              <p className="sk-fine">{page.shared}</p>
               <ul className="text-links">
                 {site.work.links.map((link) => (
                   <li key={link.href}>
@@ -68,7 +64,7 @@ export default function SakanaPage() {
             ) : (
               <ol className="sk-list" reversed>
                 {notes.map((note, index) => (
-                  <li key={note.slug}>
+                  <li key={note.slug} id={`note-${note.number}`}>
                     <SakanaNoteCard
                       note={note}
                       noteLabel={site.work.note}
