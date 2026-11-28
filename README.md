@@ -25,7 +25,7 @@ The home page carries the whole picture. Deeper pages:
 - `/coffee/*` — the Coffee Notebook, a separate app in [`coffee/`](coffee/README.md) with its own Vercel project (`kriti-coffee`). `next.config.ts` rewrites these paths to it (`COFFEE_ORIGIN`, default `https://kriti-coffee.vercel.app`). The home page and `/weekends` show a strip from its feed.
 - `/books` and `/books/[slug]` — the book log
 - `/tags/[tag]` — notes, cafés, books, and hikes that share a tag
-- `/series/[slug]` — one page per Sakana App topic (Memory, MCP, Tools), listing the notes in that series
+- `/sakana` — every Sakana App note, newest first
 - `/about` — a timeline of what the site already knows
 - `/small-wins` — product introduction for the Small Wins app
 
@@ -100,20 +100,17 @@ Text with *italic* (or _italic_), **bold**, ~~crossed out~~, and `code`.
 - Resize phone photos to about 1600px wide before adding them (e.g. squoosh.app). Under ~400 KB each keeps pages fast.
 - Always write the alt text inside `![...]`. It is what screen readers and search engines read.
 
-### Sakana App series
+### Sakana App notes
 
-The Sakana section on the home page shows one card per topic. The topics live in `site.work.series` in [`content/site.ts`](content/site.ts) — add, rename, or reorder them there. Each card opens `/series/<slug>`.
-
-A note joins a series with two extra frontmatter lines:
+Notes about building Sakana App live in `content/posts/` like any other note, with one extra line:
 
 ```markdown
-series: memory
-part: 2
+sakana: true
 ```
 
-- `series` is `memory`, `mcp`, or `tools` (or any slug you add).
-- `part` is optional. Without it, notes in a series are ordered oldest first.
-- A note that lives on Substack can still join a series: set `external` too, and the card links out.
+- They show up on `/sakana` (newest first, numbered in the order they were written) and the newest three show on the home page. Nothing else to update.
+- `order: 3` is optional. It only breaks ties between notes with the same date.
+- Each note page links to the older and newer note. Old `/series/*` links redirect to `/sakana`.
 
 ## Email
 

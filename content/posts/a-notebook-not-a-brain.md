@@ -3,8 +3,8 @@ title: A notebook, not a brain
 date: 2026-11-28
 summary: What working on memory for the Sakana App agent taught me about what to save, how to find it again, and the underrated art of forgetting.
 tags: [sakana-app, agents, memory]
-series: memory
-part: 1
+sakana: true
+order: 5
 ---
 
 Every chatbot has memory now. It's on the feature list right next to "dark mode", and it gets about as much thought.

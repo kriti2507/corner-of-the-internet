@@ -1,0 +1,151 @@
+/* Sakana App notes: the home block, /sakana and each note page. Same sticker,
+   tape and highlighter kit as the top page, in the Sakana blue. */
+
+.sk-scope { --sk-tint: #dde9f6; }
+
+/* A note as a numbered sticker */
+.sk-card {
+  --tilt: -0.8deg;
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+  padding: 1.05rem 1.15rem 1.1rem;
+  border: 2px solid var(--ink);
+  border-radius: 16px;
+  background: var(--paper);
+  color: var(--ink);
+  text-decoration: none;
+  box-shadow: var(--shadow);
+  transform: rotate(var(--tilt));
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.sk-card[data-tilt="1"] { --tilt: -0.9deg; }
+.sk-card[data-tilt="2"] { --tilt: 0.7deg; }
+.sk-card[data-tilt="3"] { --tilt: -0.4deg; }
+.sk-card[data-tilt="4"] { --tilt: 0.9deg; }
+.sk-card[data-tilt="5"] { --tilt: -0.6deg; }
+.sk-card:hover { transform: rotate(0deg) translateY(-3px); box-shadow: 8px 8px 0 var(--ink); }
+.sk-card:focus-visible { outline: 3px solid var(--ink); outline-offset: 5px; }
+.sk-card:hover .sk-card-title { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+
+.sk-num {
+  display: grid;
+  place-items: center;
+  width: 3.4rem;
+  height: 3.4rem;
+  border: 2px solid var(--ink);
+  border-radius: 12px;
+  background: var(--blue);
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-size: 1.55rem;
+  font-weight: 650;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+.sk-card[data-tilt="2"] .sk-num { background: var(--pink); }
+.sk-card[data-tilt="3"] .sk-num { background: var(--yellow); }
+.sk-card[data-tilt="4"] .sk-num { background: var(--green); }
+.sk-card[data-tilt="5"] .sk-num { background: var(--peach); }
+
+.sk-card-text { display: grid; gap: 0.3rem; min-width: 0; }
+.sk-card-kicker { color: var(--muted); font-size: 0.84rem; font-weight: 650; }
+.sk-card-title {
+  margin: 0;
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-size: 1.35rem;
+  font-weight: 620;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+.sk-card-summary { color: var(--ink); font-size: 0.97rem; }
+
+.sk-tape {
+  left: auto;
+  right: 1.4rem;
+  width: auto;
+  padding: 0 0.7rem;
+  transform: rotate(3deg);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  line-height: 22px;
+  text-transform: uppercase;
+}
+
+.sk-all { margin: 1.4rem 0 0; font-weight: 700; }
+.sk-all a { text-decoration-thickness: 2px; text-underline-offset: 3px; }
+
+/* Home page block */
+.sk-home-intro h2 { margin-bottom: 0.6rem; }
+.sk-count { margin: 0 0 0.2rem; font-weight: 650; color: var(--muted); }
+.sk-home-intro .hero-actions { margin-top: 1rem; }
+.sk-stack { display: grid; gap: 1.15rem; margin: 0.4rem 0 0; padding: 0; list-style: none; }
+
+/* /sakana */
+.sk-index { background: var(--sk-tint); border-bottom: 2px solid var(--ink); padding-top: 1.2rem; padding-bottom: 4rem; }
+.sk-index-layout { display: grid; gap: 2.2rem; margin-top: 0.8rem; }
+.sk-index-head h1 { font-size: clamp(2.8rem, 7vw, 4.6rem); line-height: 0.95; }
+.sk-stats { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.2rem 0 1rem; padding: 0; list-style: none; }
+.sk-stats li, .sk-meta li {
+  padding: 0.3rem 0.8rem;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--paper);
+  font-size: 0.92rem;
+  font-weight: 650;
+}
+.sk-stats strong { font-family: var(--font-fraunces), Georgia, serif; font-size: 1.1rem; }
+.sk-start { margin: 0 0 0.6rem; font-weight: 650; }
+.sk-start a { text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.sk-fine { margin: 0; color: var(--script); font-family: var(--font-caveat), cursive; font-size: 1.3rem; line-height: 1.2; }
+.sk-list { display: grid; gap: 1.5rem; margin: 0; padding: 0; list-style: none; }
+.sk-list .sk-card { padding: 1.3rem 1.4rem 1.35rem; gap: 1.2rem; }
+.sk-list .sk-num { width: 4.2rem; height: 4.2rem; font-size: 1.9rem; }
+.sk-list .sk-card-title { font-size: clamp(1.45rem, 2.4vw, 1.85rem); }
+
+/* One note */
+.sk-post-head { background: var(--sk-tint); border-bottom: 2px solid var(--ink); padding: 1.2rem 0 2.2rem; }
+.sk-post-title { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 1.1rem; align-items: end; margin-top: 1rem; }
+.sk-post-title .kicker { font-size: 1.45rem; }
+.sk-post-title h1 { margin: 0; font-size: clamp(2.2rem, 5.5vw, 3.8rem); }
+.sk-num-lg { width: 5.2rem; height: 5.2rem; font-size: 2.5rem; transform: rotate(-4deg); box-shadow: 4px 4px 0 var(--ink); }
+.sk-post-lede { margin: 1.1rem 0 0.9rem; font-family: var(--font-fraunces), Georgia, serif; font-size: clamp(1.15rem, 2vw, 1.4rem); line-height: 1.4; }
+.sk-meta { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0; padding: 0; list-style: none; }
+.sk-post-body { padding: 2.6rem 0 1.5rem; }
+.sk-post .journal-body { font-size: 1.08rem; line-height: 1.72; }
+.sk-post .journal-body h2 {
+  width: fit-content;
+  margin: 2.2rem 0 0.7rem;
+  font-size: clamp(1.55rem, 3vw, 2rem);
+  padding: 0 0.12em;
+  background-image: linear-gradient(transparent 58%, #b7d4f5 58%);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.sk-post .journal-body strong { background-image: linear-gradient(transparent 62%, #ffe56a 62%); }
+.sk-post-nav { padding: 2rem 0 3.5rem; border-top: 2px dashed rgba(28, 39, 68, 0.4); }
+.sk-pair { display: grid; gap: 1.6rem; margin: 0; padding: 0; list-style: none; }
+.sk-pair-label { margin: 0 0 0.6rem; font-weight: 750; }
+
+@media (min-width: 720px) {
+  .sk-pair { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 960px) {
+  .sk-index-layout { grid-template-columns: minmax(0, 21rem) minmax(0, 1fr); gap: 3.5rem; align-items: start; }
+  .sk-index-head { position: sticky; top: 6.5rem; }
+}
+
+@media (max-width: 480px) {
+  .sk-card { grid-template-columns: 1fr; gap: 0.7rem; }
+  .sk-num { width: 2.8rem; height: 2.8rem; font-size: 1.3rem; }
+  .sk-list .sk-num { width: 3.2rem; height: 3.2rem; font-size: 1.5rem; }
+  .sk-post-title { grid-template-columns: 1fr; }
+  .sk-num-lg { width: 3.8rem; height: 3.8rem; font-size: 1.8rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sk-card, .sk-card:hover { transition: none; transform: none; }
+}

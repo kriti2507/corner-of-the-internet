@@ -3,8 +3,8 @@ title: Read what every call carries
 date: 2026-11-28
 summary: Small, boring fixes from making the Sakana App agent faster and cheaper, and the habit behind all of them.
 tags: [sakana-app, agents, tools]
-series: tools
-part: 4
+sakana: true
+order: 4
 ---
 
 The most useful debugging habit I picked up this year is embarrassingly simple. Print the full request your app sends to the model. Every word. Then read it like a stranger would.

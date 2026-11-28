@@ -3,15 +3,15 @@ title: A brain in a jar needs hands
 date: 2026-11-28
 summary: Why a language model needs tools at all, and what changed when we stopped treating Sakana App as a chat box.
 tags: [sakana-app, agents, tools]
-series: tools
-part: 1
+sakana: true
+order: 1
 ---
 
 Ask a chatbot with no tools what the weather is like where you are right now. Go on, I'll wait.
 
 Best case, it admits it can't know. Worst case, it tells you it's a pleasant 22°C with light cloud. Not because it looked out of your window, but because "pleasant, partly cloudy" is a statistically reasonable thing for weather to be. It isn't lying. It physically can't look outside.
 
-When I joined Sakana in June, a big chunk of my job turned out to be this exact problem. The model was smart. The app around it was a chat box. My work for the next two months was turning that chat box into an agent: something that can read your files, run code, follow instructions written for a task, and call other services. This series is what I learned doing it, minus anything that would get me a stern message on Slack.
+When I joined Sakana in June, a big chunk of my job turned out to be this exact problem. The model was smart. The app around it was a chat box. My work for the next two months was turning that chat box into an agent: something that can read your files, run code, follow instructions written for a task, and call other services. These notes are what I learned doing it, minus anything that would get me a stern message on Slack.
 
 ## The brain in a jar
 
@@ -42,9 +42,9 @@ The model proposes. Your code disposes.
 Here's the thing nobody tells you. "Add tool calling" sounds like one feature. In practice it was a whole family of them, and each one was its own small system:
 
 - **Files as a tool.** Reading an attached PDF, image or slide deck, built so that a new file type is one more handler and not a rewrite.
-- **A code sandbox.** A small computer the model can run code on, to make charts, documents and files you can download. That's part 2.
-- **Skills.** Written instructions the model loads when a task matches, like a recipe card for "make a good slide deck". That's part 3.
-- **A way to plug in outside tools.** Which is where MCP comes in, and it gets its own series.
+- **A code sandbox.** A small computer the model can run code on, to make charts, documents and files you can download. More on that in the next note.
+- **Skills.** Written instructions the model loads when a task matches, like a recipe card for "make a good slide deck". That's the note after.
+- **A way to plug in outside tools.** Which is where MCP comes in, and it gets its own note.
 - **Guards around all of it.** The moment a model can do things, you have to decide what it's allowed to do.
 
 The biggest lesson for me wasn't about any one of these. It was learning to see the agent as a set of small, separate pieces that can each be added without touching the rest. If adding a file type means editing the agent loop, the design is wrong. If adding a skill means redeploying everything, the design is wrong. A good agent is mostly a good place to plug things in.

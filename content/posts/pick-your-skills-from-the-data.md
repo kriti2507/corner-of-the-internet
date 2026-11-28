@@ -3,8 +3,8 @@ title: Pick your skills from the data
 summary: How I chose which skills to build for Sakana App by looking at what people actually asked for, and why each skill is a small, separate piece.
 date: 2026-11-28
 tags: [sakana-app, agents, tools]
-series: tools
-part: 3
+sakana: true
+order: 3
 ---
 
 There's a moment in every AI product where someone in a meeting says "we should add a skill for X", and everyone nods, because X sounds useful. I've been that someone. This post is about not trusting her.

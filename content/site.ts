@@ -213,47 +213,40 @@ export const site = {
 
   work: {
     kicker: "Sakana",
-    title: "The agent inside Sakana App",
-    lede: "I build AI products at Sakana in Tokyo. Right now that's the agent inside Sakana App. I write up what I learn while building it, one topic at a time.",
-    /**
-     * Each card opens /series/<slug>. A note joins a series with
-     * `series: <slug>` in its frontmatter. Add, rename, or reorder here.
-     */
-    series: [
-      {
-        slug: "memory",
-        title: "Remembering, and Forgetting",
-        body: "Memory: what the agent keeps between conversations, how it finds it again, and what it lets go.",
-        intro:
-          "How the agent in Sakana App remembers. What gets saved, how it's found again, and what should be forgotten.",
-      },
-      {
-        slug: "mcp",
-        title: "How Agents Talk to the World",
-        body: "MCP: how the agent plugs into other tools and data through the Model Context Protocol.",
-        intro:
-          "Notes on the Model Context Protocol: how the agent connects to tools and data that live outside it.",
-      },
-      {
-        slug: "tools",
-        title: "When the Agent Needs to Do, Not Say",
-        body: "Tools: tool calling, code sandboxes, and skills. Something to reach for instead of guessing.",
-        intro:
-          "Giving the model tools: tool calling, code sandboxes, and skills. The agent reaches for something instead of inventing an answer.",
-      },
-    ],
-    seriesKicker: "Sakana App",
-    countOne: "1 note →",
-    countMany: "{n} notes →",
-    countNone: "First note soon →",
-    seriesEmpty: "The first note in this series is on the way.",
-    seriesPart: "Part",
-    seriesBack: "← All three topics",
-    partOf: "Part of the series",
+    title: "The agent inside",
+    titleMark: "Sakana App",
+    lede: "I build AI products at Sakana in Tokyo. Right now that's the agent inside Sakana App. I write up what I learn while building it, one note at a time.",
+    /** A note joins with `sakana: true` in its frontmatter. The list fills itself. */
+    readAll: "Read the notes",
+    allNotes: "All {n} notes →",
+    newest: "Newest",
+    startHere: "Start here",
+    note: "No.",
+    minutes: "{n} min read",
+    countLine: "{n} notes so far, newest {date}.",
+    empty: "The first note is on the way.",
     links: [
       { label: "Sakana", href: "https://sakana.ai" },
       { label: "Sakana App", href: "https://chat.sakana.ai" },
     ],
+    index: {
+      path: "/sakana",
+      kicker: "Sakana App",
+      title: "Build",
+      titleMark: "notes",
+      lede: "What I learn while building the agent inside Sakana App: the tools it uses, what it remembers, and how it talks to everything else. Newest at the top.",
+      description: "Kriti's notes from building the agent inside Sakana App, the AI chat app from Sakana AI in Tokyo.",
+      crumb: "Sakana App notes",
+      startNote: "New here? Start with",
+      shared: "Learnings only. Nothing confidential, no internal numbers.",
+    },
+    post: {
+      kicker: "Sakana App notes",
+      of: "of",
+      previous: "← Older note",
+      next: "Newer note →",
+      back: "← All Sakana App notes",
+    },
   },
 
   writing: {

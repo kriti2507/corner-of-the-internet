@@ -3,8 +3,8 @@ title: Giving the model a computer
 date: 2026-11-28
 summary: What building the code sandbox in Sakana App taught me about lifecycles, fonts, network rules, and checking files nobody opens.
 tags: [sakana-app, agents, tools]
-series: tools
-part: 2
+sakana: true
+order: 2
 ---
 
 The single most useful tool you can give a language model is a computer.

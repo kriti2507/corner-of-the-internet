@@ -26,7 +26,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.8,
     })),
-    ...site.work.series.map((item) => ({ url: absolute(`/series/${item.slug}`), priority: 0.6 })),
+    { url: absolute(site.work.index.path), priority: 0.7 },
     ...getPlaces().map((place) => ({ url: absolute(`/places/${place.slug}`), priority: 0.6 })),
     ...getHikes().map((hike) => ({ url: absolute(`/hikes/${hike.slug}`), lastModified: hike.date, priority: 0.5 })),
     ...getBooks().map((book) => ({ url: absolute(`/books/${book.slug}`), lastModified: book.date, priority: 0.4 })),

@@ -3,15 +3,15 @@ title: MCP, explained without the word "protocol"
 date: 2026-11-28
 summary: What MCP is in plain words, why everyone is plugging into it, and why connecting a real server took me far longer than writing the code to connect.
 tags: [sakana-app, agents, mcp]
-series: mcp
-part: 1
+sakana: true
+order: 6
 ---
 
 I'm going to explain MCP without using the word "protocol". This is harder than it sounds, because the P in MCP stands for it. Wish me luck.
 
 ## The problem it solves
 
-In the tools series I wrote about giving a model hands: functions it can ask your code to run. Search, run code, read a file.
+In an earlier note I wrote about giving a model hands: functions it can ask your code to run. Search, run code, read a file.
 
 That works beautifully when you build every tool yourself. It stops working the moment you want the model to use someone else's stuff. Your calendar. A ticket tracker. A company's internal docs. Every one of those has its own way of being talked to, its own login, and its own idea of what a "list of events" looks like.
 
@@ -29,7 +29,7 @@ With MCP, every kitchen hands out a menu in the same format: here's what I can m
 
 The service publishes the menu (that's the MCP server). Your app is the waiter (that's the MCP client). The model reads the menu, picks something, and the waiter does the rest. A new kitchen opens? Same menu format. Nothing new to learn.
 
-And the old rule from the tools series still holds. The model proposes. Your code disposes. The waiter can always say "sorry, the kitchen's closed for you".
+And the old rule from the earlier notes still holds. The model proposes. Your code disposes. The waiter can always say "sorry, the kitchen's closed for you".
 
 ## Why everyone is excited
 
@@ -53,4 +53,4 @@ Here's the part the hype skips.
 
 MCP is genuinely a good idea, and connecting to it is worth it. But it moves the hard part rather than removing it. You stop writing adapters, and start spending your time on sign-ins, permissions, and deciding which tools the model should even see.
 
-Next in this series: what actually happens between "the user clicks connect" and "the model can use it", minus the parts I'm not allowed to show you. [VERIFY: keep this teaser only if you plan a part 2.]
+Next time: what actually happens between "the user clicks connect" and "the model can use it", minus the parts I'm not allowed to show you. [VERIFY: keep this teaser only if you plan a part 2.]

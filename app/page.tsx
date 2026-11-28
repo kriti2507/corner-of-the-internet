@@ -9,7 +9,7 @@ import { WorkSection } from "@/components/work-section";
 import { WritingSection } from "@/components/writing-section";
 import { getEvents } from "@/lib/events";
 import { getPosts } from "@/lib/posts";
-import { postsInSeries } from "@/lib/journal";
+import { sakanaNotes } from "@/lib/journal";
 import { weekendSummary } from "@/lib/weekends";
 
 export const metadata: Metadata = {
@@ -30,6 +30,7 @@ export default async function Page() {
   const [writing, events] = await Promise.all([getPosts(), getEvents()]);
   const nextMeetup = events.upcoming[0];
   const weekend = weekendSummary();
+  const sakana = sakanaNotes();
 
   return (
     <>
@@ -57,14 +58,11 @@ export default async function Page() {
           anchorId="sakana"
           kicker={site.work.kicker}
           title={site.work.title}
+          titleMark={site.work.titleMark}
           lede={site.work.lede}
-          series={site.work.series.map((item) => ({
-            slug: item.slug,
-            title: item.title,
-            body: item.body,
-            count: postsInSeries(item.slug).length,
-          }))}
-          counts={{ one: site.work.countOne, many: site.work.countMany, none: site.work.countNone }}
+          notes={sakana.slice(0, 3)}
+          total={sakana.length}
+          labels={site.work}
           links={site.work.links}
         />
       </div>

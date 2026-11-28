@@ -13,10 +13,12 @@ export type JournalPost = {
   books: string[];
   hikes: string[];
   external: string | null;
-  /** Slug from site.work.series, or null. */
-  series: string | null;
-  /** Reading order inside a series. Falls back to date. */
-  part: number | null;
+  /** `sakana: true` puts the note in the Sakana App notes (/sakana). */
+  sakana: boolean;
+  /** Tie-breaker for notes that share a date: lower comes first. */
+  order: number | null;
+  /** Rough reading time in minutes. */
+  minutes: number;
   sample: boolean;
   draft: boolean;
   body: string;
@@ -77,8 +79,9 @@ function readPosts(): JournalPost[] {
         books: asList(data.books),
         hikes: asList(data.hikes),
         external: asString(data.external) || null,
-        series: asString(data.series) || null,
-        part: Number.isFinite(Number(asString(data.part))) && asString(data.part) ? Number(asString(data.part)) : null,
+        sakana: data.sakana === true,
+        order: Number.isFinite(Number(asString(data.order))) && asString(data.order) ? Number(asString(data.order)) : null,
+        minutes: Math.max(1, Math.round(body.split(/\s+/).filter(Boolean).length / 220)),
         sample: data.sample === true,
         draft: data.draft === true,
         body,
@@ -101,14 +104,20 @@ export function postsMentioning(kind: "cafes" | "books" | "hikes", slug: string)
   return getJournalPosts().filter((post) => post[kind].includes(slug));
 }
 
-/** Notes in a series, in reading order: `part` first, then oldest date first. */
-export function postsInSeries(series: string) {
+/** Oldest first: by date, then `order` for notes written the same day. */
+function readingOrder(a: JournalPost, b: JournalPost) {
+  const byDate = a.date.localeCompare(b.date);
+  if (byDate !== 0) return byDate;
+  return (a.order ?? Number.MAX_SAFE_INTEGER) - (b.order ?? Number.MAX_SAFE_INTEGER);
+}
+
+export type SakanaNote = JournalPost & { number: number };
+
+/** Sakana App notes, newest first, each with its number (No. 1 is the first ever written). */
+export function sakanaNotes(): SakanaNote[] {
   return getJournalPosts()
-    .filter((post) => post.series === series)
-    .sort((a, b) => {
-      if (a.part !== null && b.part !== null) return a.part - b.part;
-      if (a.part !== null) return -1;
-      if (b.part !== null) return 1;
-      return a.date.localeCompare(b.date);
-    });
+    .filter((post) => post.sakana)
+    .sort(readingOrder)
+    .map((post, index) => ({ ...post, number: index + 1 }))
+    .reverse();
 }
