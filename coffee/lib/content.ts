@@ -10,6 +10,7 @@ import { renderMarkdown } from "./markdown";
  *   content/coffees/<slug>.md  → /coffee/<slug>
  *   content/places/<slug>.md   → /coffee/places/<slug>
  *   content/guides/<slug>.md   → /coffee/guides/<slug>
+ *   content/sections/<slug>.md → /coffee/sections/<slug>, plus a block on the home page
  *
  * The filename is the URL. Frontmatter holds the facts, the body is the write-up.
  * Pages link to each other by slug, so nothing is hard-coded in a page.
@@ -58,6 +59,8 @@ export type Coffee = {
   tags: string[];
   photos: Photo[];
   mapUrl?: string;
+  /** Set for limited-time drinks, e.g. "Holiday 2026". Puts it in any seasonal section. */
+  season?: string;
   sample: boolean;
   draft: boolean;
   html: string;
@@ -69,6 +72,8 @@ export type Place = {
   name: string;
   nameJa?: string;
   kind: PlaceKind;
+  /** The chain, for branches of one, e.g. "Starbucks". */
+  brand?: string;
   area: string;
   region: string;
   address?: string;
@@ -100,6 +105,26 @@ export type Guide = {
   items: GuideItem[];
   tags: string[];
   sample: boolean;
+  draft: boolean;
+  html: string;
+};
+
+/**
+ * A section is a shelf that fills itself: it lists every coffee and place that
+ * matches its rule, so a new entry shows up in it without touching the section.
+ * Every key given in `match` has to match (brand, tag), and `seasonal: true`
+ * takes coffees that have a `season`. Places only match on brand and tag.
+ */
+export type SectionMatch = { brand?: string; tag?: string; seasonal?: boolean; kind?: CoffeeKind };
+
+export type Section = {
+  type: "section";
+  slug: string;
+  title: string;
+  titleJa?: string;
+  summary?: string;
+  order: number;
+  match: SectionMatch;
   draft: boolean;
   html: string;
 };
@@ -193,6 +218,7 @@ function coffeeFrom({ slug, data, body }: Raw): Coffee {
     tags: list(data.tags),
     photos: photos(data.photos, name),
     mapUrl: str(data.mapUrl),
+    season: str(data.season),
     sample: data.sample === true,
     draft: data.draft === true,
     html: renderMarkdown(body),
@@ -208,6 +234,7 @@ function placeFrom({ slug, data, body }: Raw): Place {
     name,
     nameJa: str(data.nameJa),
     kind: kind in PLACE_KINDS ? kind : "cafe",
+    brand: str(data.brand),
     area: str(data.area) ?? "",
     region: str(data.region) ?? "",
     address: str(data.address),
@@ -253,10 +280,31 @@ function guideFrom({ slug, data, body }: Raw): Guide {
   };
 }
 
+function sectionFrom({ slug, data, body }: Raw): Section {
+  const raw = data.match && typeof data.match === "object" ? (data.match as Record<string, unknown>) : {};
+  const kind = str(raw.kind) as CoffeeKind | undefined;
+  return {
+    type: "section",
+    slug,
+    title: str(data.title) ?? slug,
+    titleJa: str(data.titleJa),
+    summary: str(data.summary),
+    order: num(data.order) ?? 100,
+    match: {
+      brand: str(raw.brand),
+      tag: str(raw.tag),
+      seasonal: raw.seasonal === true,
+      kind: kind && kind in COFFEE_KINDS ? kind : undefined,
+    },
+    draft: data.draft === true,
+    html: renderMarkdown(body),
+  };
+}
+
 const byDateDesc = <T extends { date?: string; visited?: string }>(a: T, b: T) =>
   (b.date ?? b.visited ?? "").localeCompare(a.date ?? a.visited ?? "");
 
-let cache: { coffees: Coffee[]; places: Place[]; guides: Guide[] } | null = null;
+let cache: { coffees: Coffee[]; places: Place[]; guides: Guide[]; sections: Section[] } | null = null;
 
 function load() {
   if (cache) return cache;
@@ -268,6 +316,10 @@ function load() {
       .filter(visible)
       .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || a.name.localeCompare(b.name)),
     guides: readDir("guides").map(guideFrom).filter(visible).sort(byDateDesc),
+    sections: readDir("sections")
+      .map(sectionFrom)
+      .filter(visible)
+      .sort((a, b) => a.order - b.order || a.title.localeCompare(b.title)),
   };
   return cache;
 }
@@ -278,6 +330,44 @@ export const getGuides = () => load().guides;
 export const getCoffee = (slug: string) => getCoffees().find((item) => item.slug === slug) ?? null;
 export const getPlace = (slug: string) => getPlaces().find((item) => item.slug === slug) ?? null;
 export const getGuide = (slug: string) => getGuides().find((item) => item.slug === slug) ?? null;
+export const getSections = () => load().sections;
+export const getSection = (slug: string) => getSections().find((item) => item.slug === slug) ?? null;
+
+const same = (a?: string, b?: string) => !!a && !!b && a.toLowerCase() === b.toLowerCase();
+const hasTag = (tags: string[], tag: string) => tags.some((t) => same(t, tag));
+
+function coffeeMatches(coffee: Coffee, match: SectionMatch) {
+  const rules = [
+    match.brand !== undefined && same(coffee.brand, match.brand),
+    match.tag !== undefined && hasTag(coffee.tags, match.tag),
+    match.seasonal && !!coffee.season,
+    match.kind !== undefined && coffee.kind === match.kind,
+  ];
+  const given = [match.brand !== undefined, match.tag !== undefined, !!match.seasonal, match.kind !== undefined];
+  return given.some(Boolean) && given.every((isGiven, i) => !isGiven || rules[i]);
+}
+
+function placeMatches(place: Place, match: SectionMatch) {
+  // A rule about seasons or drink kinds is about coffees, so places stay out.
+  if (match.seasonal || match.kind) return false;
+  if (match.brand === undefined && match.tag === undefined) return false;
+  return (match.brand === undefined || same(place.brand, match.brand)) && (match.tag === undefined || hasTag(place.tags, match.tag));
+}
+
+/** Everything a section lists, newest coffees first. */
+export function sectionItems(section: Section) {
+  return {
+    coffees: getCoffees().filter((coffee) => coffeeMatches(coffee, section.match)),
+    places: getPlaces().filter((place) => placeMatches(place, section.match)),
+  };
+}
+
+/** Sections a coffee or place shows up in. */
+export function sectionsFor(item: Coffee | Place) {
+  return getSections().filter((section) =>
+    item.type === "coffee" ? coffeeMatches(item, section.match) : placeMatches(item, section.match),
+  );
+}
 
 /** Coffees bought or drunk at a place. */
 export const coffeesAt = (slug: string) => getCoffees().filter((coffee) => coffee.boughtAt === slug);

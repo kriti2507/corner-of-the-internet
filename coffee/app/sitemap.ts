@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { SITE, getCoffees, getGuides, getPlaces } from "@/lib/content";
+import { SITE, getCoffees, getGuides, getPlaces, getSections } from "@/lib/content";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const real = <T extends { sample: boolean }>(item: T) => !item.sample;
@@ -11,5 +11,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...getCoffees().filter(real).map((c) => ({ url: `${SITE.url}/${c.slug}`, lastModified: c.date })),
     ...getPlaces().filter(real).map((p) => ({ url: `${SITE.url}/places/${p.slug}` })),
     ...getGuides().filter(real).map((g) => ({ url: `${SITE.url}/guides/${g.slug}`, lastModified: g.date })),
+    ...getSections().map((s) => ({ url: `${SITE.url}/sections/${s.slug}` })),
   ];
 }
