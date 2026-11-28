@@ -2,7 +2,8 @@ import { coffeeHref, getCoffeeFeed } from "@/lib/coffee";
 
 /**
  * The Coffee Notebook lives in its own app at /coffee. This strip sits under
- * the Weekends lanes on the home page and on /weekends, and reads the
+ * the Weekends lanes (inside the Weekends section, so it shares its padding)
+ * on the home page and on /weekends, and reads the
  * notebook's feed so the numbers and guides stay in step with it.
  */
 export async function CoffeeStrip() {
@@ -11,8 +12,7 @@ export async function CoffeeStrip() {
   const latest = feed?.coffees[0];
 
   return (
-    <div className="wrap">
-      <div className="wk-coffee">
+    <div className="wk-coffee">
         <a className="wk-coffee-main" href={coffeeHref()}>
           <span className="wk-coffee-ja" lang="ja" aria-hidden="true">
             珈琲帳
@@ -45,7 +45,6 @@ export async function CoffeeStrip() {
             )}
           </ul>
         )}
-      </div>
     </div>
   );
 }

@@ -155,8 +155,8 @@ export default function WeekendsPage() {
             </Link>
           </article>
         </div>
+        <CoffeeStrip />
       </div>
-      <CoffeeStrip />
     </section>
   );
 }

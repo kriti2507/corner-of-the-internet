@@ -4,6 +4,7 @@ import { placeWhere, kindLabel } from "@/content/places";
 import { weekends } from "@/content/weekends";
 import { formatDay, formatMeters } from "@/lib/format";
 import type { WeekendSummary } from "@/lib/weekends";
+import { CoffeeStrip } from "@/components/weekends/coffee-strip";
 
 function LaneTop({ lane }: { lane: keyof typeof weekends.lanes }) {
   const copy = weekends.lanes[lane];
@@ -134,6 +135,7 @@ export function WeekendsHome({ summary }: { summary: WeekendSummary }) {
             </Link>
           </li>
         </ul>
+        <CoffeeStrip />
       </div>
     </section>
   );
