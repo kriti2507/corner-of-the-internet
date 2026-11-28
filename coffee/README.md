@@ -6,6 +6,7 @@ It is its own Next.js app and its own Vercel project (`kriti-coffee`), and it li
 
 - https://heykriti.com/coffee (the address to share)
 - https://kriti-coffee.vercel.app/coffee (the app on its own)
+- https://coffee.heykriti.com is a short link: any path on it redirects to the same page under heykriti.com/coffee (see `next.config.ts`)
 
 The home page and `/weekends` on heykriti.com show a Coffee Notebook strip that reads this app's feed (`/coffee/api/feed`).
 
