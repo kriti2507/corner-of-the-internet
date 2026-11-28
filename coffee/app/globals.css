@@ -66,9 +66,11 @@ p { margin: 0; }
 /* ---------- Header ---------- */
 
 .top { background: var(--espresso); color: var(--paper); position: sticky; top: 0; z-index: 30; }
-.top-row { display: flex; align-items: center; gap: 1.5rem; min-height: 64px; }
-.top-home { font-size: var(--step--1); text-decoration: none; opacity: 0.72; white-space: nowrap; }
-.top-home:hover { opacity: 1; }
+.top-row { display: flex; align-items: center; gap: 0.9rem; min-height: 64px; }
+.top-home { display: inline-flex; align-items: center; gap: 0.4rem; font-weight: 700; font-size: 1.05rem; text-decoration: none; white-space: nowrap; }
+.top-home svg { width: 22px; height: 22px; }
+.top-home:hover { color: var(--amber); }
+.top-sep { color: rgba(251, 246, 234, 0.35); font-size: 1.2rem; }
 .top-mark { display: flex; align-items: baseline; gap: 0.6rem; text-decoration: none; margin-right: auto; }
 .top-ja { font-family: var(--serif); font-weight: 800; font-size: 1.45rem; color: var(--amber); letter-spacing: 0.06em; }
 .top-en { font-family: var(--serif); font-weight: 700; font-size: 1.05rem; }
@@ -78,7 +80,7 @@ p { margin: 0; }
 .top-nav a[aria-current="page"] { background: var(--paper); color: var(--espresso); }
 
 @media (max-width: 760px) {
-  .top-row { flex-wrap: wrap; gap: 0.4rem 1rem; padding: 0.6rem 0; }
+  .top-row { flex-wrap: wrap; gap: 0.4rem 0.7rem; padding: 0.6rem 0; }
   .top-en { display: none; }
   .top-nav { order: 3; width: 100%; overflow-x: auto; scrollbar-width: none; }
   .top-nav a { white-space: nowrap; }

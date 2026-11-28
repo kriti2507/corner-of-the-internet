@@ -28,12 +28,14 @@ export const site = {
   /**
    * Home blocks are anchors so the highlight can follow the scroll.
    * About is linked from the Work with me block, not the nav.
+   * Coffee is the one real page: the Coffee Notebook app at /coffee.
    */
   nav: [
     { id: "sakana", label: "Sakana", href: "/#sakana" },
     { id: "writing", label: "AI Noodle", href: "/#writing" },
     { id: "community", label: "Community", href: "/#community" },
     { id: "weekends", label: "Weekends", href: "/#weekends" },
+    { id: "coffee", label: "Coffee", href: "/coffee" },
     { id: "small-wins", label: "Small Wins", href: "/#small-wins" },
     { id: "work-with-me", label: "Work with me", href: "/#work-with-me" },
   ],

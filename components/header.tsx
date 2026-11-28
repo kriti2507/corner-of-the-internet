@@ -116,11 +116,19 @@ export function Header({
                 (item.id === "weekends" &&
                   (pathname === "/weekends" ||
                     pathname.startsWith("/hikes") ||
-                    pathname.startsWith("/coffee") ||
                     pathname.startsWith("/places") ||
                     pathname.startsWith("/japanese") ||
                     pathname.startsWith("/books")));
               const current = pageMatch || (onHome && active === item.id);
+              // /coffee is a separate app (see next.config.ts), so it gets a
+              // plain link and a full page load rather than client routing.
+              if (item.href.startsWith("/coffee")) {
+                return (
+                  <li key={item.id}>
+                    <a href={item.href}>{item.label}</a>
+                  </li>
+                );
+              }
               return (
                 <li key={item.id}>
                   <Link
